@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+	<description>JSTL 1.1 Math library</description>
+	<display-name>JSTL math</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>f</short-name>
+	<uri>http://voj.or.kr/jsp/jstl/math</uri>
+	<tag>
+		<name>db</name>
+		<tag-class>kr.or.voj.webapp.tag.DbTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>Database </description>
+		<attribute>
+			<name>queryPath</name>
+			<description>쿼리 아이디</description>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>exception</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<name>processorList</name>
+			<description>실행될 프로세서 이이디 리스트</description>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>actionFild</name>
+			<description>쿼리실행 구룹정보가 있는 필드명</description>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+
+</taglib>
