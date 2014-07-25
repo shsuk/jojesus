@@ -42,7 +42,13 @@ public class MainProcessor implements ProcessorService{
 		
 		for(String processorId : processorList){
 			Object obj = ProcessorServiceFactory.getProcessorService(processorId).execute(processorParam);
-			result.put(processorId, obj);
+			
+			if (obj instanceof Map) {
+				Map map = (Map) obj;
+				result.putAll(map);
+			}else{
+				result.put(processorId, obj);
+			}
 		}
 		return result;
 	}

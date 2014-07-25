@@ -29,7 +29,7 @@
 
 ${JSON }
 <table style="" border="1">
-<t:view src="${db.row }">
+<t:view src="${row }">
 	<tr>
 		<th>@{key}</th>
 		<td>@{value}</td>

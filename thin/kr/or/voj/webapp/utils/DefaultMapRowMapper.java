@@ -13,6 +13,11 @@ public class DefaultMapRowMapper implements RowMapper {
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
 		Map mapOfColValues = new DefaultLowerCaseMap();
+		
+		if(rowNum==0){
+			mapOfColValues.put("_META_DATA_", rsmd);
+		}
+		
 		for (int i = 1; i <= columnCount; ++i) {
 			String key = getColumnKey(JdbcUtils.lookupColumnName(rsmd, i));
 			Object obj = getColumnValue(rs, i);

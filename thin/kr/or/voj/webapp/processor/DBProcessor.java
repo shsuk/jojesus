@@ -1,5 +1,6 @@
 package kr.or.voj.webapp.processor;
 
+import java.sql.ResultSetMetaData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,13 +53,13 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 		ServletRequest request = processorParam.getRequest();
 		
 		Map<String, Object> resultSet = new HashMap<String, Object>();
-		
+		//쿼리정보를 가지고 온다.
 		Map<String, JSONObject> queryInfos = QueryInfoFactory.findQuerys(path, params);
 		
 		if(queryInfos==null){
 			return resultSet;
 		}
-		
+		//쿼리 목록에서 조건에 부합하는 쿼리를 순차적으로 실행한다.
 		for(String key : queryInfos.keySet()){
 			JSONObject queryInfo = queryInfos.get(key);
 			String queryAction = getString("action", queryInfo, "");
@@ -94,21 +95,85 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 		
 		return resultSet;
 	}
+	/**
+	 * 쿼리를 실행하고 기타 정보를 설정한 후 결과를 반환한다.
+	 * @param id
+	 * @param query
+	 * @param isSingleRow
+	 * @param params
+	 * @param resultSet
+	 * @throws Exception
+	 */
 	private void executeQuery(String id, String query, boolean isSingleRow, CaseInsensitiveMap params, Map<String, Object> resultSet) throws Exception {
+		Object result = null;
 		
-		Object rows = executeQuery(query, isSingleRow, params);
-		//단일 레코드인 경우 결과를 쿼리의 파라메퍼로 추가해 준다.
-		if (rows instanceof Map) {
-			Map<String, Object> row = (Map<String, Object>) rows;
-			
-			for(String fld : row.keySet()){
-				params.put(id+"."+fld, row.get(fld));
-			}
-		}
+		queryLogPrint(query, params);
 
+		long st = System.currentTimeMillis();
+		
+		if(StringUtils.startsWithIgnoreCase(query, "select")){//SELECT쿼리 실행
+			List<Map<String,Object>> rows = getSimpleJdbcTemplate().query(query, new DefaultMapRowMapper(), params);
+			//메타데이타 설정
+			setMetaData(id, rows, resultSet);
+			
+			result = isSingleRow ? makeSingleRow(id, params, rows) : rows;
+		}else{//기타 쿼리 실행
+			result = new Integer(getSimpleJdbcTemplate().update(query, params));
+		}
+		
+		queryExecuteTimePrint(st, System.currentTimeMillis());
+		
 		//결과저장
-		resultSet.put(id, rows);	
+		resultSet.put(id, result);
+		
 	}
+	/**
+	 * 단일레코드 반환인 경우 첫번째 레코드 반환하고,
+	 * 각필드의 값이 다음 쿼리의 인자로 사용될 수 있도록 파라메터에 추가해준다. 
+	 * @param id
+	 * @param params
+	 * @param rows
+	 * @return
+	 */
+	private Map<String,Object> makeSingleRow(String id, CaseInsensitiveMap params, List<Map<String,Object>> rows) {
+		if(rows.size()<1){
+			return new HashMap<String,Object>();
+		}
+		
+		Map<String,Object> row = rows.get(0);
+		//단일 레코드인 경우 결과를 쿼리의 파라메터에 추가해 준다.
+		for(String fld : row.keySet()){
+			params.put(id+"."+fld, rows.get(0).get(fld));
+		}
+		
+		return row;
+	}
+	/**
+	 * 메타데이타를 반환한다.
+	 * @param id
+	 * @param rows
+	 * @param resultSet
+	 */
+	private void setMetaData(String id, List<Map<String,Object>> rows, Map<String, Object> resultSet) {
+		ResultSetMetaData rsmd = null;
+		
+		if(rows.size()>0){
+			rsmd = (ResultSetMetaData)rows.get(0).get("_META_DATA_");
+			rows.get(0).remove("_META_DATA_");
+		}
+		
+		if(rsmd!=null){
+			resultSet.put(id+"_meta_", rsmd);	
+		}
+		
+	}
+	/**
+	 * 반복실행 할 커리에 대한 처리 Request정보에서 해당 인텍스 데이타를 현재정보로 설정해준다
+	 * @param i
+	 * @param params
+	 * @param reqParamMap
+	 * @return
+	 */
 	private CaseInsensitiveMap setRequestValue(int i, CaseInsensitiveMap params, Map<String, String[]> reqParamMap) {
 		for(String ctl : reqParamMap.keySet()){
 			String[] pvs = reqParamMap.get(ctl);
@@ -117,39 +182,15 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 		}
 		return params;
 	}
-	private boolean getBoolean(String key, JSONObject queryInfo, boolean defaultValue) throws Exception {
-		return queryInfo.containsKey(key) ? queryInfo.getBoolean(key) : defaultValue;
-	}
-	private String getString(String key, JSONObject queryInfo, String defaultValue) throws Exception {
-		Object val = queryInfo.get(key);
-		return val==null ? "" : val.toString();
-	}
-
-	private Object executeQuery(String query, boolean isSingleRow, CaseInsensitiveMap params) throws Exception {
-		Object result = null;
-		//query = (String)QueryInfoFactory.evaluate(query, params);
-		queryLogPrint(query, params);
-
-		long st = System.currentTimeMillis();
-		
-		if(StringUtils.startsWithIgnoreCase(query, "select")){
-			List<Map<String,Object>> rows = getSimpleJdbcTemplate().query(query, new DefaultMapRowMapper(), params);
-			
-			if(isSingleRow){
-				result = rows.size()>0 ? rows.get(0) : new HashMap<String,Object>();
-			}else{
-				result = rows;
-			}
-		}else{
-			result = new Integer(getSimpleJdbcTemplate().update(query, params));
-		}
-		
-		long et = System.currentTimeMillis();
-		queryExecuteTimePrint(st, et);
-		
-		return result;
-	}
 	
+	/**
+	 * 서브쿼리를 찾아 완전한 쿼리로 만들어 준다.
+	 * @param queryId
+	 * @param query
+	 * @param queryInfos
+	 * @return
+	 * @throws Exception
+	 */
 	private String makeQuery(String queryId, String query, Map<String, JSONObject> queryInfos) throws Exception {
 		String[] subQueryIds = StringUtils.substringsBetween(query, "${", "}");
 		
@@ -167,6 +208,15 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 		}
 		
 		return query;
+	}
+
+	private boolean getBoolean(String key, JSONObject queryInfo, boolean defaultValue) throws Exception {
+		return queryInfo.containsKey(key) ? queryInfo.getBoolean(key) : defaultValue;
+	}
+	
+	private String getString(String key, JSONObject queryInfo, String defaultValue) throws Exception {
+		Object val = queryInfo.get(key);
+		return val==null ? "" : val.toString();
 	}
 
 	private void queryLogPrint(String sql, CaseInsensitiveMap params) {
