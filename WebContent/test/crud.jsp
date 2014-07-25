@@ -27,7 +27,7 @@
 	}
 </db:db> 
 
-${JSON }
+${row_meta_ }
 <table style="" border="1">
 <t:view src="${row }">
 	<tr>

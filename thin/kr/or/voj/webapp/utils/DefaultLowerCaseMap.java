@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
-public class DefaultLowerCaseMap extends CaseInsensitiveMap implements Map{
+public class DefaultLowerCaseMap<K,V> extends LinkedCaseInsensitiveMap implements Map{
 
 	private static final long serialVersionUID = 2903927153277211682L;
 
@@ -20,7 +21,7 @@ public class DefaultLowerCaseMap extends CaseInsensitiveMap implements Map{
 	 * @ 문자 뒤에 포맷을 입력하면 포맷처리하여 반환한다.
 	 */
     @SuppressWarnings("unchecked")
-	public Object get(Object key) {
+	public V get(Object key) {
     	key = key==null ? "" : key;
     	String[] keys = ((String) key).split("@");
     	String newKey = keys[0].toLowerCase();
@@ -37,10 +38,10 @@ public class DefaultLowerCaseMap extends CaseInsensitiveMap implements Map{
 						
 						if("***".equalsIgnoreCase(keys[1])){//복호화 처리
 							if(keys.length>2){//마킹 처리
-								return Function.security(newVal, keys[2]);								
+								return (V) Function.security(newVal, keys[2]);								
 							}else{//복호화 처리 TODO
 								
-								return newVal;
+								return (V) newVal;
 							}
 						}else{
 							if(keys.length>2){
@@ -59,26 +60,26 @@ public class DefaultLowerCaseMap extends CaseInsensitiveMap implements Map{
 					newVal = newVal.toLowerCase();
 					
 					if(newVal.indexOf("<script")>-1){//스크립트가 있는 경우는 강제 인코딩한다.
-						return Function.escapeXml((String)val);
+						return (V) Function.escapeXml((String)val);
 					}
 					
 				}
 
-				return val;
+				return (V) val;
 			}else{//인코딩한다.
-				return Function.escapeXml((String)val);
+				return (V) Function.escapeXml((String)val);
 			}
 		}else if(keys.length>1){//포맷을 지정한 경우
 			if (val instanceof Date){
 				SimpleDateFormat dateFormater = new SimpleDateFormat(keys[1]);
-				return dateFormater.format(val);
+				return (V) dateFormater.format(val);
 			}else if (val instanceof Number){
 				NumberFormat formatter = new DecimalFormat(keys[1]);
-				return formatter.format(val);
+				return (V) formatter.format(val);
 			}
 		}
 		//문자도 아니고 포맷지정도 안한 경우
-    	return val;
+    	return (V) val;
     }
     public Object remove(Object key) {
         return super.remove(String.valueOf(key).toLowerCase());

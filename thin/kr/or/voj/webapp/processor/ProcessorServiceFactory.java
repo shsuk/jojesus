@@ -96,9 +96,9 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		return (Map<String, Object>)processorServiceMap.get("main").execute(processorParam);
 
 	}
-	public static DefaultLowerCaseMap getReqParam(ServletRequest request){
-		DefaultLowerCaseMap req = new DefaultLowerCaseMap();
-		return (DefaultLowerCaseMap)setReqParam(request, req);
+	public static CaseInsensitiveMap getReqParam(ServletRequest request){
+		CaseInsensitiveMap req = new CaseInsensitiveMap();
+		return setReqParam(request, req);
 		
 	}
 	public static CaseInsensitiveMap setReqParam(ServletRequest request, CaseInsensitiveMap params){

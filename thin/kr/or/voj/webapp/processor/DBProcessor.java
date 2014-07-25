@@ -18,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 
 /**
@@ -154,7 +153,7 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 	 * @param rows
 	 * @param resultSet
 	 */
-	private void setMetaData(String id, List<Map<String,Object>> rows, Map<String, Object> resultSet) {
+	private void setMetaData(String id, List<Map<String,Object>> rows, Map<String, Object> resultSet) throws Exception {
 		ResultSetMetaData rsmd = null;
 		
 		if(rows.size()>0){
@@ -162,9 +161,32 @@ public class DBProcessor extends SimpleJdbcDaoSupport implements ProcessorServic
 			rows.get(0).remove("_META_DATA_");
 		}
 		
-		if(rsmd!=null){
-			resultSet.put(id+"_meta_", rsmd);	
+		if(rsmd==null){
+			return;
 		}
+		
+		LinkedCaseInsensitiveMap meta = new LinkedCaseInsensitiveMap();
+		int count = rsmd.getColumnCount()+1;
+		
+		for(int i=1; i<count; i++){
+			LinkedCaseInsensitiveMap data = new LinkedCaseInsensitiveMap();
+			String key = rsmd.getColumnLabel(i);
+			
+			data.put("label", key);
+			data.put("name", rsmd.getColumnName(i));
+			//data.put("schema", rsmd.getSchemaName(i));
+			//data.put("catalog", rsmd.getCatalogName(i));
+			//data.put("table", rsmd.getTableName(i));
+			data.put("type", rsmd.getColumnTypeName(i));
+			data.put("size", rsmd.getColumnDisplaySize(i));
+			data.put("precision", rsmd.getPrecision(i));
+			data.put("scale", rsmd.getScale(i));
+			
+			meta.put(key, data);
+		}
+		
+		resultSet.put(id+"_meta_", meta);	
+		
 		
 	}
 	/**
