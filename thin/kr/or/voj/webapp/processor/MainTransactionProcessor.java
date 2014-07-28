@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * </pre>
  */
 @Service
-public class MainProcessor implements ProcessorService{
+public class MainTransactionProcessor implements ProcessorService{
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

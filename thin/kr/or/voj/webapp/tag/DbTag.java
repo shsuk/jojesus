@@ -79,7 +79,7 @@ public class DbTag extends BodyTagSupport {
 			//**************************************************
 			//				프로세서를 실행한다.
 			//**************************************************
-			Map<String, Object> resultSet = ProcessorServiceFactory.executeMain(processorList, params, queryPath, action, request);
+			Map<String, Object> resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, request);
 			
 			//결과를 페이지 컨텍스트와 JSON으로 request에 반환한다.
 			for(String key : resultSet.keySet()){

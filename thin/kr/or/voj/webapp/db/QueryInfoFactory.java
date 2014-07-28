@@ -1,9 +1,10 @@
-package kr.or.voj.webapp.processor;
+package kr.or.voj.webapp.db;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.voj.webapp.processor.ProcessorServiceFactory;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;

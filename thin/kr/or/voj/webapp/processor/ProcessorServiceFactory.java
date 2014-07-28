@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.sql.DataSource;
 
+import kr.or.voj.webapp.db.DefaultDaoSupportor;
 import kr.or.voj.webapp.utils.DefaultLowerCaseMap;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -26,10 +28,12 @@ import org.springframework.core.io.Resource;
  */
 public class ProcessorServiceFactory  implements ApplicationContextAware {
 	private static Map<String, ProcessorService> processorServiceMap = new HashMap<String, ProcessorService>();;
+	private static Map<String, DefaultDaoSupportor> daoSupportorMap = new HashMap<String, DefaultDaoSupportor>();;
 	private static ApplicationContext applicationContext;
 	private static final Logger logger = Logger.getLogger(ProcessorServiceFactory.class);
 	private static String queryFullPath = null;
-
+	private static String defaultDataSourceName = null;
+	
 	public static String getQueryFullPath() {
 		return queryFullPath;
 	}
@@ -49,6 +53,9 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public void setDefaultDataSourceName(String defaultDataSourceName) {
+		this.defaultDataSourceName = defaultDataSourceName;
 	}
 	/**
 	 * 프로세서 서비스를 초기화 한다.
@@ -72,15 +79,36 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 			} catch (Exception e) {
 				logger.error(name + "의 이름이 Processor 로 끝나지 않아 등록되지 않았습니다.");
 			}
-		}			
-	
+		}
+		
+		serviceList = applicationContext.getBeanNamesForType(DataSource.class);
+
+		for(String key : serviceList) {
+			DataSource dataSource = (DataSource)applicationContext.getBean(key);
+			
+			DefaultDaoSupportor defaultDaoSupportor = new DefaultDaoSupportor();
+			defaultDaoSupportor.setDataSource(dataSource);
+			
+			daoSupportorMap.put(key, defaultDaoSupportor);
+		}
+		
+		if(StringUtils.isEmpty(defaultDataSourceName) && serviceList.length>0){
+			defaultDataSourceName = serviceList[0];
+		}
 	}
 	
 	public static ProcessorService getProcessorService(String method) {
 		return processorServiceMap.get(method);
-
 	}
-	public static Map<String, Object> executeMain(List<String> processorList, CaseInsensitiveMap params, String queryPath, String action, ServletRequest request) throws Exception{
+	
+	public static DefaultDaoSupportor getDaoSupportor(String dataSourceName) {
+		
+		dataSourceName = StringUtils.isEmpty(dataSourceName) ? defaultDataSourceName : dataSourceName;
+		
+		return daoSupportorMap.get(dataSourceName);
+	}
+	
+	public static Map<String, Object> executeMainTransaction(List<String> processorList, CaseInsensitiveMap params, String queryPath, String action, ServletRequest request) throws Exception{
 		ProcessorParam processorParam = new ProcessorParam();
 		processorParam.setQueryPath(queryPath);
 		processorParam.setAction(action);
@@ -88,12 +116,12 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		processorParam.setRequest(request);
 		processorParam.setProcessorList(processorList);
 		
-		return executeMain(processorParam);
+		return executeMainTransaction(processorParam);
 
 	}
-	public static Map<String, Object> executeMain(ProcessorParam processorParam) throws Exception{
+	public static Map<String, Object> executeMainTransaction(ProcessorParam processorParam) throws Exception{
 		
-		return (Map<String, Object>)processorServiceMap.get("main").execute(processorParam);
+		return (Map<String, Object>)processorServiceMap.get("maintransaction").execute(processorParam);
 
 	}
 	public static CaseInsensitiveMap getReqParam(ServletRequest request){
@@ -121,9 +149,5 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		
 		return params;
 	}	
-/*
-	public static Map<String, ProcessorService> getProcessorServiceMap() {
-		return processorServiceMap;
-	}
-*/
+
 }
