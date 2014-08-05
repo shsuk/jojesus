@@ -45,12 +45,14 @@ public class DBProcessor implements ProcessorService{
 		//쿼리 목록에서 조건에 부합하는 쿼리를 순차적으로 실행한다.
 		for(String key : queryInfos.keySet()){
 			JSONObject queryInfo = queryInfos.get(key);
-			String queryAction = getString("action", queryInfo, "");
-			//action이 없거나 같은 쿼리만 실행한다.
-			if(!"".equals(queryAction) && !StringUtils.equals(action, queryAction)){
-				continue;
+			Map<String, String> queryAction = (Map<String, String>)queryInfo.get("action");
+			//쿼리에 액션이 존재하는 경우만 체크하고 없는 경우는 무조건 실행
+			if(queryAction!=null){
+				if(!queryAction.containsKey(action)){//같은 액션만 실행
+					continue;
+				}
 			}
-			//다른 쿼리의 부속 쿼리는 스킵한다.
+
 			if(getBoolean("subQuery", queryInfo, false)){
 				continue;
 			}
@@ -96,7 +98,7 @@ public class DBProcessor implements ProcessorService{
 	 * @throws Exception
 	 */
 	private String makeQuery(String queryId, String query, Map<String, JSONObject> queryInfos) throws Exception {
-		String[] subQueryIds = StringUtils.substringsBetween(query, "${", "}");
+		String[] subQueryIds = StringUtils.substringsBetween(query, "@{", "}");
 		
 		if(subQueryIds==null){
 			return query;
@@ -108,7 +110,7 @@ public class DBProcessor implements ProcessorService{
 				throw new RuntimeException(queryId + "쿼리에서 사용하는 서브쿼리 " + subQueryId + "가 존재하지 않습니다.");
 			}
 			String subQuery = queryInfo.getString("query");
-			query = StringUtils.replace(query, "${"+subQueryId+"}", subQuery);
+			query = StringUtils.replace(query, "@{"+subQueryId+"}", subQuery);
 		}
 		
 		return query;

@@ -145,6 +145,8 @@
 	function change_img(e){
 		showNevi();
 		var file_id = $(e).attr('file_id');
+
+		$('#dwn_img').attr('href', 'at.sh?_ps=at/upload/dl&file_id='+file_id);
 		
 		$('.img_list').css({background:''});
 		$('.img_list').attr('curent', '');
@@ -322,6 +324,43 @@
 			}
 			item.html(html);
 		}
+	}
+
+	function showImg(ctl){
+
+		var src = ctl.attr('src');
+		var id = ctl.attr('value');
+		var img_viewer = $('#img_viewer');
+
+		if(img_viewer.length<1){
+			$('body').append($('<div id="img_viewer" style="padding: 5px;z-index: 999;cursor: pointer;display:none; border: 1px solid #aaaaaa;background-color: #B2CCFF;"><img id="viewer_img" width="100%" style=" border: 1px solid #ffffff;" src="" onclick="hideImg();"/></div>'));
+			img_viewer = $('#img_viewer');
+		}
+		$('#viewer_img').attr('src', src);
+		setTimeout(function(){
+			$('#viewer_img').attr('src','at.sh?_ps=at/upload/dl&file_id='+id);
+		}, 500);
+		//var isOpen = false;
+		try {
+			isOpen = img_viewer.dialog( "isOpen" );
+		} catch (e) {
+			// TODO: handle exception
+		}
+
+		//if(isOpen===true) return;
+
+		img_viewer.dialog({
+			autoOpen: true,
+			minHeight:100,
+			height: 'auto',
+			width: '100%',
+			modal: false,
+			show: "blind",
+			hide: "explode"
+		});
+	}
+	function hideImg(){
+		$('#img_viewer').dialog( "close" );
 	}
 
 </script>

@@ -1,5 +1,5 @@
 /* {
-	id:'d', action:'d' }
+	id:'d', action:'d', desc:"데이타소스를 설정해야 하는 경우 'ds:dsname'와 같이 설정할수 있다." }
 */
 	delete voj_gallery
 	set bd_id = :bd_id;
@@ -19,6 +19,13 @@
 		now()
 		
 	);
+/* {
+	id:'row1', action:'i,u', singleRow="true"
+} */
+	SELECT  t1.*, LAST_INSERT_ID() dd
+	FROM voj_board t1
+	WHERE   bd_id = ${act=='u' ? ':bd_id' : 'LAST_INSERT_ID()'}
+	;
 
 /* {
 	key:'cnt', action:'u', loop: 'bd_id'
@@ -29,16 +36,9 @@
 	;
 
 /* {
-	id:'row1', singleRow="true"
-} */
-	SELECT  t1.*, LAST_INSERT_ID() dd
-	FROM voj_board t1
-	WHERE  bd_id = :bd_id or  bd_id = LAST_INSERT_ID()
-	;
-/* {
 	id:'row', singleRow="true"
 } */
-	SELECT  t1.*, LAST_INSERT_ID() dd
+	SELECT  t1.*, LAST_INSERT_ID() dd, :session.test test
 	FROM voj_board t1
 	WHERE  bd_id = :row1.bd_id
 	;
@@ -49,8 +49,8 @@
  } */
 	SELECT *
 	FROM (
-		${list}
-	) base
+		@{list}
+	) base 
 ;
 
 /*{

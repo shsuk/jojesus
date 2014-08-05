@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 
@@ -41,6 +42,8 @@ public class ProcessorParam {
 	}
 	public void setParams(CaseInsensitiveMap params) {
 		this.params = params;
+		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params);
+
 	}
 	public String getAction() {
 		return action;
@@ -53,6 +56,7 @@ public class ProcessorParam {
 	}
 	public void setRequest(ServletRequest request) {
 		this.request = request;
+		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params);
 	}
 	public Map<String, Object> getContext() {
 		return context;

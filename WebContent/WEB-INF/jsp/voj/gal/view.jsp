@@ -51,6 +51,10 @@
 	    init_load();
 	    
 	    changeEmoticon();
+	    
+	    $('#view_img').click(function(){
+			showImg($('#view_img'));
+	    });
 	});
 	
 
@@ -83,6 +87,8 @@
 		<table  style="clear:both; border:1px solid #B6B5DB; padding: 0px;margin-bottom:5px; margin-top:5px; width: 100%;"><tr><td style="padding-left: 7px;">
 			<%//이미지 %>
 			<div onmouseover="showNevi()" style="position: relative; float:left;padding:5px; margin-bottom:5px; border:1px solid #B6B5DB;text-align: center; width: 632px; overflow: hidden;">
+				<div style="position: absolute;left:50px;"><a id="dwn_img" href="at.sh?_ps=at/upload/dl&file_id=${file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
+
 				<div id="prev_img_item" title="이전 사진" class="img_nevi" onclick="goPrevImg()" style="position: absolute; left:0px;  height: 100%; width: 50px; cursor: pointer;opacity: .35;filter: Alpha(Opacity=35); background: #cccccc url('./voj/images/Arrow-previous-icon.png') no-repeat  center center;text-align: center; vertical-align: middle;"></div>
 				<div id="next_img_item" title="다음 사진" class="img_nevi" onclick="goNextImg()" style="position: absolute; left:590px; height: 100%; width: 50px; cursor: pointer;opacity: .35;filter: Alpha(Opacity=35); background: #cccccc url('./voj/images/Arrow-next-icon.png') no-repeat  center center;text-align: center; vertical-align: middle;"></div>
 				<tp:img id="view_img" file_id="${rset.rows[0].file_id}" thum="1000" style="max-width: 100%; width: 100%;" />

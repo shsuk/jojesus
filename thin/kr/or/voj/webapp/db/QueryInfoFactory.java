@@ -1,6 +1,7 @@
 package kr.or.voj.webapp.db;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,17 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
-/**
- * <pre>
- * 시스템명 : KT_MVNO_KPM
- * 작 성 자 : 석승한
- * 작 성 일 : 2014. 3. 18
- * 설    명 : Test
- * 
- * </pre>
- */
-@Component
-public abstract class QueryInfoFactory {
+public class QueryInfoFactory {
 	protected static Map<String, Map<String, JSONObject>> queryInfoMap;
 	protected static Map<String, Long> queryChangeMap;
 	protected static String root = "";
@@ -98,10 +89,22 @@ public abstract class QueryInfoFactory {
 
 			info.put("id", id);
 			info.put("query", query);
-			
+			String action = (String)info.get("action");
+			//아이디가 중복되면 중복을 피하기 위해 action을 키로 추가한다.
+			//키는 중복을 피하기 위한 용도로만 사용하고 다른 곳에서는 서브쿼리를 찾기 위한 용도 외에 사용되지 않는다.
 			if(queryInfos.containsKey(id)){
-				id += "_" + info.get("action");
+				
+				id += "_" + action;
 			};
+			//action이 있는 경우 액션을 맵에 넣어 다시 저장한다.
+			if(StringUtils.isNotEmpty(action)){
+				String[] actions = action.split(",");
+				Map<String,String> actMap = new HashMap<String, String>();
+				for(String key : actions){
+					actMap.put(key.trim(), action);
+				}
+				info.put("action", actMap);
+			}
 			queryInfos.put(id,info);
 		}
 		
@@ -124,89 +127,5 @@ public abstract class QueryInfoFactory {
 		
 		return query;
 	}
-/*
-	private static FunctionMapper  fm = new FunctionMapper() {
-		Map<String, Method> functionMap = null;
-		public void init(){
-			Map<String, Method> tempFunctionMap = new HashMap<String, Method>();
 
-			Method[] ms = ELFunctions.class.getDeclaredMethods();
-			for(Method m : ms){
-				String fname1 = m.toString();
-				System.out.println(fname1);
-				String fname = "f:"+m.getName();
-				if(tempFunctionMap.containsKey(fname)){
-					throw new RuntimeException(ELFunctions.class.getName() + " 클래스에 동일이름의 클래스가 존재합니다. 이클래스에는 동일 명의 클래스를 정의하지 마세요.");
-				}
-				tempFunctionMap.put(fname, m);
-			}
-			functionMap = tempFunctionMap;
-		}
-
-		
-		public Method resolveFunction(String g, String n) {
-			if(functionMap==null){
-				init();
-			}
-			String fname = g+":"+n;
-
-			return functionMap.get(fname);
-		}
-	};
-	public static Object evaluate(String src, Map<String, Object> map) throws Exception{
-		Object value = src;
-		PageContext pc = new PageContextImpl();
-			
-		for(String key : map.keySet()){
-			Object data = map.get(key);
-			
-			pc.setAttribute(key.toLowerCase(), data);
-		}
-		
-		VariableResolver varResolver = new VariableResolverImpl(pc); 
-		
-		ExpressionEvaluatorImpl exprEval = new ExpressionEvaluatorImpl();
-	
-	    Expression expression = exprEval.parseExpression(src, String.class, fm);
-	    value = expression.evaluate(varResolver);
-	
-		return value;
-	}
-	
-	public static Object evaluate(String src, EcmParams params) throws Exception{
-		Object value = src;
-		PageContext pc = new PageContextImpl();
-		ValueStack valueStack = params.getValueStack();
-		
-		if(valueStack==null){
-			return src;
-		}
-		
-		CompoundRoot cr = valueStack.getRoot();
-		
-		for(Object o : cr){
-			if (!(o instanceof Map))  {
-				continue;
-			}
-			
-			Map<String, Object> map = (Map<String, Object>) o;
-			
-			for(String key : map.keySet()){
-				Object data = map.get(key);
-				
-				pc.setAttribute(key, data);
-			}
-			
-			pc.setAttribute("session", params.getSession());
-		}
-		VariableResolver varResolver = new VariableResolverImpl(pc); 
-		
-		ExpressionEvaluatorImpl exprEval = new ExpressionEvaluatorImpl();
-	
-	    Expression expression = exprEval.parseExpression(src, String.class, fm);
-	    value = expression.evaluate(varResolver);
-	
-		return value;
-	}
-*/
 }

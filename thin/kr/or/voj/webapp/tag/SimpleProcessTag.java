@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -19,7 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 
-public class DbTag extends BodyTagSupport {
+public class SimpleProcessTag extends BodyTagSupport {
 
 	
 	/**
@@ -58,12 +59,11 @@ public class DbTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 		JSONObject jsonResult = new JSONObject();
 
-		try {			
+		try {	
 			ServletRequest request = pageContext.getRequest();
-			request.setAttribute("req", ProcessorServiceFactory.getReqParam(request));
+			request.setAttribute("req", ProcessorServiceFactory.getReqParam((HttpServletRequest)request));
 			
 			CaseInsensitiveMap params = new CaseInsensitiveMap();
-			
 
 			//body에 설정된 기본값 파라메터에 추가한다.
 			String body = bodyContent!=null ? bodyContent.getString().trim() : "";
@@ -73,7 +73,8 @@ public class DbTag extends BodyTagSupport {
 				params.putAll(defaultParam);
 			}
 			//실행할 쿼리의 구룹을 정보를 설정한다.
-			String action = (String)params.get(actionFild);
+			String action = request.getParameter(actionFild);
+			action = StringUtils.isEmpty(action) ? (String)params.get(actionFild) : action;
 			action = StringUtils.isEmpty(action) ? "" : action;
 			
 			//**************************************************
@@ -92,7 +93,7 @@ public class DbTag extends BodyTagSupport {
 			jsonResult.put("success", false);
 			jsonResult.put("message", e.toString());
 			
-			Logger.getLogger(DbTag.class).debug(e);
+			Logger.getLogger(SimpleProcessTag.class).debug(e);
 
 			if(exception){
 				throw new JspTagException(e.getMessage(), e);

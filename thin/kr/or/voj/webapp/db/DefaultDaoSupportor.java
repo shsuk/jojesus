@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.sql.DataSource;
 
 import kr.or.voj.webapp.utils.DefaultMapRowMapper;
+import kr.or.voj.webapp.utils.ELUtil;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -43,6 +44,7 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 	 */
 	public void executeQuery(String id, String query, boolean isSingleRow, CaseInsensitiveMap params, Map<String, Object> resultSet) throws Exception {
 		Object result = null;
+		query = (String)ELUtil.evaluate(query, params);
 		
 		queryLogPrint(query, params);
 
@@ -91,6 +93,7 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 	 * @param rows
 	 * @param resultSet
 	 */
+	@SuppressWarnings("unchecked")
 	private void setMetaData(String id, List<Map<String,Object>> rows, Map<String, Object> resultSet) throws Exception {
 		ResultSetMetaData rsmd = null;
 		
@@ -103,11 +106,11 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 			return;
 		}
 		
-		LinkedCaseInsensitiveMap meta = new LinkedCaseInsensitiveMap();
+		LinkedCaseInsensitiveMap<Object> meta = new LinkedCaseInsensitiveMap<Object>();
 		int count = rsmd.getColumnCount()+1;
 		
 		for(int i=1; i<count; i++){
-			LinkedCaseInsensitiveMap data = new LinkedCaseInsensitiveMap();
+			LinkedCaseInsensitiveMap<Object> data = new LinkedCaseInsensitiveMap<Object>();
 			String key = rsmd.getColumnLabel(i);
 			
 			data.put("label", key);
@@ -128,42 +131,6 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 		
 	}
 	
-	/**
-	 * 서브쿼리를 찾아 완전한 쿼리로 만들어 준다.
-	 * @param queryId
-	 * @param query
-	 * @param queryInfos
-	 * @return
-	 * @throws Exception
-	 */
-	private String makeQuery(String queryId, String query, Map<String, JSONObject> queryInfos) throws Exception {
-		String[] subQueryIds = StringUtils.substringsBetween(query, "${", "}");
-		
-		if(subQueryIds==null){
-			return query;
-		}
-		
-		for(String subQueryId : subQueryIds){
-			JSONObject queryInfo = queryInfos.get(subQueryId);
-			if(queryInfo==null){
-				throw new RuntimeException(queryId + "쿼리에서 사용하는 서브쿼리 " + subQueryId + "가 존재하지 않습니다.");
-			}
-			String subQuery = queryInfo.getString("query");
-			query = StringUtils.replace(query, "${"+subQueryId+"}", subQuery);
-		}
-		
-		return query;
-	}
-
-	private boolean getBoolean(String key, JSONObject queryInfo, boolean defaultValue) throws Exception {
-		return queryInfo.containsKey(key) ? queryInfo.getBoolean(key) : defaultValue;
-	}
-	
-	private String getString(String key, JSONObject queryInfo, String defaultValue) throws Exception {
-		Object val = queryInfo.get(key);
-		return val==null ? "" : val.toString();
-	}
-
 	private void queryLogPrint(String sql, CaseInsensitiveMap params) {
 		String log_line = "\n--------------------------------------------------------------"
 		                + "--------------------------------------------------------------\n";

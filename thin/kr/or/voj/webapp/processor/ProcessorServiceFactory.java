@@ -1,10 +1,13 @@
 package kr.or.voj.webapp.processor;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import kr.or.voj.webapp.db.DefaultDaoSupportor;
@@ -124,13 +127,13 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		return (Map<String, Object>)processorServiceMap.get("maintransaction").execute(processorParam);
 
 	}
-	public static CaseInsensitiveMap getReqParam(ServletRequest request){
+	public static CaseInsensitiveMap getReqParam(HttpServletRequest request){
 		CaseInsensitiveMap req = new CaseInsensitiveMap();
 		return setReqParam(request, req);
 		
 	}
-	public static CaseInsensitiveMap setReqParam(ServletRequest request, CaseInsensitiveMap params){
-		if(request==null){
+	public static CaseInsensitiveMap setReqParam(HttpServletRequest request, CaseInsensitiveMap params){
+		if(request==null || params==null){
 			return params;
 		}
 		
@@ -146,6 +149,24 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 				params.put(key+"[" +i + "]", val);
 			}
 		}
+		
+		CaseInsensitiveMap sessionMap = new CaseInsensitiveMap();
+		HttpSession session = request.getSession();
+		Enumeration<String> en = session.getAttributeNames();
+		
+		while(en.hasMoreElements()){
+			String key = en.nextElement();
+			Object val = session.getAttribute(key);
+			
+			if (! (val instanceof String)) {
+				continue;
+			}
+			sessionMap.put(key, val);
+			params.put("session."+key, val);
+		}
+		
+		params.put("session", sessionMap);
+		params.put("request.servletPath", request.getServletPath());
 		
 		return params;
 	}	

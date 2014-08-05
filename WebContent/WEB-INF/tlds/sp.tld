@@ -8,8 +8,8 @@
 	<short-name>f</short-name>
 	<uri>http://voj.or.kr/jsp/jstl/math</uri>
 	<tag>
-		<name>db</name>
-		<tag-class>kr.or.voj.webapp.tag.DbTag</tag-class>
+		<name>sp</name>
+		<tag-class>kr.or.voj.webapp.tag.SimpleProcessTag</tag-class>
 		<body-content>scriptless</body-content>
 		<description>Database </description>
 		<attribute>
@@ -21,6 +21,7 @@
 		</attribute>
 		<attribute>
 			<name>exception</name>
+			<description>오류를 외부로 던질지 여부</description>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>boolean</type>

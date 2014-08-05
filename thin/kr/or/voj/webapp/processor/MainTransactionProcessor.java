@@ -36,7 +36,6 @@ public class MainTransactionProcessor implements ProcessorService{
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Object execute(ProcessorParam processorParam) throws Exception {
-		ProcessorServiceFactory.setReqParam(processorParam.getRequest(), processorParam.getParams());
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<String> processorList = processorParam.getProcessorList();
 		

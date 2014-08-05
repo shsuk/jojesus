@@ -359,6 +359,7 @@
 		<ul>
 		<c:forEach var="rowl" items="${rset.rows }" varStatus="status">
 			<li class="images ${row.ca_name } pane${status.index }" style="overflow:auto;">
+				<div style="position: absolute;left:0px;top:0px;"><a id="dwn_img" href="at.sh?_ps=at/upload/dl&file_id=${rowl.file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
 				<tp:img id="img${status.index }" file_id="${rowl.file_id}" thum="200"  style="width: 100%;vertical-align:middle;"/>
 			</li>
 		</c:forEach>
