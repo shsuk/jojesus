@@ -5,7 +5,7 @@
 <%@ taglib prefix="sp" uri="/WEB-INF/tlds/sp.tld"%>
 
 
-<sp:sp queryPath="menu_system/crud" actionFild="action" processorList="db" exception="false">
+<sp:sp queryPath="menu_system/menu" actionFild="action" processorList="db" exception="false">
 	{
 		session.user_id:'test'
 	}

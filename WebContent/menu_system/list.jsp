@@ -8,16 +8,21 @@
 
 <head>
 <link href="contents.css" rel="stylesheet" type="text/css" />
-<script src="../jquery/js/jquery-1.9.1.min.js"></script>
+<link href="../jquery/development-bundle/themes/redmond/jquery-ui-1.10.3.custom.css"  rel="stylesheet" type="text/css" media="screen" />
+<link href="../jqgrid/jquery/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
+<link href="../jqgrid/jquery/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script src="../jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
+<script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
 	$(function() {
-		$('#menu_list').load('load_menu.jsp', function(){
+		$('#menu_list').load('list_load.jsp', {dep:1}, function(){
 			var menu_data = $('[uid=root]');
 			$('#menu_datas').append(menu_data);
 		});
-
-		
 	});
 	
 	function loadMenu(obj, dep){
@@ -25,10 +30,10 @@
 		if(menu_id==''){
 			return;
 		}
-		$('#'+menu_id+'_f').attr('src','fd_o.png');
-		$(obj).attr('menu_id','');
-		$(obj).css('cursor','');
-		$('#'+menu_id+'__sub').load('load_menu.jsp',{upp_menu_id: menu_id, dep:dep},function(){
+		
+		$(obj).removeClass('sub_menu');
+		
+		$('#'+menu_id+'__sub').load('list_load.jsp',{upp_menu_id: menu_id, dep:dep},function(){
 			var menu_data = $('[uid='+menu_id+']');
 			$('.'+menu_id+'__sub').after(menu_data);
 		});
@@ -106,7 +111,7 @@
 <body >
 
 <c:import url="menu.jsp">
-	<c:param name="page_id">me02</c:param>
+	<c:param name="menu_id">me02</c:param>
 </c:import>
 	
 <div id="menu_body" style="margin: 0 auto;width: 1100px;position: relative; clear: both;">
@@ -116,25 +121,22 @@
 
 	<table class="bd" border="0" style=" " >
 		<colgroup>
-				<col width="300" align="left">
-				<col width="440" align="left">
-				<col width="180" align="left">
-				<col width="60" align="left">
-				<col width="120" align="left">
+				<col width="300">
+				<col width="440">
+				<col width="180">
+				<col width="60">
 		</colgroup>
 		<tr>
-			<th>메뉴아이디</th>
+			<th>메뉴명</th>
 			<th>메뉴경로</th>
 			<th>접근권한</th>
 			<th>순서</th>
-			
-			<th><span id="btn_save" class="btn_sm" style=" cursor:pointer;" onclick="addSubMenu('root')">메인메뉴등록</span></th>
 		</tr>
 		<tbody id="menu_datas"></tbody>
 	</table>
 	
 	<div id="menu_list"></div>
-	<div id="menu_detail" style="display:none; width: 900px;position: absolute;top:30px;left:200px;background: #ffffff;border:1px solid #cccccc;padding: 10px;"></div>
+	<div id="menu_detail" style="display:none; width: 900px;position: absolute;top:30px;left:200px;background: #F6F6F6;border:1px solid #cccccc;padding: 10px;"></div>
 </div>
 </body>
 </htm>

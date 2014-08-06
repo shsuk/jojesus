@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import kr.or.voj.webapp.db.DefaultDaoSupportor;
-import kr.or.voj.webapp.utils.DefaultLowerCaseMap;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.lang.StringUtils;

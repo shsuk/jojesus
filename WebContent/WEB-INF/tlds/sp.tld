@@ -14,7 +14,7 @@
 		<description>Database </description>
 		<attribute>
 			<name>queryPath</name>
-			<description>쿼리 아이디</description>
+			<description>쿼리경로(스프링설정파일의 processorServiceFactory설정에 root위치 있음)</description>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
@@ -30,6 +30,13 @@
 			<name>processorList</name>
 			<description>실행될 프로세서 이이디 리스트</description>
 			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>action</name>
+			<description>쿼리실행 구룹정보</description>
+			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
 		</attribute>

@@ -6,9 +6,8 @@
 <%@ taglib prefix="tag"  tagdir="/WEB-INF/tags" %> 
 
 
-<sp:sp queryPath="menu_system/crud" actionFild="act" processorList="db" exception="true">
+<sp:sp queryPath="menu_system/menu" action="v" processorList="db" exception="true">
 	{
-		act:'v',
 		menu_id: ''
 	}
 </sp:sp> 

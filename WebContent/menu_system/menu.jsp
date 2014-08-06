@@ -3,10 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <%@ taglib prefix="sp" uri="/WEB-INF/tlds/sp.tld"%>
-<sp:sp queryPath="menu_system/crud" actionFild="act" processorList="db" exception="true">
+<sp:sp queryPath="menu_system/menu" action="m" processorList="db" exception="true">
 	{
-		act:'m',
-		menu_id:'me01',
 		user_group:'1'
 	}
 </sp:sp>
@@ -23,8 +21,8 @@
 <c:set var="hasAccess" value="false"/>
 <div id="sub_menu" style="clear: both;width:150px;" >
 	<c:forEach var="row" items="${sub_rows }">
-		<a href="${row.page_url}"><div style="width:200px; overflow: hidden;border:1px solid #cccccc; background: ${param.page_id==row.menu_id ? '#eeeeee' : ''};" menu_id="${row.menu_id}" page_url="${row.page_url}" onclick="">${row.menu_name}</div></a>
-		<c:if test="${param.page_id==row.menu_id }">
+		<a href="${row.page_url}"><div style="width:200px; overflow: hidden;border:1px solid #cccccc; background: ${param.menu_id==row.menu_id ? '#eeeeee' : ''};" menu_id="${row.menu_id}" page_url="${row.page_url}" onclick="">${row.menu_name}</div></a>
+		<c:if test="${param.menu_id==row.menu_id }">
 			<c:set var="hasAccess" value="true"/>
 			<c:set var="main_menu_id">${row.upp_menu_id }</c:set>
 		</c:if>

@@ -12,7 +12,6 @@ import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
 
 public class QueryInfoFactory {
 	protected static Map<String, Map<String, JSONObject>> queryInfoMap;

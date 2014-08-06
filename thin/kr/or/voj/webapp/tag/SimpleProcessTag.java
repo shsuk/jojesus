@@ -10,9 +10,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import kr.or.voj.webapp.processor.ProcessorParam;
 import kr.or.voj.webapp.processor.ProcessorServiceFactory;
-import kr.or.voj.webapp.utils.DefaultLowerCaseMap;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -29,6 +27,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 	private static final long serialVersionUID = -8153914754350715168L;
 	String queryPath = null;
 	String actionFild = null;
+	String action = null;
 	boolean exception  = true;
 	public void setException(boolean exception) {
 		this.exception = exception;
@@ -50,6 +49,9 @@ public class SimpleProcessTag extends BodyTagSupport {
 	
 	public void setActionFild(String actionFild) {
 		this.actionFild = actionFild;
+	}
+	public void setAction(String action) {
+		this.action = action;
 	}
 	
 	public void setQueryPath(String queryPath) {
@@ -73,7 +75,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 				params.putAll(defaultParam);
 			}
 			//실행할 쿼리의 구룹을 정보를 설정한다.
-			String action = request.getParameter(actionFild);
+			action = StringUtils.isEmpty(action) ? request.getParameter(actionFild) : action;
 			action = StringUtils.isEmpty(action) ? (String)params.get(actionFild) : action;
 			action = StringUtils.isEmpty(action) ? "" : action;
 			
@@ -102,6 +104,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 		
 		pageContext.setAttribute("JSON", jsonResult);
 
+		action = null;
 		return SKIP_BODY;
 	}
 

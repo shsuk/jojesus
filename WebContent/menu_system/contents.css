@@ -36,7 +36,7 @@ table th {height:25px;}
 table td {height:25px;}
 table.bd {border-collapse: collapse; width: 100%; margin-top: 10px; margin-bottom: 5px;border-left:1px solid #cccccc;}
 table.bd th {padding:3px; border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;border-top:1px solid #cccccc;background-color: #eeeeee;}
-table.bd td {padding:3px; border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;}
+table.bd td {padding:1px;padding-left:3px; border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;}
 
 .btn_sm {
     -moz-border-bottom-colors: none;
@@ -53,7 +53,7 @@ table.bd td {padding:3px; border-bottom:1px solid #cccccc;border-right:1px solid
     display:inline-block;
     font-size: 12px;
     font-weight: bold;
-    padding: 2px 10px 2px;
+    padding: 1px 10px 1px;
 }
 
 .btn {
