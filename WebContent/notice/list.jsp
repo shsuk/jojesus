@@ -22,69 +22,68 @@
 	$(function() {
 
 		jQuery("#list6").jqGrid({
-		    url: '../../notice/update.jsp?'+new Date().getTime(),
+		    url: '../../notice/action.jsp?action=l&'+new Date().getTime(),
 		    datatype: "json",
 		    colNames: [
-		        'InvNo',
-		        'Date',
-		        'Client',
-		        'Amount',
-		        'Tax',
-		        'Total',
-		        'Notes'
+		        '번호',
+		        '제목',
+		        '게시시작',
+		        '게시종료',
+		        '작성자',
+		        '작성일',
+		        '조회수'
 		    ],
 		    colModel: [
-		        {
-		            name: 'id',
-		            index: 'id',
-		            width: 55
+				{
+				    name: 'notice_id',
+				    index: 'notice_id',
+				    width: 50,
+				    align: "center"
+				}, {
+		            name: 'subject',
+		            index: 'subject',
+		            width: 350
 		        }, {
-		            name: 'invdate',
-		            index: 'invdate',
-		            width: 190
+		            name: 'stt_dt',
+		            index: 'stt_dt',
+				    align: "center",
+		            width: 130
 		        }, {
-		            name: 'name',
-		            index: 'name',
+		            name: 'end_dt',
+		            index: 'end_dt',
+				    align: "center",
+	           	 width: 130
+		        }, {
+		            name: 'reg_id',
+		            index: 'reg_id',
+				    align: "center",
 		            width: 100
-		        },{
-		            name: 'amount',
-		            index: 'amount',
-		            width: 180,
-		            align: "right"
-		        },{
-		            name: 'tax',
-		            index: 'tax',
-		            width: 180,
-		            align: "right"
-		        },{
-		            name: 'total',
-		            index: 'total',
-		            width: 80,
-		            align: "right"
 		        }, {
-		            name: 'note',
-		            index: 'note',
-		            width: 150,
-		            sortable: false
+		            name: 'reg_dt',
+		            index: 'reg_dt',
+				    align: "center",
+		            width: 130
+		        }, {
+		            name: 'qry_cnt',
+		            index: 'qry_cnt',
+				    align: "center",
+		            width: 60
 		        }
 		    ],
 		    rowNum: 10,
 		    //rowList: [   10, 20, 30  ],
 		    pager: '#pager6',
-		    sortname: 'id',
 		    viewrecords: true,
-		    sortorder: "desc",
-		    onSortCol: function(name,
-		    index){
-		        alert("Column Name: "+name+" Column Index: "+index);
-		    },
 		    ondblClickRow: function(id){
-		        alert("You double click row with id: "+id);
+		    	var ret = jQuery("#list6").jqGrid('getRowData',id);
+		    	var notice_id = ret.notice_id;
+		    	
+		        document.location.href = 'view.jsp?notice_id='+notice_id;
 		    },
-		    caption: " Get Methods",
+		    caption: "&nbsp;&nbsp;공지사항",
 		    shrinkToFit: false,
-		    height: 200,
-		    width: 500
+		    height: 400,
+		    width: 1000
 		});
 		
 		jQuery("#list6").jqGrid('navGrid', "#pager6", {
@@ -105,42 +104,9 @@
 
 	<table id="list6"></table>
 	<div id="pager6"></div>
-	<br />
-	<a href="javascript:void(0)" id="g1"
-		onclick="alert(jQuery('#list6').jqGrid('getGridParam','url'));">Get
-		url</a>
-	<br />
-	<a href="javascript:void(0)" id="g2"
-		onclick="alert(jQuery('#list6').jqGrid('getGridParam','sortname'));">Get
-		Sort Name</a>
-	<br />
-	<a href="javascript:void(0)" id="g3"
-		onclick="alert(jQuery('#list6')jqGrid('getGridParam','sortorder'));">Get
-		Sort Order</a>
-	<br />
-	<a href="javascript:void(0)" id="g4"
-		onclick="alert(jQuery('#list6')jqGrid('getGridParam','selrow'));">Get
-		Selected Row</a>
-	<br />
-	<a href="javascript:void(0)" id="g5"
-		onclick="alert(jQuery('#list6')jqGrid('getGridParam','page'));">Get
-		Current Page</a>
-	<br />
-	<a href="javascript:void(0)" id="g6"
-		onclick="alert(jQuery('#list6').jqGrid('getGridParam','rowNum'));">Get
-		Number of Rows requested</a>
-	<br />
-	<a href="javascript:void(0)" id="g7"
-		onclick="alert('See Multi select rows example');">Get Selected
-		Rows</a>
-	<br />
-	<a href="javascript:void(0)" id="g8"
-		onclick="alert(jQuery('#list6').jqGrid('getGridParam','datatype'));">Get
-		Data Type requested</a>
-	<br />
-	<a href="javascript:void(0)" id="g9"
-		onclick="alert(jQuery('#list6').jqGrid('getGridParam','records'));">Get
-		number of records in Grid</a>
+
+	<span id="btn_add" class="btn"  style="cursor:pointer; " onclick="add()">등록</span>
+	
 
 </body>
 </htm>

@@ -48,46 +48,46 @@
 /* {
 	id:'row', action:'v', singleRow="true"
 } */
-	SELECT  *
-	FROM menu01_tbl
-	WHERE menu_id= :menu_id
+	SELECT  notice_id,
+		subject,
+		contents,
+		DATE_FORMAT(stt_dt,'%Y-%m-%d %T') stt_dt,
+		DATE_FORMAT(end_dt,'%Y-%m-%d %T') end_dt,
+		use_yn,
+		qry_cnt,
+		reg_id,
+		DATE_FORMAT(reg_dt,'%Y-%m-%d %T') reg_dt,
+		chg_id,
+		DATE_FORMAT(chg_dt,'%Y-%m-%d %T') chg_dt
+	FROM sys_notice_m
+	WHERE notice_id= :notice_id
 	;
 
 /* {
  	id:'rows', action:'l'
  } */
 
-	SELECT t1.*,(SELECT count(menu_id) FROM menu01_tbl t2	WHERE upp_menu_id = t1.menu_id) menu_count
-	FROM menu01_tbl t1
-	WHERE upp_menu_id = ${empty(upp_menu_id) ? "'root'" : ':upp_menu_id'} and del_yn = 'N'
-	ORDER BY order_no
+	SELECT notice_id,
+		subject,
+		DATE_FORMAT(stt_dt,'%Y-%m-%d %T') stt_dt,
+		DATE_FORMAT(end_dt,'%Y-%m-%d %T') end_dt,
+		use_yn,
+		qry_cnt,
+		reg_id,
+		DATE_FORMAT(reg_dt,'%Y-%m-%d %T') reg_dt,
+		chg_id,
+		DATE_FORMAT(chg_dt,'%Y-%m-%d %T') chg_dt
+	FROM sys_notice_m t1
+	WHERE use_yn = 'Y'
+	ORDER BY notice_id desc
+	LIMIT ${rows * (page - 1)} , ${rows}
 ;
 /* {
- 	id:'main_rows', action:'m'
+ 	id:'cnt', action:'l', singleRow="true"
  } */
 
-	SELECT t1.*
-	FROM menu01_tbl t1
-	WHERE upp_menu_id = 'root' 
-		and del_yn = 'N'
-	ORDER BY order_no
+	SELECT count(*) cnt
+	FROM sys_notice_m t1
+	WHERE use_yn = 'Y'
 ;
-/* {
- 	id:'sub_rows', action:'m'
- } */
 
-	SELECT t1.*
-	FROM menu01_tbl t1
-	WHERE upp_menu_id = :menu_id 
-		and page_access_group like concat('%', :user_group, '%')  
-		and del_yn = 'N' 
-	ORDER BY order_no
-;
-/* {
- 	id:'access_row', action:'m', singleRow="true"
- } */
-
-	SELECT count(menu_id) access_menu
-	FROM menu01_tbl t1
-	WHERE page_url = :request.servletpath
-;

@@ -10,4 +10,9 @@
 		session.user_id:'test'
 	}
 </sp:sp> 
-${JSON}
+{
+	"rows":${JSON.rows},
+	"records" : ${cnt.cnt},
+	"total": ${cnt.cnt/req.rows + (cnt.cnt % req.rows == 0 ? 0 : 1)},
+	"success": true
+}

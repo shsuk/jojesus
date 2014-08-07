@@ -31,12 +31,20 @@ img{border:0;}
 .c_p{cursor: pointer;}
 .o_h{overflow: hidden;}
 .to_h{white-space:nowrap;}
-
+table {cellspacing:0; cellpadding:0; border:0; }
 table th {height:25px;}
 table td {height:25px;}
-table.bd {border-collapse: collapse; width: 100%; margin-top: 10px; margin-bottom: 5px;border-left:1px solid #cccccc;}
-table.bd th {padding:3px; border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;border-top:1px solid #cccccc;background-color: #eeeeee;}
-table.bd td {padding:1px;padding-left:3px; border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;}
+table.bd {border-collapse: collapse; width: 100%; margin-top: 0px; margin-bottom: 5px;border-left:1px solid #a6c9e2;}
+table.bd th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; border-top:1px solid #a6c9e2;background-color: #ffffff;}
+table.bd td {padding:3px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
+
+table.vw {cellspacing:0; cellpadding:0; border:0; }
+table.vw th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; background-color: #ffffff;}
+table.vw td {padding:3px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
+table.vw th.tdl {padding:3px;padding-left:3px; border-left:1px solid #a6c9e2;}
+table.vw th.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
+table.vw td.tdl {padding:3px;padding-left:3px; border-left:1px solid #a6c9e2;}
+table.vw td.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
 
 .btn_sm {
     -moz-border-bottom-colors: none;

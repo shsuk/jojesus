@@ -7,10 +7,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 
 <head>
+<link href="../jquery/development-bundle/themes/redmond/jquery.ui.all.css"  rel="stylesheet" type="text/css" media="screen" />
+<link href="../jquery/jqgrid/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
+<link href="../jquery/jqgrid/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="contents.css" rel="stylesheet" type="text/css" />
-<link href="../jquery/development-bundle/themes/redmond/jquery-ui-1.10.3.custom.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jqgrid/jquery/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jqgrid/jquery/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script src="../jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
@@ -18,27 +18,30 @@
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
-	$(function() {
-		$('#menu_list').load('list_load.jsp', {dep:1}, function(){
-			var menu_data = $('[uid=root]');
-			$('#menu_datas').append(menu_data);
-		});
-	});
+	var url = 'list_load.jsp';
 	
-	function loadMenu(obj, dep){
-		var menu_id = $(obj).attr('menu_id');
-		if(menu_id==''){
-			return;
+	$(function() {
+		loadSubMenu('#root');
+	});
+	function loadSubMenu(sel){
+		var menus = $(sel);
+		for(var i=0; i<menus.length; i++){
+			loadMenu(menus[i]);
 		}
+	}
+	function loadMenu(obj){
+		var menu_id = $(obj).attr('id');
 		
 		$(obj).removeClass('sub_menu');
 		
-		$('#'+menu_id+'__sub').load('list_load.jsp',{upp_menu_id: menu_id, dep:dep},function(){
-			var menu_data = $('[uid='+menu_id+']');
-			$('.'+menu_id+'__sub').after(menu_data);
+		$('#'+menu_id+'__sub').load(url, {group_id: $('#group_id').val(), upp_menu_id: menu_id, dep: $(obj).attr('dep')},function(){
+			var menu_data = $('.'+menu_id);
+			$('#'+menu_id).after(menu_data);
+			
+			loadSubMenu('.sub_menu');
 		});
-		
 	}
+	
 	function editMenu(obj){
 		var menu_id = $(obj).attr('menu_id');
 		$('#menu_detail').load('view.jsp',{menu_id: menu_id}).show();
@@ -115,27 +118,27 @@
 </c:import>
 	
 <div id="menu_body" style="margin: 0 auto;width: 1100px;position: relative; clear: both;">
-	<table style="width: 100%;"><tr>
-		<td><b style="font-size: 14px;">메뉴목록</b></td>
-	</tr></table>
+	<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="padding: 3px;">
+		<b style="font-size: 14px;padding: 20px;">메뉴목록</b>
+	</div>
 
 	<table class="bd" border="0" style=" " >
 		<colgroup>
-				<col width="300">
-				<col width="440">
-				<col width="180">
-				<col width="60">
+			<col width="300">
+			<col width="440">
+			<col width="100">
+			<col width="60">
 		</colgroup>
-		<tr>
-			<th>메뉴명</th>
-			<th>메뉴경로</th>
-			<th>접근권한</th>
-			<th>순서</th>
+		<tr id="root"  class="root_sub sub_menu ui-jqgrid-labels" dep="1">
+			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
+			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
+			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴아이디</th>
+			<th class="ui-state-default ui-th-column ui-th-ltr">순서</th>
 		</tr>
-		<tbody id="menu_datas"></tbody>
 	</table>
 	
-	<div id="menu_list"></div>
+	<div id="root__sub"></div>
+	
 	<div id="menu_detail" style="display:none; width: 900px;position: absolute;top:30px;left:200px;background: #F6F6F6;border:1px solid #cccccc;padding: 10px;"></div>
 </div>
 </body>

@@ -96,7 +96,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 			jsonResult.put("message", e.toString());
 			
 			Logger.getLogger(SimpleProcessTag.class).debug(e);
-
+			e.printStackTrace();
 			if(exception){
 				throw new JspTagException(e.getMessage(), e);
 			}
