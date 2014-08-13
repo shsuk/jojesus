@@ -18,7 +18,7 @@
 			<tr>
 				<th width="150" class="ui-state-default ui-th-column ui-th-ltr" label="upp_menu_id">상위메뉴</th>
 				<td width="*" class="tdt">
-					${empty(row.upp_menu_id) ? req.upp_menu_id : row.upp_menu_id} (${empty(row.upp_menu_name) ? 'ROOT' : row.upp_menu_name})
+					${empty(row.upp_menu_id) ? req.upp_menu_id : row.upp_menu_id} (${empty(row.upp_menu_name) ? '최상위메뉴' : row.upp_menu_name})
 					<input type="hidden" name="upp_menu_id" value="${empty(row.upp_menu_id) ? req.upp_menu_id : row.upp_menu_id}">
 				</td>
 			</tr>

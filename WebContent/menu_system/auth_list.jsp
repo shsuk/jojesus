@@ -145,8 +145,8 @@
 		var mask = $('#mask');
 
 		if(mask.length<1){
-			$('body').append($('<div style="background: #cccccc;position: absolute;top: 0px;left: 0px;z-index: 9999;" id="mask"></div>'));
-			mask = $('#mask');
+			$('body').append($('<div style="background: #cccccc;position: absolute;top: 0px;left: 0px;z-index: 9999; text-align: center;padding-top: 200px;" id="mask"><span style="background: #ffffff;color:#0000ff;border:1px solid #ffffff;">처리중...</span></div>'));
+						mask = $('#mask');
 		}
 		mask.css({'width':maskWidth,'height':maskHeight});
 		

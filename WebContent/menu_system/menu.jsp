@@ -14,7 +14,7 @@
 		<c:forEach var="row" items="${sub_rows }">
 			<c:set var="isCurPage" value="${req.current_menu==row.menu_id }"/>
 			<div class="_sub${row.level==2 ? '' : '_sub'}_menu" style=" margin: 2px; border:1px solid #cccccc; background:; " upp_menu_id="${row.upp_menu_id}" menu_id="${row.menu_id}" page_url='${row.page_url}'>
-				<div style=" margin: 2px; padding:5px; overflow: hidden;border:${row.sub_count>0 ? '1' : '0'}px solid #cccccc; background: ${isCurPage ? '#eeeeee' : ''};" title="${row.page_url}(${cur_page })">
+				<div style=" margin: 2px; padding:5px; overflow: hidden;border:${row.sub_count>0 ? '1' : '0'}px solid #cccccc; background: ${isCurPage ? '' : '#eeeeee'};" title="${row.page_url}(${cur_page })">
 					<a href="../..${row.page_url}">${row.menu_name}</a>
 				</div>
 				<c:if test="${row.sub_count>0}">
