@@ -24,6 +24,7 @@
 
 	<bean id="processorServiceFactory" class="kr.or.voj.webapp.processor.ProcessorServiceFactory" >
 		<property name="queryPath" value="/WEB-INF/sql"/>
+<!-- 		<property name="repositoryPath" value="/WEB-INF/sql"/> -->
 	</bean>
 	
 

@@ -40,7 +40,7 @@ public class MainTransactionProcessor implements ProcessorService{
 		List<String> processorList = processorParam.getProcessorList();
 		
 		for(String processorId : processorList){
-			Object obj = ProcessorServiceFactory.getProcessorService(processorId).execute(processorParam);
+			Object obj = ProcessorServiceFactory.getProcessorService(processorId.toLowerCase()).execute(processorParam);
 			
 			if (obj instanceof Map) {
 				Map map = (Map) obj;

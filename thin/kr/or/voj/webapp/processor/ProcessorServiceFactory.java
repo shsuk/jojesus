@@ -1,5 +1,6 @@
 package kr.or.voj.webapp.processor;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,19 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 	private static ApplicationContext applicationContext;
 	private static final Logger logger = Logger.getLogger(ProcessorServiceFactory.class);
 	private static String queryFullPath = null;
+	private static String repositoryPath = null;
 	private static String defaultDataSourceName = null;
+	
+	public static String getRepositoryPath() {
+		new File(repositoryPath).mkdirs();
+		return repositoryPath;
+	}
+
+	public void setRepositoryPath(String repositoryPath) {
+		
+		ProcessorServiceFactory.repositoryPath = repositoryPath.toString();
+		new File(repositoryPath).mkdirs();
+	}
 	
 	public static String getQueryFullPath() {
 		return queryFullPath;
@@ -52,6 +65,9 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 	public void setQueryPath(Resource queryPath) {
 		try {
 			queryFullPath = queryPath.getFile().getAbsolutePath() + "/";
+			if(repositoryPath==null){
+				setRepositoryPath(queryPath.getFile().getParent() + "/rep/");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

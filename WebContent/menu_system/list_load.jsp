@@ -7,11 +7,12 @@
 
 <sp:sp queryPath="menu_system/menu" action="l" processorList="db" exception="true"/>
 
+
 <c:forEach var="row" items="${rows }">
 	<table>
-		<tr id="${row.menu_id }" class="${row.upp_menu_id } sub_menu" dep="${req.dep+1}">
+		<tr id="${row.menu_id }" class="${row.upp_menu_id } sub_menu ovr_sub_menu" dep="${req.dep+1}">
 			<td>
-				<c:set var="m_id"><img style="vertical-align: bottom;" id="${row.menu_id}_f" src="${row.menu_count > 0 ? 'fd_o.png' : 'attach.png'  }"></c:set>
+				<c:set var="m_id"><img style="vertical-align: bottom;" id="${row.menu_id}_f" src="${row.menu_count > 0 ? 'folder.png' : 'menu.png'  }"></c:set>
 				<div style=" margin-left:${req.dep*25-25}px;" >
 					<span id="${row.menu_id}_tree">${m_id} </span> 
 					<span  class="menu_name" style="cursor:pointer; color: #003399;" menu_id="${row.menu_id}" onclick="editMenu(this)">${row.menu_name}</span>
@@ -20,6 +21,9 @@
 			<td><div  style="width:430px; overflow: hidden;">${row.page_url}</div></td>
 			<td>${row.menu_id}</td>
 			<td align="right">${row.order_no}</td>
+			<td align="center"  style=" padding: 0px; ">
+				<span id="btn_save" class="btn_sm" style=" cursor:pointer;margin:0px; ${req.dep=='3' ? 'display:none;' : ''}" onclick="addSubMenu('${ row.menu_id }','${req.dep+1 }')">하위메뉴등록</span>
+			</td>
 		</tr>
 	</table>
 			

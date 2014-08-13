@@ -16,10 +16,30 @@ import org.springframework.stereotype.Service;
 
 /**
  * <pre>
- * 시스템명 : KT_MVNO_KPM
  * 작 성 자 : 석승한
  * 작 성 일 : 2014. 3. 18
- * 설    명 : Test
+ * 설    명 : 
+
+	id: 반환될 결과의 변수명
+	action: 쿼리중 실행될 구룹명 (action이 같은 쿼리들을 순차적으로 실행한다.)
+	singleRow: 한개의 레코드만 반환한다.
+	loop: 입력될 레코드가 복수개 인 경우 입력된 필드명을 기준으로 필드 갯수만큼 반복 실행한다.
+	
+	예제)
+ 	\* {
+ 		id:'addAtt', action:'u', loop: 'attach'
+	} *\
+		UPDATE sys_notice_m
+		SET use_yn = 'N'
+		WHERE notice_id = :notice_id;
+	\* {
+		id:'row', action:'d',  singleRow="true", desc:"데이타소스를 설정해야 하는 경우 'ds:dsname'와 같이 설정할수 있다." }
+	*\
+		SELECT *
+		FROM sys_notice_m
+		SET use_yn = 'N'
+		WHERE notice_id = :notice_id;
+
  * 
  * </pre>
  */

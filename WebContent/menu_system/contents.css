@@ -11,9 +11,9 @@ label{
 }
 input, select, textarea {
     border:1px solid #B6B5DB;color:#002266;
-    height: 22px;
+    height: 20px;
 }
-
+img{vertical-align: middle;}
 a:link    {font-family: 'Malgun Gothic', sans-serif, "Dotum", "Gulim", "Arial";  color:#999999; text-decoration: none}
 a:visited {font-family: 'Malgun Gothic', sans-serif,"Dotum", "Gulim", "Arial";  color:#999999; text-decoration: none}
 input.text { margin-bottom:10px; width:95%; padding: .4em; }
@@ -36,10 +36,10 @@ table th {height:25px;}
 table td {height:25px;}
 table.bd {border-collapse: collapse; width: 100%; margin-top: 0px; margin-bottom: 5px;border-left:1px solid #a6c9e2;}
 table.bd th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; border-top:1px solid #a6c9e2;background-color: #ffffff;}
-table.bd td {padding:3px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
+table.bd td {padding:1px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
 
-table.vw {cellspacing:0; cellpadding:0; border:0; }
-table.vw th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; background-color: #ffffff;}
+table.vw {border-collapse: collapse; width: 100%; margin-top: 0px; margin-bottom: 5px;border-left:1px solid #a6c9e2;}
+table.vw th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; border-top:1px solid #a6c9e2;background-color: #ffffff;}
 table.vw td {padding:3px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
 table.vw th.tdl {padding:3px;padding-left:3px; border-left:1px solid #a6c9e2;}
 table.vw th.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
@@ -81,3 +81,4 @@ table.vw td.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
     font-weight: bold;
     padding: 4px 10px 4px;
 }
+.over_tr{background: #a6c9e2;}

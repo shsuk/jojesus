@@ -24,7 +24,7 @@
 			alert("처리하는 중 오류가 발생하였습니다. \n문제가 지속되면 관리자에게 문의 하세요.\n");
 		</c:if>
 		<script type="text/javascript">
-			document.location.href = 'list.jsp';
+			document.location.href = 'notice/list.jsp';
 		</script>
 	</c:when>
 	<c:otherwise>
