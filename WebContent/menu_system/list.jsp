@@ -24,6 +24,7 @@
 	$(function() {
 		loadSubMenu('#root');
 		initDialog();
+		<%//마우스 오버시 리스트 색상 변경%>
 		$('#main_body').on('mouseover','.ovr_sub_menu',
 			function(e) {
 				$(e.currentTarget).addClass('over_tr');
@@ -34,6 +35,10 @@
 				$(e.currentTarget).removeClass('over_tr');
 			}
 		);
+		<%//윈도우 사이즈 변경시 리스트 높이 변경%>
+		$( window ).resize(function() {
+			$("#list_contents").height($(window ).height()-200);		
+		}).resize();
 	});
 	
 	function initDialog(){
@@ -150,45 +155,6 @@
 			mask_off();
 		});
 	}
-	function valid(formId){
-		var ctls = $('[valid=notempty]',$(formId));
-		
-		for(var i=0; i<ctls.length ; i++){
-			var ctl = $(ctls[i]);
-			var val = ctl.val().trim();
-			ctl.val(val);
-			if(val==''){
-				alert($('[label='+ctl.attr('name')+']').text() + '에 값이 없습니다.');
-				ctl.focus();
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	function mask(){
-		//Get the screen height and width
-		var maskHeight = $(document).height();
-		var maskWidth = $(window).width();
-		//Set height and width to mask to fill up the whole screen
-		var mask = $('#mask');
-
-		if(mask.length<1){
-			$('body').append($('<div style="background: #cccccc;position: absolute;top: 0px;left: 0px;z-index: 9999; text-align: center;padding-top: 200px;" id="mask"><span style="background: #ffffff;color:#0000ff;border:1px solid #ffffff;">처리중...</span></div>'));
-			mask = $('#mask');
-		}
-		mask.css({'width':maskWidth,'height':maskHeight});
-		
-		//$('#mask').fadeIn(100);	//여기가 중요해요!!!1초동안 검은 화면이나오고
-		$('#mask').fadeTo("slow",0.3);   //80%의 불투명도로 유지한다 입니다. ㅋ
-
-	}
-	function mask_off(){
-		
-		setInterval(function () {
-			$('#mask').hide();
-		}, 1000);		
-	}
 </script>
 </head>
 <body >
@@ -198,30 +164,49 @@
 </c:import>
 
 
-	
 <div id="main_body">
 	<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="padding: 3px;width: 170px;">
 		<b style="font-size: 14px;padding: 20px;">메뉴목록</b>
 	</div>
-	<table class="bd" border="0" style=" " >
+
+	<table class="bd" border="0" style="width: 100%;margin: 0px;">
 		<colgroup>
 			<col width="300">
-			<col width="420">
+			<col width="*">
 			<col width="100">
 			<col width="60">
 			<col width="120">
+			<col width="17">
 		</colgroup>
-		<tr id="root"  class="root_sub sub_menu ui-jqgrid-labels" dep="1">
-			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴아이디</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">순서</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr"><span id="btn_save" class="btn_sm" style=" cursor:pointer;" onclick="addSubMenu('root', '1')">메인메뉴등록</span></th>
-		</tr>
+		<thead>
+			<tr>
+				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴아이디</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">순서</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr"><span id="btn_save" class="btn_sm" style=" cursor:pointer;" onclick="addSubMenu('root', '1')">메인메뉴등록</span></th>
+				<th class="ui-state-default ui-th-column ui-th-ltr"></th>
+			</tr>
+		</thead>
 	</table>
+
+	<div id="list_contents" style=" height:600px; overflow-y: scroll;">
+		<table class="bd" border="0" style="width: 100%;margin: 0px;">
+			<colgroup>
+				<col width="300">
+				<col width="*">
+				<col width="100">
+				<col width="60">
+				<col width="120">
+			</colgroup>
+			<tbody>
+				<tr id="root"  class="root_sub sub_menu" dep="1">
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	
 	<div id="root__sub"></div>
-	
 	<div id="menu_detail" style="display:none;"></div>
 </div>
 </body>

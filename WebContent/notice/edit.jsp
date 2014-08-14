@@ -38,7 +38,12 @@
 	};
 	
 	$(function() {
-		$('.datepicker').datepicker(option);		
+		$('.datepicker').datepicker(option);
+		var currentDate = $( "#stt_dt" ).datepicker( "getDate" );
+		if(currentDate==null){
+			$( "#stt_dt" ).datepicker( "setDate" , new Date());
+			$( "#end_dt" ).datepicker( "setDate" , new Date());
+		}
 		addAttach();
 		initEditor();
 	});
@@ -66,29 +71,6 @@
 		$('.'+file_id).hide();
 	}
 	
-	function valid(formId){
-		var ctls = $('[valid=notempty]',$(formId));
-		
-		for(var i=0; i<ctls.length ; i++){
-			var ctl = $(ctls[i]);
-			if(ctl.val().trim()=='' || ctl.val().trim()=='<br>'){
-				alert($('[label='+ctl.attr('name')+']').text() + '에 값이 없습니다.');
-				ctl.focus();
-				return false;
-			}
-		}
-		//if($('#subject').val().indexOf('<')>-1){
-		//	alert("'<' 문자는 사용할수 없습니다.");
-		//	$('#subject').focus();
-		//	return false;
-		//}
-		if($('#stt_dt').val() > $('#end_dt').val()){
-			alert("공지기간의 시작일이 종료일보다 클 수 없습니다.");
-			$('#subject').focus();
-			return false;
-		}
-		return true;
-	}	
 	//에디터 소스 시작
 	function initEditor() {
 		// 추가 글꼴 목록
@@ -145,8 +127,8 @@
 			<tr>
 				<th class="tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;"  label="stt_dt"><span  label="end_dt">공지기간</span></th>
 				<td >
-					<input type="text" class="datepicker" name="stt_dt" id="stt_dt" value="${row.stt_dt }" readonly="readonly" valid="notempty" style="100px;" > ~
-					<input type="text" class="datepicker" name="end_dt" id="end_dt" value="${row.end_dt }" readonly="readonly" valid="notempty" style="100px;" > 
+					<input type="text" class="datepicker" name="stt_dt" id="stt_dt" value="${row.stt_dt }" readonly="readonly" valid="notempty,rangedate:stt_dt:end_dt" style="100px;" > ~
+					<input type="text" class="datepicker" name="end_dt" id="end_dt" value="${row.end_dt }" readonly="readonly" valid="notempty,rangedate:stt_dt:end_dt" style="100px;" > 
 				</td>
 			</tr>
 			<tr>
@@ -163,7 +145,7 @@
 		<div style="float: right; cursor: pointer;padding-right: 25px;" onclick="addAttach()">추가</div>
 		<table class="vw" cellspacing="0" cellpadding="0" border="0" style="clear:both; width: 100%; margin-top: 10px;margin-bottom: 20px;">
 			<tr>
-				<th class="tdt tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;">첨부파일</th>
+				<th class="tdt tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;" label="attach">첨부파일</th>
 				<td class="tdt" style="color:#6799FF; ">
 					<c:forEach var="row" items="${rows }">
 						<div style="margin: 2px;" class="${row.file_id}">
@@ -178,8 +160,8 @@
 		</table>	
 	</form>
 	<div class="attachTpl" style="display: none; padding: 1px;">
-		<input type="file" name="attach" id="attach" style="width: 87%;float: left;margin: 2px;">
-		<div  style="float: right; padding-right: 20px; cursor: pointer; margin: 2px;" onclick="delAttach()">삭제</div>
+		<input type="file" name="attach"  style="width: 87%;float: left;margin: 2px;" valid="ext:jpg:png:xls:doc:ppt:xlsx:docx:pptx:pdf">
+		<div  style="float: right; padding-right: 20px; cursor: pointer; margin: 2px;" onclick="delAttach()" >삭제</div>
 	</div>
 	<div>
 		<div id="btn_list" class="btn"  style="cursor:pointer; float: right; " onclick="list()">목록</div>

@@ -33,7 +33,14 @@
 
 	var url = '../../notice/action.jsp';
 	$(function() {
+		initJqGrid();
 		
+		$( window ).resize(function() {
+			jQuery("#list6").jqGrid('setGridWidth',$( '#main_layer' ).width()-160);		
+		}).resize();
+	});
+	
+	function initJqGrid(){
 		jQuery("#list6").jqGrid({
 		    url: url + '?action=l&'+new Date().getTime(),
 		    datatype: "json",
@@ -105,14 +112,13 @@
 		    shrinkToFit: true,
 		    
 		    height: 380,
-		    width: 1000
+		    width: 800
 		});
 		
 		jQuery("#list6").jqGrid('navGrid');
-	});
-	
-	jQuery("#list6").jqGrid('setFrozenColumns');
-	
+		jQuery("#list6").jqGrid('setFrozenColumns');
+		
+	}
 	function add(){
         document.location.href = 'edit.jsp?notice_id=0';
 	}
@@ -154,9 +160,10 @@
 		<div id="btn_add" class="btn"  style="cursor:pointer; float: right; margin-left: 2px; padding-top: 0px;" onclick="search()">검색</div>
 	</div>
 	<div  style="clear: both;"></div>
-	<table id="list6"></table>
-	<div id="pager6"></div>
-	
+	<div id="main_list">
+		<table id="list6"></table>
+		<div id="pager6"></div>
+	</div>
 	<div style="margin-top: 20px;">
 		<tag:role type="save">
 			<div id="btn_add" class="btn"  style="cursor:pointer; float: right;" onclick="add()">등록</div>

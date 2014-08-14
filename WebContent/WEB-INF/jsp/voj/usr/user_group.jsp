@@ -133,7 +133,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="${tpl_class_table_header}" title="user_nm">유저구룹</th>
+				<th class="${tpl_class_table_header}" title="user_nm">유저그룹</th>
 				<td>
 					<tp:check name="user_group" groupId="user_group" checked="${row.user_group}"/> 
 				</td>

@@ -23,6 +23,7 @@
 	$(function() {
 		loadSubMenu('#root');
 		
+		<%//마우스 오버시 리스트 색상 변경%>
 		$('#main_body').on('mouseover','.ovr_sub_menu',
 			function(e) {
 				$(e.currentTarget).addClass('over_tr');
@@ -33,7 +34,11 @@
 				$(e.currentTarget).removeClass('over_tr');
 			}
 		);
-		
+		<%//윈도우 사이즈 변경시 리스트 높이 변경%>
+		$( window ).resize(function() {
+			$("#list_contents").height($(window ).height()-200);		
+		}).resize();
+		<%//그룹변경시 그룹권한 읽기%>
 		$('#role_cd').change(function(){
 			$('.menu_load').remove();
 			loadSubMenu('#root');
@@ -137,29 +142,6 @@
 		});
 	}
 	
-	function mask(){
-		//Get the screen height and width
-		var maskHeight = $(document).height();
-		var maskWidth = $(window).width();
-		//Set height and width to mask to fill up the whole screen
-		var mask = $('#mask');
-
-		if(mask.length<1){
-			$('body').append($('<div style="background: #cccccc;position: absolute;top: 0px;left: 0px;z-index: 9999; text-align: center;padding-top: 200px;" id="mask"><span style="background: #ffffff;color:#0000ff;border:1px solid #ffffff;">처리중...</span></div>'));
-						mask = $('#mask');
-		}
-		mask.css({'width':maskWidth,'height':maskHeight});
-		
-		//$('#mask').fadeIn(100);	//여기가 중요해요!!!1초동안 검은 화면이나오고
-		$('#mask').fadeTo("slow",0.3);   //80%의 불투명도로 유지한다 입니다. ㅋ
-
-	}
-	function mask_off(){
-		
-		setInterval(function () {
-			$('#mask').hide();
-		}, 1000);		
-	}
 </script>
 </head>
 <body >
@@ -173,27 +155,48 @@
 		<b style="font-size: 14px;padding: 20px;">페이지 접근 권한</b>
 	</div>
 	<div style=" float: right;">
-		<tag:select_array codes="1=직원,2=대리점,3=고객" name="role_cd" selected="${param.role_cd }" style="width:200px;"/>
+		권한그룹 : <tag:select_array codes="1=직원,2=대리점,3=고객" name="role_cd" selected="${param.role_cd }" style="width:200px;"/>
 	</div>
-
-	<table style=" clear:both;;" class="bd" cellspacing="0" cellpadding="0" border="0"  >
+	
+	<table  class="bd" border="0"style=" clear:both;;width: 100%;margin: 0px;">
 		<colgroup>
 			<col width="30">
 			<col width="300">
-			<col width="400">
-			<col width="30">
-			<col width="30">
-			<col width="30">
+			<col width="*">
+			<col width="34">
+			<col width="34">
+			<col width="34">
+			<col width="17">
 		</colgroup>
-		<tr id="root" dep="1" class="root_sub ui-jqgrid-labels" >
-			<th class="ui-state-default ui-th-column ui-th-ltr">&nbsp;</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">조회</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">저장</th>
-			<th class="ui-state-default ui-th-column ui-th-ltr">엑셀</th>
-		</tr>
+		<thead>
+			<tr >
+				<th class="ui-state-default ui-th-column ui-th-ltr">&nbsp;</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">조회</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">저장</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr">엑셀</th>
+				<th class="ui-state-default ui-th-column ui-th-ltr"></th>
+			</tr>
+		</thead>
 	</table>
+
+	<div  id="list_contents" style=" height: 600px; overflow-y: scroll;">
+		<table  class="bd" border="0"  style=" clear:both;;width: 100%; margin: 0px;" >
+			<colgroup>
+				<col width="30">
+				<col width="300">
+				<col width="*">
+				<col width="34">
+				<col width="34">
+				<col width="34">
+			</colgroup>
+			<tbody>
+				<tr id="root"  class="root_sub sub_menu" dep="1">
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	
 	<div id="root__sub"></div>
 </div>

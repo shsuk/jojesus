@@ -35,14 +35,14 @@
 		</attribute>
 		<attribute>
 			<name>action</name>
-			<description>쿼리실행 구룹정보</description>
+			<description>쿼리실행 그룹정보</description>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
 			<name>actionFild</name>
-			<description>쿼리실행 구룹정보가 있는 필드명</description>
+			<description>쿼리실행 그룹정보가 있는 필드명</description>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>java.lang.String</type>

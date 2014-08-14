@@ -91,7 +91,7 @@
 					<th width="100">이름</th>
 					<th width="100">별명</th>
 					<th width="40">상태</th>
-					<th>유저구룹</th>
+					<th>유저그룹</th>
 				</tr>
 				<c:forEach var="row" items="${rows }" varStatus="status">
 					<tr>

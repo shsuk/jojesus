@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  * 설    명 : 
 
 	id: 반환될 결과의 변수명
-	action: 쿼리중 실행될 구룹명 (action이 같은 쿼리들을 순차적으로 실행한다.)
+	action: 쿼리중 실행될 그룹명 (action이 같은 쿼리들을 순차적으로 실행한다.)
 	singleRow: 한개의 레코드만 반환한다.
 	loop: 입력될 레코드가 복수개 인 경우 입력된 필드명을 기준으로 필드 갯수만큼 반복 실행한다.
 	

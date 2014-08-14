@@ -18,7 +18,7 @@
 					<span  class="menu_name" style="cursor:pointer; color: #003399;" menu_id="${row.menu_id}" onclick="editMenu(this)">${row.menu_name}</span>
 				</div>
 			</td>
-			<td><div  style="width:430px; overflow: hidden;">${row.page_url}</div></td>
+			<td><div  style=" overflow: hidden;">${row.page_url}</div></td>
 			<td>${row.menu_id}</td>
 			<td align="right">${row.order_no}</td>
 			<td align="center"  style=" padding: 0px; ">

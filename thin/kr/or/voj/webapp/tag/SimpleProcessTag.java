@@ -74,7 +74,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 				JSONObject defaultParam = JSONObject.fromObject(body);
 				params.putAll(defaultParam);
 			}
-			//실행할 쿼리의 구룹을 정보를 설정한다.
+			//실행할 쿼리의 그룹을 정보를 설정한다.
 			action = StringUtils.isEmpty(action) ? request.getParameter(actionFild) : action;
 			action = StringUtils.isEmpty(action) ? (String)params.get(actionFild) : action;
 			action = StringUtils.isEmpty(action) ? "" : action;

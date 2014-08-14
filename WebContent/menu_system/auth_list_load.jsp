@@ -18,7 +18,7 @@
 					<span  class="menu_name" style="" menu_id="${row.menu_id}" >${row.menu_name}</span>
 				</div>
 			</td>
-			<td><div  style="width:430px; overflow: hidden;">${row.page_url}</div></td>
+			<td><div  style=" overflow: hidden;">${row.page_url}</div></td>
 			<td align="center"><input type="checkbox" name="acc_read"  ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_read=='Y' ? 'checked=true' : ''}></td>
 			<td align="center"><input type="checkbox" name="acc_save"  ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_save=='Y' ? 'checked=true' : '' }></td>
 			<td align="center"><input type="checkbox" name="acc_excel" ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_excel=='Y' ? 'checked=true' : ''}></td>

@@ -79,7 +79,7 @@ public class ProcessMain {
 					request.setAttribute("error_message", e.toString());
 				}
 				
-				String message = (processException != null ? processException.toString() : "") + "\n[" + (i+1) + "번 프로세서 구룹 오류]\n" + e.toString();
+				String message = (processException != null ? processException.toString() : "") + "\n[" + (i+1) + "번 프로세서 그룹 오류]\n" + e.toString();
 				processException = new Exception(message, e);
 			}
 		}

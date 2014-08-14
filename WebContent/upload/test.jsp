@@ -1,5 +1,6 @@
 <%@page import="net.ion.webapp.fleupload.Upload"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	request.setAttribute("fileId", Upload.getfileId());
 %>
@@ -7,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>파일업로드</title>
+<title>파일업로드 드래그 업로드 예제</title>
 <script src="../jquery/js/jquery-1.9.1.min.js"></script>
 </head>
 
@@ -56,8 +57,9 @@
         xhr.upload.addEventListener("load", function(e){
                 document.getElementById(fileId).innerHTML = file.name + ' - 전송완료';
             }, false);
-     xhr.open("POST", "test_upload.jsp");
-        var fd = new FormData();
+		xhr.open("POST", "test_upload.jsp");
+        
+		var fd = new FormData();
         fd.append(guid(), file);
         xhr.send(fd);
     }
@@ -74,9 +76,14 @@
     	})();
 </script>
 <body>
+<c:import url="../menu_system/menu.jsp">
+	<c:param name="current_menu" value="55"/>
+</c:import>
+<div  id="main_body" >
 	<div id="upload_file" style="width: 100%;height: 200px; border:1px solid #B6B5DB;  ">
 	이곳에 파일을 끌어 놓으세요.
 	</div>
+</div>
  
 </body>
 </html>
