@@ -67,6 +67,15 @@
 		
 		//$('#left_menu').append($('#_sub_menu_list'));
 		$('#body_contents').append($('#main_body'));
+
+		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+			if(options.url.indexOf('?')>0){
+				options.url += '&_dumy=' + (new Date()).getTime();
+			}else{
+				options.url += '?_dumy=' + (new Date()).getTime();
+			}
+		});
+
 	});
 	
 	function defaultMenu(upp_menu_id){
@@ -123,8 +132,10 @@
 	}
 	function ext(ctl, opt){
 		var val = ctl.val().toLowerCase();
-		
-		for(i=1; i<opt.length; i++){
+		if(val=='') {
+			return true;
+		}
+		for(var i=1; i<opt.length; i++){
 			if(val.endsWith('.'+opt[i])){
 				return true;
 			}

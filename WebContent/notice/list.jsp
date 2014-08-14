@@ -42,8 +42,9 @@
 	
 	function initJqGrid(){
 		jQuery("#list6").jqGrid({
-		    url: url + '?action=l&'+new Date().getTime(),
+		    url: url + '?action=l',
 		    datatype: "json",
+		    mtype: 'POST',
 		    colNames: [
 		        '번호',
 		        '파일',
