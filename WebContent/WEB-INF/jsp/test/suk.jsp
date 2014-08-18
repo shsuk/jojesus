@@ -83,8 +83,8 @@
 					}
 				</script>
 					<div>
-						<div style="float: right; cursor: pointer; padding-right: 25px;" onclick="addAttach()">
-							<img src="../menu_system/add_icon.png">
+						<div style="float: right; cursor: pointer; padding-right: 20px;" onclick="addAttach()">
+							<img src="menu_system/add-icon.png">
 						</div>
 						<!-- 이전파일 목록을 이곳에 추가하세요.
 			아래 소스는 예제 입니다
@@ -101,8 +101,8 @@
 
 					<div class="attachTpl" style="display: none; padding: 1px;">
 						<input type="file" name="code_name" style="width: 90%;" class="">
-						<div style="float: right; padding-right: 20px; cursor: pointer; margin: 2px;" onclick="$($(this).parent()).remove()">
-							<img src="../menu_system/cloas_icon.png">
+						<div style="float: right; padding-right: 17px; cursor: pointer; margin: 2px;" onclick="$($(this).parent()).remove()">
+							<img src="menu_system/close-icon.png">
 						</div>
 					</div></td>
 			</tr>

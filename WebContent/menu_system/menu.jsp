@@ -67,17 +67,7 @@
 		
 		//$('#left_menu').append($('#_sub_menu_list'));
 		$('#body_contents').append($('#main_body'));
-
-		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-			if(options.url.indexOf('?')>0){
-				options.url += '&_dumy=' + (new Date()).getTime();
-			}else{
-				options.url += '?_dumy=' + (new Date()).getTime();
-			}
-		});
-
 	});
-	
 	function defaultMenu(upp_menu_id){
 		var menus = $('[upp_menu_id='+upp_menu_id+']');
 		
@@ -90,83 +80,4 @@
 	<%//메뉴에 등록된 페이지이면서 권한이 없는 경우 접근불가%>
 	${access_row.access_menu>0 && hasAccess ? '' : 'document.location.href="http://naver.com";'}
 	
-	function valid(formId){
-		var ctls = $('[valid]',$(formId));
-		
-		for(var i=0; i<ctls.length ; i++){
-			var ctl = $(ctls[i]);
-			valids = ctl.attr('valid').split(',');
-			
-			for(var n=0; n<valids.length; n++){
-				var opt = valids[n].split(':');
-				var fnc = opt[0].trim();
-				
-				var isValid = eval(fnc)(ctl, opt);
-				if(!isValid){
-					return false;
-				}
-			}
-		}
-		//if($('#subject').val().indexOf('<')>-1){
-		//	alert("'<' 문자는 사용할수 없습니다.");
-		//	$('#subject').focus();
-		//	return false;
-		//}
-		return true;
-	}	
-	function notempty(ctl){
-		if(ctl.val().trim()=='' || ctl.val().trim()=='<br>'){
-			alert($('[label='+ctl.attr('name')+']').text() + '에 값이 없습니다.');
-			ctl.focus();
-			return false;
-		}
-		return true;
-	}
-	function rangedate(ctl, opt){
-		if($('#'+opt[1]).val() > $('#'+opt[2]).val()){
-			alert($('[label='+ctl.attr('name')+']').text() + "의 시작일이 종료일보다 클 수 없습니다.");
-			ctl.focus();
-			return false;
-		}
-		return true;
-	}
-	function ext(ctl, opt){
-		var val = ctl.val().toLowerCase();
-		if(val=='') {
-			return true;
-		}
-		for(var i=1; i<opt.length; i++){
-			if(val.endsWith('.'+opt[i])){
-				return true;
-			}
-		}
-		
-		alert($('[label='+ctl.attr('name')+']').text() + "에 첨부한 문서 종류는 등록 할 수 없습니다.");
-		ctl.focus();
-		return false;
-		
-	}
-	function mask(){
-		//Get the screen height and width
-		var maskHeight = $(document).height();
-		var maskWidth = $(window).width();
-		//Set height and width to mask to fill up the whole screen
-		var mask = $('#mask');
-
-		if(mask.length<1){
-			$('body').append($('<div style="background: #cccccc;position: absolute;top: 0px;left: 0px;z-index: 9999; text-align: center;padding-top: 200px;" id="mask"><span style="background: #ffffff;color:#0000ff;border:1px solid #ffffff;">처리중...</span></div>'));
-			mask = $('#mask');
-		}
-		mask.css({'width':maskWidth,'height':maskHeight});
-		
-		//$('#mask').fadeIn(100);	//여기가 중요해요!!!1초동안 검은 화면이나오고
-		$('#mask').fadeTo("slow",0.3);   //80%의 불투명도로 유지한다 입니다. ㅋ
-
-	}
-	function mask_off(){
-		
-		setInterval(function () {
-			$('#mask').hide();
-		}, 1000);		
-	}
 </script>

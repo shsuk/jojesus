@@ -22,7 +22,7 @@
 			<td>${row.menu_id}</td>
 			<td align="right">${row.order_no}</td>
 			<td align="center"  style=" padding: 0px; ">
-				<span id="btn_save" class="btn_sm" style=" cursor:pointer;margin:0px; ${req.dep=='3' ? 'display:none;' : ''}" onclick="addSubMenu('${ row.menu_id }','${req.dep+1 }')">하위메뉴등록</span>
+				<span id="btn_save" class="" style=" cursor:pointer;margin:0px; ${req.dep=='3' ? 'display:none;' : ''}" onclick="addSubMenu('${ row.menu_id }','${req.dep+1 }')" title="하위메뉴 추가"><img src="add-icon.png"></span>
 			</td>
 		</tr>
 	</table>

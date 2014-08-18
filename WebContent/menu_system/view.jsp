@@ -16,38 +16,38 @@
 		<input type="hidden" name="action" value="${empty(row.menu_id) ? 'i' : 'u' }" >
 		<table border="0" class="vw" >
 			<tr>
-				<th width="150" class="ui-state-default ui-th-column ui-th-ltr" label="upp_menu_id">상위메뉴</th>
+				<th width="150" label="upp_menu_id">상위메뉴</th>
 				<td width="*" class="tdt">
 					${empty(row.upp_menu_id) ? req.upp_menu_id : row.upp_menu_id} (${empty(row.upp_menu_name) ? '최상위메뉴' : row.upp_menu_name})
 					<input type="hidden" name="upp_menu_id" value="${empty(row.upp_menu_id) ? req.upp_menu_id : row.upp_menu_id}">
 				</td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr"  label="menu_id">아이디</th>
-				<td><input type="text" name="menu_id" value="${row.menu_id}" maxlength="10" ${empty(row.menu_id) ? '' : 'readonly=true' } valid="notempty" >&nbsp;</td>
+				<th  label="menu_id">아이디</th>
+				<td><input type="text" name="menu_id" value="${row.menu_id}" maxlength="10" ${empty(row.menu_id) ? '' : 'readonly=true' } valid="notempty" key_press="alpa_numeric" >&nbsp;</td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr"  label="menu_name">메뉴명</th>
+				<th  label="menu_name">메뉴명</th>
 				<td><input type="text" name="menu_name" value="${row.menu_name}" maxlength="15" valid="notempty" style="width: 90%;;"></td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr"  label="level">LEVEL</th>
+				<th  label="level">LEVEL</th>
 				<td><input type="text" name="level" value="${empty(req.level) ? row.level : req.level}" maxlength="3" readonly="readonly"  style=""></td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr"  label="page_url">페이지 경로</th>
+				<th  label="page_url">페이지 경로</th>
 				<td><input type="text" name="page_url" value="${empty(row.page_url) ? '#' : row.page_url}"  maxlength="200" valid="notempty" style="width: 90%;padding: 1px;"></td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr"  label="order_no">노출 순서</th>
-				<td><input type="text" name="order_no" id="order_no" value="${empty(row.order_no) ? '1' : row.order_no}" readonly="readonly" maxlength="3" valid="notempty" style=""></td>
+				<th  label="order_no">노출 순서</th>
+				<td><input type="text" name="order_no" id="order_no" value="${empty(row.order_no) ? '1' : row.order_no}"  maxlength="5" valid="notempty"  key_press="numeric" style=""></td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr">수정자</th>
+				<th>수정자</th>
 				<td>${row.chg_id}</td>
 			</tr>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr">등록일</th>
+				<th>등록일</th>
 				<td>${row.reg_dt}</td>
 			</tr>
 		

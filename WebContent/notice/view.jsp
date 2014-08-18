@@ -20,6 +20,7 @@
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	
@@ -86,8 +87,8 @@
 	</table>	
 	<table class="vw" cellspacing="0" cellpadding="0" border="0" style="width: 100%; margin-top: 10px;margin-bottom: 20px;">
 		<tr>
-			<th class="tdt tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;">첨부파일</th>
-			<td class="tdt" style="color:#6799FF; ">
+			<th style="color:#0100FF; width: 150px;">첨부파일</th>
+			<td style="color:#6799FF; ">
 				<c:forEach var="row" items="${rows }">
 					<img src="../menu_system/attach.png"  ><a href="${row.file_path }">${row.file_name }</a>&nbsp;
 				</c:forEach>

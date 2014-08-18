@@ -195,7 +195,8 @@
 		}
 		var formData =$(form).serializeArray();
 		
-		
+		formData.push({ name: "action" , value:"i"});
+
 		if($(form).attr('isSubmit')==='true') return false;
 		$(form).attr('isSubmit',true);
 

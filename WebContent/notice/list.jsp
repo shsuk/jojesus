@@ -18,6 +18,7 @@
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -46,58 +47,27 @@
 		    datatype: "json",
 		    mtype: 'POST',
 		    colNames: [
-		        '번호',
-		        '파일',
-		        '제목',
-		        '공지기간',
-		        '작성자',
-		        '작성일',
-		        '조회수'
+		        '번호', '파일', '제목',  '공지기간', '작성자', '작성일', '조회수'
 		    ],
 		    colModel: [
 				{
-				    name: 'notice_id',
-				    index: 'notice_id',
-				    width: 50,
-		            sortable:false,
-				    align: "center"
+				    name: 'notice_id', index: 'notice_id', width: 50, sortable:false,  align: "center"
 				},{
-				    name: 'attach',
-				    index: 'attach',
-				    width: 30,
+				    name: 'attach',  index: 'attach', width: 30,
 				    formatter : function(value, options, rData){ return value==0 ? '' : value; },
-		            sortable:false,
-				    align: "center"
+		            sortable:false, align: "center"
 				}, {
-		            name: 'subject',
-		            index: 'subject',
-		            width: 400,
+		            name: 'subject', index: 'subject',  width: 400,
 				    formatter : function(value, options, rData){ return value.replaceAll('<', '&lt;'); },
 		            sortable:false
 		        }, {
-		            name: 'noti_dt',
-		            index: 'noti_dt',
-				    align: "center",
-	           		width: 160,
-		            sortable:false
+		            name: 'noti_dt', index: 'noti_dt', align: "center", width: 160, sortable:false
 		        }, {
-		            name: 'reg_id',
-		            index: 'reg_id',
-				    align: "center",
-		            width: 100,
-		            sortable:false
+		            name: 'reg_id', index: 'reg_id', align: "center", width: 100, sortable:false
 		        }, {
-		            name: 'reg_dt',
-		            index: 'reg_dt',
-				    align: "center",
-		            width: 80,
-		            sortable:false
+		            name: 'reg_dt', index: 'reg_dt', align: "center", width: 80, sortable:false
 		        }, {
-		            name: 'qry_cnt',
-		            index: 'qry_cnt',
-				    align: "center",
-		            width: 60,
-		            sortable:false
+		            name: 'qry_cnt', index: 'qry_cnt', align: "center", width: 60, sortable:false
 		        }
 		    ],
 		    rowNum: 15,

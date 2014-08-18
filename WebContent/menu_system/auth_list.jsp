@@ -17,6 +17,7 @@
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="commonUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var url = 'auth_list_load.jsp';
 	
@@ -67,7 +68,6 @@
 			}
 			
 			var row = $('#'+menu_id);
-			mask();
 			
 			$.post('update.jsp',{
 					action: isChecked ? 'acc' : 'noacc', 
@@ -86,7 +86,6 @@
 					}else{
 						alert("처리하는 중 오류가 발생하였습니다. \n문제가 지속되면 관리자에게 문의 하세요.\n");
 					}
-					mask_off();
 				}
 			);
 		});
@@ -97,7 +96,7 @@
 			var menu_id = ctl.attr('menu_id');
 			
 			var row = $('#'+menu_id);
-			mask();
+
 			$.post('update.jsp',{
 					action: 'accbtn', 
 					menu_id: menu_id,
@@ -113,7 +112,7 @@
 					}else{
 						alert("처리하는 중 오류가 발생하였습니다. \n문제가 지속되면 관리자에게 문의 하세요.\n");
 					}
-					mask_off();
+
 				}
 			);
 		});
@@ -158,7 +157,7 @@
 		권한그룹 : <tag:select_array codes="1=직원,2=대리점,3=고객" name="role_cd" selected="${param.role_cd }" style="width:200px;"/>
 	</div>
 	
-	<table  class="bd" border="0"style=" clear:both;;width: 100%;margin: 0px;">
+	<table  class="lst" border="0" style=" clear:both;;width: 100%;margin: 0px;" cellspacing="0" cellpadding="0">
 		<colgroup>
 			<col width="30">
 			<col width="300">
@@ -170,19 +169,19 @@
 		</colgroup>
 		<thead>
 			<tr >
-				<th class="ui-state-default ui-th-column ui-th-ltr">&nbsp;</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">조회</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">저장</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">엑셀</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr"></th>
+				<th>&nbsp;</th>
+				<th>메뉴명</th>
+				<th>메뉴경로</th>
+				<th>조회</th>
+				<th>저장</th>
+				<th>엑셀</th>
+				<th></th>
 			</tr>
 		</thead>
 	</table>
 
 	<div  id="list_contents" style=" height: 600px; overflow-y: scroll;">
-		<table  class="bd" border="0"  style=" clear:both;;width: 100%; margin: 0px;" >
+		<table  class="lst" border="0"  style=" clear:both;;width: 100%; margin: 0px;" cellspacing="0" cellpadding="0" >
 			<colgroup>
 				<col width="30">
 				<col width="300">

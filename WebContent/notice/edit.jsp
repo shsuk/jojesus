@@ -20,22 +20,11 @@
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script src="../se/js/HuskyEZCreator.js" type="text/javascript"  charset="utf-8"></script>
 
 <script type="text/javascript">
-	var oEditors = [];
-	var option = {
-		monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월' ],
-		dayNamesMin: ["일","월","화","수","목","금","토"],
-		showOn: "button",
-		buttonImage: '../images/calendar.gif',
-		buttonImageOnly: true,
-		dateFormat: 'yy-mm-dd',
-		changeYear: true,
-		changeMonth: false
-
-	};
 	
 	$(function() {
 		$('.datepicker').datepicker(option);
@@ -117,22 +106,22 @@
 		<input type="hidden" name="notice_id" id="notice_id" value="${row.notice_id}">
 		<table class="vw" cellspacing="0" cellpadding="0" border="0" style="width: 100%;margin-bottom: 10px;">
 			<tr>
-				<th class="tdt tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;">작성자</th>
-				<td class="tdt" >${row.reg_id }</td>
+				<th style="color:#0100FF; width: 150px;">작성자</th>
+				<td >${row.reg_id }</td>
 			</tr>
 			<tr>
-				<th class="tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;" label="subject">제목</th>
+				<th style="color:#0100FF; width: 150px;" label="subject">제목</th>
 				<td ><input type="text" name="subject" id="subject" value="${row.subject }" valid="notempty" style="width: 90%;"></td>
 			</tr>
 			<tr>
-				<th class="tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;"  label="stt_dt"><span  label="end_dt">공지기간</span></th>
+				<th style="color:#0100FF; width: 150px;"  label="stt_dt"><span  label="end_dt">공지기간</span></th>
 				<td >
 					<input type="text" class="datepicker" name="stt_dt" id="stt_dt" value="${row.stt_dt }" readonly="readonly" valid="notempty,rangedate:stt_dt:end_dt" style="100px;" > ~
 					<input type="text" class="datepicker" name="end_dt" id="end_dt" value="${row.end_dt }" readonly="readonly" valid="notempty,rangedate:stt_dt:end_dt" style="100px;" > 
 				</td>
 			</tr>
 			<tr>
-				<th class="tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;" label="ir1">내용</th>
+				<th style="color:#0100FF; width: 150px;" label="ir1">내용</th>
 				<td height="300" >
 					<div style="overflow: hidden; height: 337px;">
 						<textarea name="ir1" id="ir1" title="내용" style="width:100%; height:300px; display:none;" valid="notempty">${row.CONTENTS }</textarea>
@@ -145,8 +134,8 @@
 		<div style="float: right; cursor: pointer;padding-right: 25px;" onclick="addAttach()">추가</div>
 		<table class="vw" cellspacing="0" cellpadding="0" border="0" style="clear:both; width: 100%; margin-top: 10px;margin-bottom: 20px;">
 			<tr>
-				<th class="tdt tdl ui-state-default ui-th-column ui-th-ltr" style="color:#0100FF; width: 150px;" label="attach">첨부파일</th>
-				<td class="tdt" style="color:#6799FF; ">
+				<th style="color:#0100FF; width: 150px;" label="attach">첨부파일</th>
+				<td style="color:#6799FF; ">
 					<c:forEach var="row" items="${rows }">
 						<div style="margin: 2px;" class="${row.file_id}">
 							<div style="float: left; width: 87%;">${row.file_name }<input type="hidden" name="del_file_id" id="${row.file_id}" value=""></div>
@@ -161,7 +150,7 @@
 	</form>
 	<div class="attachTpl" style="display: none; padding: 1px;">
 		<input type="file" name="attach"  style="width: 87%;float: left;margin: 2px;" valid="ext:jpg:png:xls:doc:ppt:xlsx:docx:pptx:pdf">
-		<div  style="float: right; padding-right: 20px; cursor: pointer; margin: 2px;" onclick="delAttach()" >삭제</div>
+		<div  style="float: right; padding-right: 20px; cursor: pointer; margin: 2px;" onclick="$($(this).parent()).remove()" >삭제</div>
 	</div>
 	<div>
 		<div id="btn_list" class="btn"  style="cursor:pointer; float: right; " onclick="list()">목록</div>

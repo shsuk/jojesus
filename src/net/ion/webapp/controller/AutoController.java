@@ -25,6 +25,10 @@ public class AutoController extends DefaultAutoController {
 	protected static final Logger LOGGER = Logger.getLogger(AutoController.class);
 
 
+	@RequestMapping(value = "/main.sh")
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return super.main(request, response);
+	}
 	@RequestMapping(value = "/at.sh")
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return super.execute(request, response);

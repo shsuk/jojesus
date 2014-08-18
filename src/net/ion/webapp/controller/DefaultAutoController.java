@@ -20,6 +20,13 @@ public class DefaultAutoController extends DefaultController{
 	protected TestService testService;
 	protected ServletRequestUtils sRU;
 
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		if(response.isCommitted()) return null;
+
+		//response.setHeader("Content-Type", "text/javascript;charset=utf-8");
+		return new ModelAndView("layout");
+	}
+
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		if(response.isCommitted()) return null;
 

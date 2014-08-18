@@ -13,7 +13,10 @@ input, select, textarea {
     border:1px solid #B6B5DB;color:#002266;
     height: 20px;
 }
-img{vertical-align: middle;}
+.checkbox{
+	height: 14px;vertical-align: middle;
+}
+img{vertical-align: middle; border: 0px;}
 a:link    {font-family: 'Malgun Gothic', sans-serif, "Dotum", "Gulim", "Arial";  color:#999999; text-decoration: none}
 a:visited {font-family: 'Malgun Gothic', sans-serif,"Dotum", "Gulim", "Arial";  color:#999999; text-decoration: none}
 input.text { margin-bottom:10px; width:95%; padding: .4em; }
@@ -25,26 +28,45 @@ img{border:0;}
 .f_l{ float: left; }
 .c_b{clear: both;}
 .w_100{width:100%;}
-.p_5{padding-bottom: 5px;}
+.p_1{padding: 1px;}
+.p_2{padding: 2px;}
+.p_3{padding: 3px;}
+.p_5{padding: 5px;}
 .pb_5{padding-bottom: 5px;}
+.m_3{margin: 3px;}
+.m_5{margin: 5px;}
 .pt_5{padding-top: 5px;}
-.c_p{cursor: pointer;}
 .o_h{overflow: hidden;}
 .to_h{white-space:nowrap;}
-table {cellspacing:0; cellpadding:0; border:0; }
+.link{cursor: pointer; color:#0000DB;}
+.border{border: 1px solid #c5dbec;}
+table {cellspacing:0; cellpadding:0; border: 0px; }
 table th {height:25px;}
 table td {height:25px;}
-table.bd {border-collapse: collapse; width: 100%; margin-top: 0px; margin-bottom: 5px;border-left:1px solid #a6c9e2;}
-table.bd th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; border-top:1px solid #a6c9e2;background-color: #ffffff;}
-table.bd td {padding:1px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
-
-table.vw {border-collapse: collapse; width: 100%; margin-top: 0px; margin-bottom: 5px;border-left:1px solid #a6c9e2;}
-table.vw th {padding:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2; border-top:1px solid #a6c9e2;background-color: #ffffff;}
-table.vw td {padding:3px;padding-left:3px; border-bottom:1px solid #a6c9e2;border-right:1px solid #a6c9e2;}
-table.vw th.tdl {padding:3px;padding-left:3px; border-left:1px solid #a6c9e2;}
-table.vw th.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
-table.vw td.tdl {padding:3px;padding-left:3px; border-left:1px solid #a6c9e2;}
-table.vw td.tdt {padding:3px;padding-left:3px; border-top:1px solid #a6c9e2;}
+table.lst {border-collapse: collapse; width: 100%; margin-top: 0px; border: 1px solid #c5dbec;}
+table.lst th {
+	padding:3px; 
+	background: url("ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #dfeffc;
+    border: 1px solid #c5dbec;
+    color: #2e6e9e;
+    font-weight: bold;
+}
+table.lst td {
+	padding:1px; padding-left:3px;padding-right:3px;
+    border: 1px solid #c5dbec;
+}
+table.vw {border-collapse: collapse; width: 100%; margin-top: 0px; border: 1px solid #c5dbec;}
+table.vw th {
+	padding:3px; 
+	background: url("ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #dfeffc;
+    border: 1px solid #c5dbec;
+    color: #2e6e9e;
+    font-weight: bold;
+}
+table.vw td {
+	padding:3px; 
+    border: 1px solid #c5dbec;
+}
 
 .btn_sm {
     -moz-border-bottom-colors: none;

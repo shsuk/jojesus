@@ -111,14 +111,14 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 		
 		for(int i=1; i<count; i++){
 			LinkedCaseInsensitiveMap<Object> data = new LinkedCaseInsensitiveMap<Object>();
-			String key = rsmd.getColumnLabel(i);
+			String key = rsmd.getColumnLabel(i).toLowerCase();
 			
 			data.put("label", key);
-			data.put("name", rsmd.getColumnName(i));
+			data.put("name", rsmd.getColumnName(i).toLowerCase());
 			//data.put("schema", rsmd.getSchemaName(i));
 			//data.put("catalog", rsmd.getCatalogName(i));
 			//data.put("table", rsmd.getTableName(i));
-			data.put("type", rsmd.getColumnTypeName(i));
+			data.put("type", rsmd.getColumnTypeName(i).toLowerCase());
 			data.put("size", rsmd.getColumnDisplaySize(i));
 			data.put("precision", rsmd.getPrecision(i));
 			data.put("scale", rsmd.getScale(i));

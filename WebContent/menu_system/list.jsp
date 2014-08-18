@@ -16,6 +16,7 @@
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="commonUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 	
 	var url = 'list_load.jsp';
@@ -71,12 +72,13 @@
 	}
 	
 	function editMenu(obj){
-		dialog.dialog( "open" );
 		
 		var menu_id = $(obj).attr('menu_id');
 		$('#menu_detail').load('view.jsp',{menu_id: menu_id}, function(){
 			$( "#order_no" ).spinner({ min: 1 });
-		}).show();
+			dialog.dialog( "open" );
+			$('[role=dialog]').css('z-index', 999999);
+		});
 		
 	}
 	function addSubMenu(menu_id, level){
@@ -115,28 +117,17 @@
 	}
 	
 	function form_submit(){	
+		var url = 'update.jsp';
 		var form = $('#menu_form');
 
 		//폼 정합성 체크
-		//var isSuccess = $.valedForm($('[valid]',form));
-		//if(!isSuccess) return false;	
-		var page_access_group = '';
-		var page_access_group_view = $('input:checked[name=page_access_group_view]');
 		
-		for(var i=0; i<page_access_group_view.length; i++){
-			page_access_group += ',' + $(page_access_group_view[i]).val();
-		}
-		page_access_group = page_access_group.substring(1);
-		$('[name=page_access_group]').val(page_access_group);
-		
-		var formData =$(form).serializeArray();
-		
-
-		var url = 'update.jsp';
-		if(!valid('#menu_form')){
+		if(!valid(form)){
 			return;
 		};
-		mask();
+		
+
+		var formData =$(form).serializeArray();
 		
 		$.post(url, formData, function(response, textStatus, xhr){
 
@@ -152,52 +143,51 @@
 				}
 			}
 			
-			mask_off();
 		});
 	}
 </script>
 </head>
 <body >
+<div id="menu_detail" style=""></div>
 
 <c:import url="menu.jsp">
 	<c:param name="current_menu" value="me01-1"/>
 </c:import>
-
 
 <div id="main_body">
 	<div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="padding: 3px;width: 170px;">
 		<b style="font-size: 14px;padding: 20px;">메뉴목록</b>
 	</div>
 
-	<table class="bd" border="0" style="width: 100%;margin: 0px;">
+	<table class="lst" >
 		<colgroup>
 			<col width="300">
 			<col width="*">
 			<col width="100">
 			<col width="60">
-			<col width="120">
+			<col width="40">
 			<col width="17">
 		</colgroup>
 		<thead>
 			<tr>
-				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴명</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴경로</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">메뉴아이디</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr">순서</th>
-				<th class="ui-state-default ui-th-column ui-th-ltr"><span id="btn_save" class="btn_sm" style=" cursor:pointer;" onclick="addSubMenu('root', '1')">메인메뉴등록</span></th>
-				<th class="ui-state-default ui-th-column ui-th-ltr"></th>
+				<th>메뉴명</th>
+				<th>메뉴경로</th>
+				<th>메뉴아이디</th>
+				<th>순서</th>
+				<th><span id="btn_save" class="" style=" cursor:pointer;" onclick="addSubMenu('root', '1')" title="메인메뉴 추가"><img src="add-icon.png"></span></th>
+				<th></th>
 			</tr>
 		</thead>
 	</table>
 
 	<div id="list_contents" style=" height:600px; overflow-y: scroll;">
-		<table class="bd" border="0" style="width: 100%;margin: 0px;">
+		<table class="lst" border="0" style="width: 100%;margin: 0px;" cellspacing="0" cellpadding="0">
 			<colgroup>
 				<col width="300">
 				<col width="*">
 				<col width="100">
 				<col width="60">
-				<col width="120">
+				<col width="40">
 			</colgroup>
 			<tbody>
 				<tr id="root"  class="root_sub sub_menu" dep="1">
@@ -207,7 +197,6 @@
 	</div>
 	
 	<div id="root__sub"></div>
-	<div id="menu_detail" style="display:none;"></div>
 </div>
 </body>
 </htm>

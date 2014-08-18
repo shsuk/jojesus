@@ -36,7 +36,7 @@
 	;
 
 /* {
-	id:'row', singleRow="true"
+	id:'row', action:'i,u', singleRow="true"
 } */
 	SELECT  t1.*, LAST_INSERT_ID() dd, :session.test test
 	FROM voj_board t1
@@ -61,3 +61,14 @@
 	LEFT JOIN attach_tbl t2 ON t1.gal_id = t2.gal_id 
 	WHERE bd_cat='img' 
 ;
+
+//====================================================
+/* {
+ 	id:'rows', action:'test', singleRow="true"
+ } */
+	SELECT *
+	FROM code_tbl
+	ORDER BY rid desc
+	LIMIT 0,100
+;
+
