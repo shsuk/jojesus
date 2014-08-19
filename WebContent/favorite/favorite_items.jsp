@@ -27,12 +27,27 @@
 	</tr>
 </table>
 <table class="lst" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
+	<colgroup>
+		<col width="40">
+		<col width="100">
+		<col width="*">
+		<col width="50">
+	</colgroup>
 	<tr>
-		<th width="30"><input type="checkbox" class="check_all" name="item_list"></th>
+		<th><input type="checkbox" class="check_all" name="org_items"></th>
 		<th>자재코드</th>
 		<th>자재명</th>
 		<th>단위</th>
 	</tr>
+</table>
+
+<table class="lst" border="0" cellspacing="0" cellpadding="0" >
+	<colgroup>
+		<col width="40">
+		<col width="100">
+		<col width="*">
+		<col width="50">
+	</colgroup>
 	<tbody id="item_list">
 	<c:forEach var="row" items="${rows }" varStatus="status">
 		<tr class="row_${status.index + 1}">
@@ -53,4 +68,5 @@
 	</c:forEach>
 	</tbody>
 </table>
+
 				

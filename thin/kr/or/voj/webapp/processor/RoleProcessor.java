@@ -14,19 +14,18 @@ public class RoleProcessor implements ProcessorService{
 
 	public  Object execute(ProcessorParam processorParam) throws Exception {
 		HttpSession session = ((HttpServletRequest)processorParam.getRequest()).getSession();
-		Map<String,Object> roleMap = (Map<String,Object>)session.getAttribute("ROLE_MAP");
+		String key = session.getId() + "@role_cd";
+
+		Map<String,Object> roleMap = (Map<String,Object>)ProcessorServiceFactory.getCache(key);
 		
 		if(roleMap==null){
-			roleMap = init(session, processorParam);
-		}else if( (new Date()).getTime() - (Long)session.getAttribute("ROLE_MAP_INIT_TIME") > 60000){
-			roleMap = init(session, processorParam);	
-			//System.out.println(new Date());
+			roleMap = get( processorParam);
+			ProcessorServiceFactory.setCache(key, roleMap);
 		}
-		//System.out.println(new Date());
 		
 		return roleMap;
 	}
-	private Map<String,Object> init(HttpSession session, ProcessorParam processorParam) throws Exception {
+	private Map<String,Object> get(ProcessorParam processorParam) throws Exception {
 		Map<String,Object> roleMap = new HashMap<String, Object>();
 		
 		Map<String,Object> map = (Map<String,Object>)ProcessorServiceFactory.getProcessorService("db").execute(processorParam);
@@ -35,9 +34,6 @@ public class RoleProcessor implements ProcessorService{
 		for(Map<String, Object> row : list){
 			roleMap.put(row.get("role_cd")+"."+row.get("page_url"), row);
 		}
-		
-		session.setAttribute("ROLE_MAP", roleMap);
-		session.setAttribute("ROLE_MAP_INIT_TIME", (new Date()).getTime());
 		
 		return roleMap;
 		

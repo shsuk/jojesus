@@ -23,6 +23,7 @@
 			var srcId = $(e.target).attr('name');
 			$('[type=checkbox]',$('#'+srcId)).prop('checked', $(e.target).prop('checked'));
 		});
+		add();
 	});
 	function search(){
 		var form = $('#search_form');
@@ -115,7 +116,7 @@
 			}
 		</sp:sp>
 
-		<div id="main_layer" style="margin: 0 auto; padding: 0px; width: 100%; min-width: 1000px; ">
+		<div id="main_layer" style="margin: 0 auto; padding: 0px; width: 100%; min-width: 900px; ">
 				<table  class="lst" style="width: 100%;">
 					<tr>
 						<td  style="width: 150px;" valign="top">
@@ -143,14 +144,6 @@
 										<form id="main_form" action="action.jsp" >
 											<div id="favorite_items" >
 												
-												<table class="lst" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-													<tr>
-														<th width="30"><input type="checkbox" id="check_all" name="check_all"></th>
-														<th>자재코드</th>
-														<th>자재명</th>
-														<th>단위</th>
-													</tr>
-												</table>
 											</div>
 										</form>
 									</td>
@@ -172,12 +165,26 @@
 										</form>
 										
 										<table class="lst" border="0" cellspacing="0" cellpadding="0" >
+											<colgroup>
+												<col width="40">
+												<col width="100">
+												<col width="*">
+												<col width="50">
+											</colgroup>
 											<tr>
-												<th width="30"><input type="checkbox" class="check_all" name="org_items"></th>
+												<th><input type="checkbox" class="check_all" name="org_items"></th>
 												<th>자재코드</th>
 												<th>자재명</th>
 												<th>단위</th>
 											</tr>
+										</table>
+										<table class="lst" border="0" cellspacing="0" cellpadding="0" >
+											<colgroup>
+												<col width="40">
+												<col width="100">
+												<col width="*">
+												<col width="50">
+											</colgroup>
 											<tbody  id="org_items"></tbody>
 										</table>
 									</td>

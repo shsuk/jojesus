@@ -39,6 +39,12 @@
 			<c:when test="${type=='select'}">
 				&lt;tag:select name="${name }" groupId="${name }" selected="${'$'}{row.${name }}" ${valid }/>
 			</c:when>
+			<c:when test="${type=='check'}">
+				&lt;tag:check name="${name }" groupId="${name }" checked="${'$'}{row.${name }}" ${valid }/>
+			</c:when>
+			<c:when test="${type=='radio'}">
+				&lt;tag:radio name="${name }" groupId="${name }" checked="${'$'}{row.${name }}" ${valid }/>
+			</c:when>
 			<c:when test="${type=='files'}">
 				<tag:files name="${name }" style="width: 90%;"/>
 			</c:when>

@@ -101,6 +101,9 @@
 
 <script>
 	$(function() {
+		
+		$('div', $('#carousel')).css({"background-color":''});
+		
 		var carousel = new Carousel("#carousel", function(){
 			setTitle(carousel.getIndex());
 		});
@@ -123,6 +126,7 @@
 		$('div',$('.bible')).click(function(e){
 			$(e.currentTarget).toggleClass('bible_bg_s');
 		});
+		$('span', $('#carousel')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
 	});
 	
 	/**

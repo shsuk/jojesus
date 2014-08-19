@@ -26,6 +26,8 @@
 <script type="text/javascript">
 	
 	$(function() {
+		$('div', $('#body_main')).css({"background-color":''});
+
 		var menuid = "m2";
     	setCurrentMenu(menuid);
 
@@ -47,7 +49,7 @@
 		$('div',$('.bible')).click(function(e){
 			$(e.currentTarget).toggleClass('bible_bg_s');
 		});
-	
+		$('span', $('#body_main')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
 	});
 	
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import kr.or.voj.webapp.db.DefaultDaoSupportor;
+import kr.or.voj.webapp.utils.CacheService;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.lang.StringUtils;
@@ -37,6 +38,15 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 	private static String queryFullPath = null;
 	private static String repositoryPath = null;
 	private static String defaultDataSourceName = null;
+	private static CacheService cacheService = null;
+
+	public static Object getCache(String key) {
+		return cacheService.get(key);
+	}
+	public static void setCache(String key, Object data) {
+		
+		cacheService.put(key, data);
+	}
 	
 	public static String getRepositoryPath() {
 		new File(repositoryPath).mkdirs();
@@ -79,6 +89,10 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 	 * 프로세서 서비스를 초기화 한다.
 	 */
 	public static void init(){
+
+		cacheService = new CacheService();
+		cacheService.start();
+
 		if(processorServiceMap.size() > 0){
 			//return;
 		}
@@ -158,11 +172,16 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		for(String key :  parameterMap.keySet()){
 			String[] vals = parameterMap.get(key);
 			params.put(key, vals[0]);
-			
+			String allVal = "";
 			for(int i=0; i<vals.length; i++){
 				String val = vals[i];
 				params.put(key+"[" +i + "]", val);
+				allVal += "," + val;
 			}
+			
+			allVal = allVal.length() > 0 ? allVal.substring(1) : allVal;
+			params.put(key+"[]",allVal);
+			
 		}
 		
 		CaseInsensitiveMap sessionMap = new CaseInsensitiveMap();

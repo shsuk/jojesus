@@ -5,10 +5,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 public class DefaultLowerCaseMap<K,V> extends LinkedCaseInsensitiveMap implements Map{

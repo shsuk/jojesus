@@ -15,19 +15,10 @@
 <c:set var="secederR" value="${empty(secederRecord) ? ',' : secederRecord}" />
 <c:set var="secederF" value="${empty(secederField) ? '=' : secederField}" />
 <c:set var="codeList" value="${fn:split(codes, secederR)}" />
-<script type="text/javascript">
-	$(function() {
-		$('input[name=${name}]').change(function(){
-			var ctl = $('input[name=${name}]:checked');
-			changeCheck(ctl,'${name}');
-		});
-	});
-</script>
+
 <c:if test="${!empty(valid)}">
 	<c:set var="valid">valid="${valid }"</c:set>
 </c:if>
-
-<input class="check_hidden" name="${name}" id="${name}" value="${checked }" type="hidden" ${valid }>
 
 <c:set var="checked" value=",${fn:replace(checked, ' ', '')}," />
 
@@ -36,7 +27,7 @@
 	<c:set var="val" value="${fn:trim(code[0])}" />
 	<c:set var="sel_val" value=",${val}," />
 	<c:if test="${!view }">
-		<input name="${name}" id="${name}_${val }"  type="checkbox" value="${val }" ${att } ${fn:contains(checked, sel_val) ? 'checked' : ''} style="float: left;"  ${attr } ><label style="float: left;line-height: 20px;" for="${name}_${val }">${fn:trim(code[1])}&nbsp;&nbsp;</label>
+		<input name="${name}" id="${name}_${val }"  type="checkbox" value="${val }" ${att } ${fn:contains(checked, sel_val) ? 'checked' : ''}  ${valid }  style="float: left;"  ${attr } ><label style="float: left;line-height: 20px;" for="${name}_${val }">${fn:trim(code[1])}&nbsp;&nbsp;</label>
 	</c:if>
 	<c:if test="${view && fn:contains(checked, sel_val) }">
 		${fn:trim(code[1])}&nbsp;&nbsp;

@@ -7,12 +7,11 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.el.Expression;
 import javax.servlet.jsp.el.FunctionMapper;
-import javax.servlet.jsp.el.VariableResolver;
-
 import org.apache.commons.el.ExpressionEvaluatorImpl;
 import org.apache.commons.el.VariableResolverImpl;
 import org.apache.taglibs.standard.lang.jstl.test.PageContextImpl;
 
+@SuppressWarnings("deprecation")
 public class ELUtil {
 
 

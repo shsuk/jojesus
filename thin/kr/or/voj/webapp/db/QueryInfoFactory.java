@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.voj.webapp.processor.ProcessorServiceFactory;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -25,7 +26,7 @@ public class QueryInfoFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Map<String, JSONObject> findQuerys(String path, CaseInsensitiveMap params) throws Exception {
+	public static Map<String, JSONObject> findQuerys(String path) throws Exception {
 		if(queryInfoMap==null){
 			queryInfoMap = new ListOrderedMap();
 			queryChangeMap = new ListOrderedMap();
@@ -120,11 +121,72 @@ public class QueryInfoFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String findQuery(String path, String id, CaseInsensitiveMap params) throws Exception {
+	public static String findQuery(String path, String id) throws Exception {
 		
-		String query = findQuerys(path, params).get(id).getString("query");
+		String query = findQuerys(path).get(id).getString("query");
 		
 		return query;
+	}
+	public static JSONArray findQueryOfAction(String path, String action) throws Exception {
+		JSONArray result = new JSONArray();
+		Map<String, JSONObject> queryInfos = QueryInfoFactory.findQuerys(path);
+		
+		for(String key : queryInfos.keySet()){
+			JSONObject queryInfo = queryInfos.get(key);
+			Map<String, String> queryAction = (Map<String, String>)queryInfo.get("action");
+			//쿼리에 액션이 존재하는 경우만 체크하고 없는 경우는 무조건 실행
+			if(StringUtils.isNotEmpty(action) && queryAction!=null){
+				if(!queryAction.containsKey(action)){//같은 액션만 실행
+					continue;
+				}
+			}
+
+			if(getBoolean("subQuery", queryInfo, false)){
+				continue;
+			}
+			
+			String query = queryInfo.getString("query");
+			query = makeQuery(key, query, queryInfos);
+			Map<String, Object> info = new HashMap<String, Object>();
+			info.putAll(queryInfo);
+			info.put("query", query);
+			result.add( info);
+		}
+		return result;
+	}
+	/**
+	 * 서브쿼리를 찾아 완전한 쿼리로 만들어 준다.
+	 * @param queryId
+	 * @param query
+	 * @param queryInfos
+	 * @return
+	 * @throws Exception
+	 */
+	public static String makeQuery(String queryId, String query, Map<String, JSONObject> queryInfos) throws Exception {
+		String[] subQueryIds = StringUtils.substringsBetween(query, "@{", "}");
+		
+		if(subQueryIds==null){
+			return query;
+		}
+		
+		for(String subQueryId : subQueryIds){
+			JSONObject queryInfo = queryInfos.get(subQueryId);
+			if(queryInfo==null){
+				throw new RuntimeException(queryId + "쿼리에서 사용하는 서브쿼리 " + subQueryId + "가 존재하지 않습니다.");
+			}
+			String subQuery = queryInfo.getString("query");
+			query = StringUtils.replace(query, "@{"+subQueryId+"}", subQuery);
+		}
+		
+		return query;
+	}
+	public static boolean getBoolean(String key, JSONObject queryInfo, boolean defaultValue) throws Exception {
+		return queryInfo.containsKey(key) ? queryInfo.getBoolean(key) : defaultValue;
+	}
+	
+	public static String getString(String key, JSONObject queryInfo, String defaultValue) throws Exception {
+		Object val = queryInfo.get(key);
+		return val==null ? "" : val.toString();
 	}
 
 }

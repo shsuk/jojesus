@@ -1,23 +1,30 @@
 package net.ion.webapp.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.voj.webapp.processor.ProcessorServiceFactory;
 import net.ion.webapp.controller.DefaultAutoController;
 import net.ion.webapp.utils.CookieUtils;
 import net.ion.webapp.utils.DbUtils;
 import net.ion.webapp.utils.JobLogger;
 import net.ion.webapp.utils.LowerCaseMap;
 
+import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,9 +32,33 @@ public class AutoController extends DefaultAutoController {
 	protected static final Logger LOGGER = Logger.getLogger(AutoController.class);
 
 
-	@RequestMapping(value = "/main.sh")
-	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return super.main(request, response);
+	@RequestMapping(value = "/{system}/main.sh")
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response, @PathVariable("system") String system) throws Exception {
+		return new ModelAndView(system + "/main");
+	}
+	@RequestMapping(value = "/{path}/api.sh")
+	@ResponseBody
+	public Map<String, Object> api(HttpServletRequest request, HttpServletResponse response, @PathVariable("path") String path, @RequestParam("act") String action) throws Exception {
+		Map<String, Object> resultSet = null;
+		try {
+			String queryPath = path.replace('_', '/');
+			List<String> processorList = new ArrayList<String>();
+			processorList.add("db");
+			CaseInsensitiveMap params = new CaseInsensitiveMap();
+			resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, request);
+			
+			if(resultSet.size()>0){
+				resultSet.put("sucess", true);
+			}else{
+				resultSet.put("sucess", false);
+				resultSet.put("message", "패스나 데이타에 오류가 있습니다.");				
+			}
+		} catch (Exception e) {
+			resultSet = new HashMap<String, Object>();
+			resultSet.put("sucess", false);
+			resultSet.put("message", e.toString());
+		}
+		return resultSet;
 	}
 	@RequestMapping(value = "/at.sh")
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -79,11 +110,7 @@ public class AutoController extends DefaultAutoController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/api.sh")
-	public ModelAndView api(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return super.api(request, response);
-	}
+/*
 	@RequestMapping(value = "/view.sh")
 	public void view(HttpServletRequest request, HttpServletResponse response){
 		String type = request.getParameter("type");
@@ -105,5 +132,5 @@ public class AutoController extends DefaultAutoController {
 			e.printStackTrace();
 		}
 	}
-
+*/
 }

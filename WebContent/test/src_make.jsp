@@ -56,7 +56,8 @@
 					<tag:check_array name="${link}" codes="link=링크"  checked="${param[link] }" />
 				</td>
 				<td>
-					<tag:check_array name="${valid}" codes="notempty=필수입력,date=날짜,rangedate=기간날짜,ext:jpg:jpeg:png:gif=업로드 ext"  checked="${param[valid] }" />
+					<c:set var="valids">${valid}[]</c:set>
+					<tag:check_array name="${valid}" codes="notempty=필수입력,date=날짜,rangedate=기간날짜,ext:jpg:jpeg:png:gif=업로드 ext"  checked="${req[valids] }" />
 				</td>
 				<td><tag:radio_array name="${keyValid}" codes="alpa=영문,numeric=숫자,alpa_numeric=영숫자"  checked="${param[keyValid] }" /></td>
 			</tr>
@@ -141,7 +142,8 @@
 <!-- ************* -->
 <!--   소스  출력  -->
 <!-- ************* -->
-<textarea style="width:100%; height:400px; ">
+<form id="src_form">
+<textarea style="width:100%; height:400px; " name="src">
 &lt;%@ page contentType="text/html; charset=utf-8"%>
 &lt;%@ page language="java" pageEncoding="UTF-8"%>
 &lt;%@ page trimDirectiveWhitespaces="true" %>
@@ -209,3 +211,4 @@
 {${fn:substring(paramData, 1, fn:length(paramData))}}
 -->
 </textarea>
+</form>

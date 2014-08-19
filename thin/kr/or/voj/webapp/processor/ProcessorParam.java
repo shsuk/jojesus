@@ -17,7 +17,17 @@ public class ProcessorParam {
 	private Map<String, Object> context;
 	private ServletRequest request;
 	private List<String> processorList;
+	private Map<String, Object> processorResult;
 	
+	public Map<String, Object> getProcessorResult() {
+		return processorResult;
+	}
+	public Object getProcessorResultByid(String key) {
+		return processorResult.get(key);
+	}
+	public void setProcessorResult(Map<String, Object> processorResult) {
+		this.processorResult = processorResult;
+	}
 	public void setProcessorList(List<String> processorList) {
 		this.processorList = processorList;
 	}
@@ -60,5 +70,13 @@ public class ProcessorParam {
 	}
 	public Map<String, Object> getContext() {
 		return context;
+	}
+	public void setAttribute(String key, Object value){
+		context.put(key, value);
+		
+	}
+	public Object getAttribute(String key){
+		return context.get(key);
+		
 	}
 }

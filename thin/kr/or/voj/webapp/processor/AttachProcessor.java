@@ -14,7 +14,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.util.FieldUtils;
@@ -27,11 +26,6 @@ public class AttachProcessor implements ProcessorService{
 
 	private static final SimpleDateFormat YYYYMM_FORMAT = new SimpleDateFormat("yyyy_MM");
 
-	/**
-	 * 콘트롤명에 fname%1 fname%2와 같이 지정하면 fname의 리스트로 %뒤의 인덱스에 파일을 위치시켜 주고 없는 인덱스는 null로 채워준다.
-	 * 인덱스는 1부터 지정한다.
-	 * 지정하지 않는 경우 같은 이름은 순차적으로 넣는다.
-	 */
 	public  Object execute(ProcessorParam processorParam) throws Exception {
 		CaseInsensitiveMap params = processorParam.getParams();
 		HttpServletRequest request = (HttpServletRequest)processorParam.getRequest();
