@@ -10,14 +10,14 @@
 
 <head>
 <link href="../jquery/development-bundle/themes/redmond/jquery.ui.all.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="../jquery/jqGrid/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
+<link href="../jquery/jqGrid/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="../menu_system/contents.css" rel="stylesheet" type="text/css" />
 
 <script src="../jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
-<script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="../jquery/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="../jquery/jqGrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -137,8 +137,8 @@
 	</div>
 	<div style="margin-top: 20px;">
 		<tag:role type="save">
-			<div id="btn_add" class="btn"  style="cursor:pointer; float: right;" onclick="add()">등록</div>
 		</tag:role>
+			<div id="btn_add" class="btn"  style="cursor:pointer; float: right;" onclick="add()">등록</div>
 	</div>
 </div>
 </body>

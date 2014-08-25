@@ -12,14 +12,11 @@
 
 <head>
 <link href="../jquery/development-bundle/themes/redmond/jquery.ui.all.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="../menu_system/contents.css" rel="stylesheet" type="text/css" />
 
 <script src="../jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script src="../se/js/HuskyEZCreator.js" type="text/javascript"  charset="utf-8"></script>

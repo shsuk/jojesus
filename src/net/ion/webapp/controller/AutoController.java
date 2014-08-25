@@ -19,6 +19,7 @@ import net.ion.webapp.utils.LowerCaseMap;
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+
 @Controller
 public class AutoController extends DefaultAutoController {
 	protected static final Logger LOGGER = Logger.getLogger(AutoController.class);
-
 
 	@RequestMapping(value = "/{system}/main.sh")
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response, @PathVariable("system") String system) throws Exception {
@@ -45,7 +48,7 @@ public class AutoController extends DefaultAutoController {
 			List<String> processorList = new ArrayList<String>();
 			processorList.add("db");
 			CaseInsensitiveMap params = new CaseInsensitiveMap();
-			resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, request);
+			resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, "", request, response);
 			
 			if(resultSet.size()>0){
 				resultSet.put("sucess", true);

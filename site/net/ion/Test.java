@@ -1,37 +1,29 @@
 package net.ion;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.hyperic.sigar.cmd.Df;
-import org.hyperic.sigar.cmd.Shell;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class Test {
 
+	@Autowired
+	SqlMapClient sqlMapClient;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)throws Exception {
-		String format = "%s|%s|%s|%s|%s|%s|%s";
 		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(baos);
-		Shell shell = new Shell();
-		shell.init("sigar", ps, ps);
-		
-		try {
-			Df df = new Df(shell);
-			df.setOutputFormat(format);
-			df.processCommand(args);
-			
-			String data = baos.toString();
-			
-			System.out.println(data);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
+	}
+	public void test()throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String[] list = {"022ed2cd-99f4-41ae-ac69-b5580ffe6672","0577dd81-7d2e-4c8d-95a4-7e2657570979"};
+		
+		params.put("file_id", list);
+		Object obj = sqlMapClient.queryForList("test.test", params);
 
 	}
 

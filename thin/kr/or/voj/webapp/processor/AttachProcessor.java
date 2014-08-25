@@ -89,8 +89,8 @@ public class AttachProcessor implements ProcessorService{
 				paths.add(path);
 			}
 			parameterMap.put(key, ids.toArray(new String[0]));
-			parameterMap.put(key+".name", names.toArray(new String[0]));
-			parameterMap.put(key+".path", paths.toArray(new String[0]));
+			parameterMap.put(key+"_name", names.toArray(new String[0]));
+			parameterMap.put(key+"_path", paths.toArray(new String[0]));
 		}
 		//request.getParameterMap();
 		FieldUtils.setProtectedFieldValue("multipartParameters", mRequest, parameterMap);

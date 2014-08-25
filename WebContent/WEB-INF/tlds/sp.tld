@@ -41,6 +41,13 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
+			<name>loopId</name>
+			<description>iBatis에서 사용할 배열 구조를 만들어줌</description>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
 			<name>actionFild</name>
 			<description>쿼리실행 그룹정보가 있는 필드명</description>
 			<required>false</required>

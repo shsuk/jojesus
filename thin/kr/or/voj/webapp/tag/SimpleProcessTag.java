@@ -28,12 +28,18 @@ public class SimpleProcessTag extends BodyTagSupport {
 	String queryPath = null;
 	String actionFild = null;
 	String action = null;
+	List<String> processorList = null;
+	String loopId = null;
 	boolean exception  = true;
+	
+	public void setLoopId(String loopId) {
+		this.loopId = loopId;
+	}
+
 	public void setException(boolean exception) {
 		this.exception = exception;
 	}
 
-	List<String> processorList = null;
 	
 	public void setProcessorList(String processorList) {
 		this.processorList = new ArrayList<String>();
@@ -82,7 +88,7 @@ public class SimpleProcessTag extends BodyTagSupport {
 			//**************************************************
 			//				프로세서를 실행한다.
 			//**************************************************
-			Map<String, Object> resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, request);
+			Map<String, Object> resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, loopId, request, pageContext.getResponse());
 			
 			//결과를 페이지 컨텍스트와 JSON으로 request에 반환한다.
 			for(String key : resultSet.keySet()){

@@ -135,4 +135,10 @@
 
   SELECT FOUND_ROWS() cnt
 ;
-
+/* {
+	id:'row', action:'download', singleRow="true"
+} */
+	SELECT *
+	FROM sys_notice_file_m
+	WHERE file_id= :file_id 
+	;

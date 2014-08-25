@@ -1,12 +1,14 @@
 package kr.or.voj.webapp.processor;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
@@ -129,6 +131,15 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		}
 	}
 	
+	public static Object getBean(Class cls){
+		String[] idList =applicationContext.getBeanNamesForType(cls);
+		
+		if(idList.length>0){
+			return applicationContext.getBean(idList[0]);
+		}
+		
+		return null;
+	}
 	public static ProcessorService getProcessorService(String method) {
 		return processorServiceMap.get(method);
 	}
@@ -140,12 +151,13 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		return daoSupportorMap.get(dataSourceName);
 	}
 	
-	public static Map<String, Object> executeMainTransaction(List<String> processorList, CaseInsensitiveMap params, String queryPath, String action, ServletRequest request) throws Exception{
-		ProcessorParam processorParam = new ProcessorParam();
+	public static Map<String, Object> executeMainTransaction(List<String> processorList, CaseInsensitiveMap params, String queryPath, String action, String loopId, ServletRequest request, ServletResponse response) throws Exception{
+		ProcessorParam processorParam = new ProcessorParam(loopId);
 		processorParam.setQueryPath(queryPath);
 		processorParam.setAction(action);
 		processorParam.setParams(params);
 		processorParam.setRequest(request);
+		processorParam.setResponse(response);;
 		processorParam.setProcessorList(processorList);
 		
 		return executeMainTransaction(processorParam);
@@ -158,20 +170,29 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 	}
 	public static CaseInsensitiveMap getReqParam(HttpServletRequest request){
 		CaseInsensitiveMap req = new CaseInsensitiveMap();
-		return setReqParam(request, req);
+		return setReqParam(request, req, null);
 		
 	}
-	public static CaseInsensitiveMap setReqParam(HttpServletRequest request, CaseInsensitiveMap params){
+	public static CaseInsensitiveMap setReqParam(HttpServletRequest request, CaseInsensitiveMap params, String loopId){
 		if(request==null || params==null){
 			return params;
 		}
 		
-		//request정보를 맵에 추가한다.
 		Map<String, String[]> parameterMap = request.getParameterMap();
+		
+		String[] loopValue = parameterMap.get(loopId);
+		List<Map<String, String>> loopList = new ArrayList<Map<String,String>>();
+		if(loopValue!=null){
+			for(int i=0; i<loopValue.length; i++){
+				loopList.add(new HashMap<String, String>());
+			}
+		}
+		//request정보를 맵에 추가한다.
 		
 		for(String key :  parameterMap.keySet()){
 			String[] vals = parameterMap.get(key);
 			params.put(key, vals[0]);
+			params.put(key+"_", vals);
 			String allVal = "";
 			for(int i=0; i<vals.length; i++){
 				String val = vals[i];
@@ -181,7 +202,22 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 			
 			allVal = allVal.length() > 0 ? allVal.substring(1) : allVal;
 			params.put(key+"[]",allVal);
+			params.put(key+"_all",allVal);
 			
+			if(loopValue==null){
+				continue;
+			}
+			
+			for(int i=0; i<loopValue.length; i++){
+				Map<String, String> map = loopList.get(i);
+				if(i<vals.length){
+					map.put(key, vals[i]);
+				}
+			}
+		}
+		
+		if(StringUtils.isNotEmpty(loopId)){
+			params.put("loop_", loopList);
 		}
 		
 		CaseInsensitiveMap sessionMap = new CaseInsensitiveMap();
@@ -204,5 +240,18 @@ public class ProcessorServiceFactory  implements ApplicationContextAware {
 		
 		return params;
 	}	
-
+	
+	public static Object executeQuery(String queryPath, String action, CaseInsensitiveMap params) throws Exception {
+		List<String> processorList = new ArrayList<String>();
+		processorList.add("db");
+		ProcessorParam processorParam = new ProcessorParam(null);
+		processorParam.setQueryPath(queryPath);
+		processorParam.setAction(action);
+		processorParam.setParams(params);
+		processorParam.setProcessorList(processorList);
+		Object obj = ProcessorServiceFactory.getProcessorService("db").execute(processorParam);
+		
+		return obj;
+	}
+	
 }

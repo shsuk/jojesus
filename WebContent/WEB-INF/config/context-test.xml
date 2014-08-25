@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
-		xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
-		xmlns:tx="http://www.springframework.org/schema/tx"
-		xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -16,16 +14,33 @@
 			</list>
 		</property>
 	</bean>
-
 	
-	<context:annotation-config />
- 
-	<context:component-scan base-package="kr.or.voj.webapp.processor"/>
+	<!-- IBATIS -->
 
-	<bean id="processorServiceFactory" class="kr.or.voj.webapp.processor.ProcessorServiceFactory" >
-		<property name="queryPath" value="/WEB-INF/sql"/>
-<!-- 		<property name="repositoryPath" value="/WEB-INF/sql"/> -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="WEB-INF/config/SqlMapConfig.xml" />
 	</bean>
 	
+	<!-- MYBATIS -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="kr.co.model"/>
+        <property name="mapperLocations" value="WEB-INF/sql/mapper/*.xml"/>
+    </bean>
+   
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="kr.or.voj.webapp.processor" />
+
+	<bean id="processorServiceFactory" class="kr.or.voj.webapp.processor.ProcessorServiceFactory">
+		<property name="queryPath" value="/WEB-INF/sql" />
+		<!-- <property name="repositoryPath" value="/WEB-INF/sql"/> -->
+	</bean>
+
 
 </beans>

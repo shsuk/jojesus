@@ -59,7 +59,6 @@ public class DBProcessor implements ProcessorService{
 		if(queryInfos==null){
 			return resultSet;
 		}
-
 		DefaultDaoSupportor defaultDaoSupportor = ProcessorServiceFactory.getDaoSupportor(null);
 		DefaultDaoSupportor daoSupportor = null;
 		//쿼리 목록에서 조건에 부합하는 쿼리를 순차적으로 실행한다.

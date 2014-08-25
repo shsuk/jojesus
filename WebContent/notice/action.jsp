@@ -5,9 +5,10 @@
 <%@ taglib prefix="sp" uri="/WEB-INF/tlds/sp.tld"%>
 
 
-<sp:sp queryPath="menu_system/notice" actionFild="action"  processorList="attach,db" exception="false">
+<sp:sp queryPath="notice" actionFild="action"  processorList="attach,mybatis" exception="false">
 	{
-		session.user_id:'test'
+		session.user_id:'test',
+		_start: ${param.rows*(param.page-1) }
 	}
 </sp:sp> 
 <c:choose>

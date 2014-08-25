@@ -78,6 +78,6 @@
 		document.location.href='../..' + $(menus[0]).attr('page_url');
 	}
 	<%//메뉴에 등록된 페이지이면서 권한이 없는 경우 접근불가%>
-	${access_row.access_menu>0 && hasAccess ? '' : 'document.location.href="http://naver.com";'}
+	//${access_row.access_menu>0 && hasAccess ? '' : 'document.location.href="http://naver.com";'}
 	
 </script>

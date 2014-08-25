@@ -62,8 +62,6 @@
 		<property name="key" value="${aes.key}"/>
 	</bean>
 	
-	<aop:aspectj-autoproxy/>	
-	<tx:annotation-driven transaction-manager="txManager"/>
 
  	<!-- maxActive를 ThreadPoolTaskExecutor Pool 사이즈 보다 충분히 크게 잡으세요. 
  		  오래 걸리는 작업이 많은 경우 작으면 웹에서 대기상태에가 발생할 수 있습니다. -->

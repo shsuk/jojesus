@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap	  
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"	  
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="menu">
+   	<select id="test"  parameterClass="hashmap" resultClass="hashmap">
+  		 select *
+  		 from sys_notice_file_m
+  		 where
+  		 <iterate property="file_id"  open="(" conjunction="or" close=")">
+   			file_id = #file_id[]#
+		</iterate>
+		
+	</select>
+   	<select id="test1"  parameterClass="hashmap" resultClass="hashmap">
+  		 select *
+  		 from sys_notice_file_m
+  		 where
+  		 <iterate property="file_id"  open="(" conjunction="or" close=")">
+   			file_id = #file_id[]#
+		</iterate>
+		
+	</select>
+	
+</sqlMap>

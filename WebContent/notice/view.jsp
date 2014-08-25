@@ -12,14 +12,11 @@
 
 <head>
 <link href="../jquery/development-bundle/themes/redmond/jquery.ui.all.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/css/ui.jqgrid.css"  rel="stylesheet" type="text/css" media="screen" />
-<link href="../jquery/jqgrid/plugins/ui.multiselect.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="../menu_system/contents.css" rel="stylesheet" type="text/css" />
 
 <script src="../jquery/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../jquery/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="../jquery/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-<script src="../jquery/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script src="../menu_system/commonUtil.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -49,8 +46,7 @@
 			}else{
 				alert("처리하는 중 오류가 발생하였습니다. \n문제가 지속되면 관리자에게 문의 하세요.\n");
 			}
-		}
-	);
+		});
 	}
 
 </script>
@@ -90,7 +86,7 @@
 			<th style="color:#0100FF; width: 150px;">첨부파일</th>
 			<td style="color:#6799FF; ">
 				<c:forEach var="row" items="${rows }">
-					<img src="../menu_system/attach.png"  ><a href="${row.file_path }">${row.file_name }</a>&nbsp;
+					<a href="download.jsp?file_id=${row.file_id }"><img src="../menu_system/attach.png"  >${row.file_name }</a>&nbsp;
 				</c:forEach>
 			</td>
 		</tr>
@@ -98,9 +94,9 @@
 
 	<div>
 		<div id="btn_list" class="btn"  style="cursor:pointer; float: right; " onclick="list()">목록</div>
-		<tag:role type="save">
 			<div id="btn_del" class="btn"  style="cursor:pointer; float: right; " onclick="del()">삭제</div>
 			<div id="btn_update" class="btn"  style="cursor:pointer; float: right; " onclick="edit()">수정</div>
+		<tag:role type="save">
 		</tag:role>
 	</div>
 </div>		

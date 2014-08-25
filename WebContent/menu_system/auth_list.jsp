@@ -22,7 +22,7 @@
 	var url = 'auth_list_load.jsp';
 	
 	$(function() {
-		loadSubMenu('#root');
+		//loadSubMenu('#root');
 		
 		<%//마우스 오버시 리스트 색상 변경%>
 		$('#main_body').on('mouseover','.ovr_sub_menu',
@@ -49,22 +49,22 @@
 			var ctl = $(e.currentTarget);
 			var isChecked = ctl.is(':checked');
 
-			var menu_id = ctl.attr('menu_id');
-			var upp_menu_id = ctl.attr('upp_menu_id');
-			var root_id = upp_menu_id=='root' ? 'root' : $('#'+upp_menu_id).attr('upp_menu_id');
+			var menu_id = ctl.attr('_menu_id');
+			var upp_menu_id = ctl.attr('_upp_menu_id');
+			var root_id = upp_menu_id=='root' ? 'root' : $('#'+upp_menu_id).attr('_upp_menu_id');
 			
 			if(isChecked){
 				$('.btn_acc',$('#'+menu_id)).prop('disabled',false);
 				$('.btn_acc',$('#'+menu_id)).prop('checked',true);//UI상에서 버튼권한 설정
-				$('.menu_ckeck[menu_id='+upp_menu_id+']').prop('checked',true).trigger('change');//상위메뉴 접근권한 설정
-				$('.menu_ckeck[menu_id='+root_id+']').prop('checked',true).trigger('change');//상위의 상위메뉴 접근권한 설정
+				$('.menu_ckeck[_menu_id='+upp_menu_id+']').prop('checked',true).trigger('change');//상위메뉴 접근권한 설정
+				$('.menu_ckeck[_menu_id='+root_id+']').prop('checked',true).trigger('change');//상위의 상위메뉴 접근권한 설정
 			}else{
 				$('.btn_acc',$('#'+menu_id)).prop('disabled',true);
 				$('.btn_acc',$('#'+menu_id)).prop('checked',false);//UI상에서 버튼권한 해제
-				var sub = $('.menu_ckeck[upp_menu_id='+menu_id+']');
+				var sub = $('.menu_ckeck[_upp_menu_id='+menu_id+']');
 				sub.prop('checked',false).trigger('change');//하위메뉴 접근권한 해제
-				var sub_id = sub.attr('menu_id');
-				$('.menu_ckeck[upp_menu_id='+sub_id+']').prop('checked',false).trigger('change');//하위의 하위메뉴 접근권한 해제]
+				var sub_id = sub.attr('_menu_id');
+				$('.menu_ckeck[_upp_menu_id='+sub_id+']').prop('checked',false).trigger('change');//하위의 하위메뉴 접근권한 해제]
 			}
 			
 			var row = $('#'+menu_id);
@@ -118,7 +118,7 @@
 		});
 	
 	});
-	function loadSubMenu(sel){
+/* 	function loadSubMenu(sel){
 		var menus = $(sel);
 		for(var i=0; i<menus.length; i++){
 			loadMenu(menus[i]);
@@ -140,7 +140,7 @@
 			loadSubMenu('.sub_menu');
 		});
 	}
-	
+	 */
 </script>
 </head>
 <body >
@@ -191,13 +191,36 @@
 				<col width="34">
 			</colgroup>
 			<tbody>
-				<tr id="root"  class="root_sub sub_menu" dep="1">
-				</tr>
+				<sp:sp queryPath="menu_system/menu" action="al" processorList="db,tree" exception="true">
+					{
+						_source:'rows',
+						_upper_id_field_name:'upp_menu_id',
+						_id_field_name:'menu_id',
+						_level_name: 'level'
+					}
+				</sp:sp>
+				
+				<c:forEach var="row" items="${tree }">
+						<tr id="${row.menu_id }" _upp_menu_id="${row.upp_menu_id }" class="${row.upp_menu_id } jqgfirstrow ovr_sub_menu" dep="${row.level+1}">
+							<td align="left"><input type="checkbox" class="menu_ckeck" _menu_id="${row.menu_id }" _upp_menu_id="${row.upp_menu_id }" ${row.acc_page=='Y' ? 'checked=true' : '' }></td>
+							<td>
+								<c:set var="m_id"><img style="vertical-align:bottom;" id="${row.menu_id}_f" src="${row.menu_count > 0 ? 'folder.png' : 'menu.png' }"></c:set>
+								<div style="vertical-align: middle; margin-left:${row.level*25-25}px;" >
+									<span id="${row.menu_id}_tree">${m_id} </span> 
+									<span  class="menu_name" style="" menu_id="${row.menu_id}" >${row.menu_name}</span>
+								</div>
+							</td>
+							<td><div  style=" overflow: hidden;">${row.page_url}</div></td>
+							<td align="center"><input type="checkbox" name="acc_read"  ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_read=='Y' ? 'checked=true' : ''}></td>
+							<td align="center"><input type="checkbox" name="acc_save"  ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_save=='Y' ? 'checked=true' : '' }></td>
+							<td align="center"><input type="checkbox" name="acc_excel" ${row.acc_page=='Y' ? '' : 'disabled="disabled"'} class="btn_acc" menu_id="${row.menu_id }" ${row.acc_excel=='Y' ? 'checked=true' : ''}></td>
+						</tr>
+				</c:forEach>
+
 			</tbody>
 		</table>
 	</div>
 	
-	<div id="root__sub"></div>
 </div>
 </body>
 </htm>

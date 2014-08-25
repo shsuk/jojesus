@@ -70,8 +70,8 @@ WHERE t1.menu_id= :menu_id
 //메뉴 목록 조회
 SELECT t1.*,(SELECT count(menu_id) FROM SYS_MENU_M t2	WHERE upp_menu_id = t1.menu_id and del_yn = 'N') menu_count
 FROM SYS_MENU_M t1
-WHERE upp_menu_id = ${empty(upp_menu_id) ? "'root'" : ':upp_menu_id'} and del_yn = 'N'
-ORDER BY order_no
+WHERE  del_yn = 'N'
+ORDER BY level, order_no
 ;
 
 /* {
@@ -117,9 +117,9 @@ SELECT t1.*,
 	acc_excel,
 	(SELECT count(menu_id) FROM SYS_MENU_M t2	WHERE upp_menu_id = t1.menu_id and del_yn = 'N') menu_count
 FROM SYS_MENU_M t1
-LEFT JOIN SYS_ROLE_M t2 ON t1.menu_id = t2.menu_id and t2.role_cd = :role_cd
-WHERE upp_menu_id = ${empty(upp_menu_id) ? "'root'" : ':upp_menu_id'} and del_yn = 'N'
-ORDER BY order_no
+LEFT JOIN SYS_ROLE_M t2 ON t1.menu_id = t2.menu_id and t2.role_cd = 1
+WHERE  del_yn = 'N'
+ORDER BY level, order_no
 ;
 /* {
  	id:'ia1', action:'acc'
@@ -162,3 +162,13 @@ WHERE menu_id = :menu_id and role_cd = :role_cd
 DELETE FROM SYS_ROLE_M WHERE menu_id = :menu_id and role_cd = :role_cd
 ;
 
+/* {
+ 	id:'row', action:'access_page', singleRow="true"
+ } */
+//페이지 접근 권한이 있는지 체크하기 위한 쿼리
+SELECT page_url, ifnull(acc_page,'N') acc_page
+FROM SYS_MENU_M t1
+LEFT JOIN SYS_ROLE_M t2 ON t1.menu_id = t2.menu_id and t2.role_cd = :role_cd
+WHERE  del_yn = 'N' and page_url = :servletpath
+
+;

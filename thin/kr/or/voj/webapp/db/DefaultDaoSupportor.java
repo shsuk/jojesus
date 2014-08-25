@@ -44,6 +44,7 @@ public class DefaultDaoSupportor extends SimpleJdbcDaoSupport{
 	 */
 	public void executeQuery(String id, String query, boolean isSingleRow, CaseInsensitiveMap params, Map<String, Object> resultSet) throws Exception {
 		Object result = null;
+		System.out.println(query);
 		query = (String)ELUtil.evaluate(query, params);
 		
 		queryLogPrint(query, params);

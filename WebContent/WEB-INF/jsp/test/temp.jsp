@@ -21,7 +21,10 @@
 		checkValidOnChange();
 	});
 	
-	
+	function link_code_value(obj){
+		var code_value = getVal('code_value');
+		alert(code_value);
+	}
 	
 	function form_submit(){	
 		var form = $('#main_form');
@@ -70,49 +73,50 @@
 						</tr>
 					<tr>
 							<th label="code_value">code_value</th>
-							<td><span name="code_value" value="${row.code_value}"   class="" row_index="">
+							<td><span name="code_value" value="${row.code_value}"  onclick="link_code_value(this)" class="link" row_index="">
 		${row.code_value}</span>
 	</td>
 						</tr>
 					<tr>
 							<th label="code_name">code_name</th>
 							<td><span name="code_name" value="${row.code_name}"   class="" row_index="">
-		${row.code_name}</span>
+		${row['code_name@yyyy-MM-dd']}</span>
 	</td>
 						</tr>
 					<tr>
 							<th label="reference_value">reference_value</th>
-							<td><span name="reference_value" value="${row.reference_value}"   class="" row_index="">
-		${row['reference_value@yyyy-MM-dd']}</span>
-	</td>
+							<td><input type="text" name="reference_value"  value="${row.reference_value}" style="width: 90%;" maxlength="200"  >
+			</td>
 						</tr>
 					<tr>
 							<th label="order_no">order_no</th>
-							<td><input type="text" name="order_no" value="${row.order_no}" class="spinner" style="width: 100px;" maxlength="10"  >
-			</td>
+							<td><span name="order_no" value="${row.order_no}"   class="" row_index="">
+		${row['order_no@#,##0']}</span>
+	</td>
 						</tr>
 					<tr>
 							<th label="depth">depth</th>
-							<td>
-				<tag:select name="depth" groupId="depth" selected="${row.depth}" />
-			</td>
+							<td><span name="depth" value="${row.depth}"   class="" row_index="">
+		${code:name('depth', row['depth'],null)}</span>
+	</td>
 						</tr>
 					<tr>
 							<th label="use_yn">use_yn</th>
-							<td>
-				<tag:select name="use_yn" groupId="use_yn" selected="${row.use_yn}" />
-			</td>
+							<td><span name="use_yn" value="${row.use_yn}"   class="" row_index="">
+		${code:name('use_yn', row['use_yn'],null)}</span>
+	</td>
 						</tr>
 					<tr>
 							<th label="edit_type">edit_type</th>
-							<td>
-				<tag:select name="edit_type" groupId="edit_type" selected="${row.edit_type}" />
-			</td>
+							<td><span name="edit_type" value="${row.edit_type}"   class="" row_index="">
+		${code:name('edit_type', row['edit_type'],null)}</span>
+	</td>
 						</tr>
 					<tr>
 							<th label="reg_dt">reg_dt</th>
-							<td><input type="text" name="reg_dt" value="${row.reg_dt}" class="datepicker" style="width: 100px;" maxlength="19"  >
-			</td>
+							<td><span name="reg_dt" value="${row.reg_dt}"   class="" row_index="">
+		${row['reg_dt@yyyy-MM-dd']}</span>
+	</td>
 						</tr>
 					<tr>
 							<th label="mod_dt">mod_dt</th>
@@ -138,5 +142,5 @@
 		</div>
 </div>
 <!-- 
-{ "rid_label":"rid", "reg_dt_edit":"edit", "code_name_type":"text", "edit_type_type":"select", "code_img_id_label":"code_img_id", "code_value_label":"code_value", "order_no_type":"number", "group_id_label":"group_id", "depth_edit":"edit", "rid_type":"number", "mod_dt_type":"date", "reg_dt_label":"reg_dt", "code_name_label":"code_name", "formData":"", "use_yn_type":"select", "mod_user_label":"mod_user", "action":"test", "depth_type":"select", "defaultValue":"", "_dumy":"1408436218316", "order_no_label":"order_no", "use_yn_label":"use_yn", "reference_value_type":"date", "mod_user_type":"text", "order_no_edit":"edit", "use_yn_edit":"edit", "edit_type_label":"edit_type", "code_value_type":"text", "queryPath":"test/crud", "code_img_id_type":"text", "group_id_type":"select", "mod_dt_label":"mod_dt", "edit_type_edit":"edit", "reg_dt_type":"date", "reference_value_label":"reference_value", "depth_label":"depth"}
+{ "rid_label":"rid", "code_name_type":"date", "edit_type_type":"select", "order_no_type":"number", "code_value_label":"code_value", "code_img_id_label":"code_img_id", "group_id_label":"group_id", "rid_type":"number", "mod_dt_type":"date", "reg_dt_label":"reg_dt", "code_name_label":"code_name", "formData":"", "use_yn_type":"select", "mod_user_label":"mod_user", "depth_type":"select", "action":"test", "_dumy":"1408516664070", "defaultValue":"", "order_no_label":"order_no", "code_value_link":"link", "reference_value_edit":"edit", "use_yn_label":"use_yn", "reference_value_type":"text", "mod_user_type":"text", "edit_type_label":"edit_type", "code_value_type":"text", "queryPath":"test/crud", "group_id_type":"select", "code_img_id_type":"text", "mod_dt_label":"mod_dt", "reg_dt_type":"date", "reference_value_label":"reference_value", "depth_label":"depth"}
 -->

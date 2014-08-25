@@ -12,23 +12,34 @@
 	};
 
 	$(function() {
-		$('.datepicker').datepicker(option);
-		$('.spinner').spinner({ min: 1 });
-		
-		$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-			mask();
-			if(options.url.indexOf('?')>0){
-				options.url += '&_dumy=' + (new Date()).getTime();
-			}else{
-				options.url += '?_dumy=' + (new Date()).getTime();
-			}
-		});
-
-		$( document ).ajaxComplete(function() {
-			mask_off();
+		try {
 			$('.datepicker').datepicker(option);
 			$('.spinner').spinner({ min: 1 });
-		});
+			
+		} catch (e) {
+			// TODO: handle exception
+		}
+		
+		
+		try {
+			
+			$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+				mask();
+				if(options.url.indexOf('?')>0){
+					options.url += '&_dumy=' + (new Date()).getTime();
+				}else{
+					options.url += '?_dumy=' + (new Date()).getTime();
+				}
+			});
+
+			$( document ).ajaxComplete(function() {
+				mask_off();
+				$('.datepicker').datepicker(option);
+				$('.spinner').spinner({ min: 1 });
+			});
+		} catch (e) {
+			// TODO: handle exception
+		}
 		//영문 숫자 입력 제한 처리
 		$(document).on('keypress', '[key_press=alpa]', function(event){
 			return alpa(event);

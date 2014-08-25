@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -13,12 +14,23 @@ import org.apache.commons.collections.map.CaseInsensitiveMap;
 public class ProcessorParam {
 	private String queryPath;
 	private String action;
+	private String loopId;
 	private CaseInsensitiveMap params;
 	private Map<String, Object> context;
 	private ServletRequest request;
+	private ServletResponse response;
 	private List<String> processorList;
 	private Map<String, Object> processorResult;
 	
+	public String getLoopId() {
+		return loopId;
+	}
+	public ServletResponse getResponse() {
+		return response;
+	}
+	public void setResponse(ServletResponse response) {
+		this.response = response;
+	}
 	public Map<String, Object> getProcessorResult() {
 		return processorResult;
 	}
@@ -37,9 +49,10 @@ public class ProcessorParam {
 	public void addProcessor(String processorId){
 		processorList.add(processorId);
 	}
-	public ProcessorParam(){
+	public ProcessorParam(String loopId){
 		context = new HashMap<String, Object>();
 		processorList = new ArrayList<String>();
+		this.loopId = loopId;
 	}
 	public String getQueryPath() {
 		return queryPath;
@@ -52,7 +65,7 @@ public class ProcessorParam {
 	}
 	public void setParams(CaseInsensitiveMap params) {
 		this.params = params;
-		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params);
+		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params, loopId);
 
 	}
 	public String getAction() {
@@ -66,7 +79,7 @@ public class ProcessorParam {
 	}
 	public void setRequest(ServletRequest request) {
 		this.request = request;
-		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params);
+		ProcessorServiceFactory.setReqParam((HttpServletRequest)request, params, loopId);
 	}
 	public Map<String, Object> getContext() {
 		return context;

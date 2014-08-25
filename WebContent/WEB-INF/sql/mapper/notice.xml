@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="notice">
+	<select id="l_1_rows"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+		SELECT SQL_CALC_FOUND_ROWS
+			notice_id,
+			subject,
+			concat(concat(DATE_FORMAT(stt_dt,'%Y-%m-%d'), ' ~ '),  DATE_FORMAT(end_dt,'%Y-%m-%d')) noti_dt,
+			use_yn,
+			qry_cnt,
+			reg_id,
+			DATE_FORMAT(reg_dt,'%Y-%m-%d') reg_dt,
+			chg_id,
+			DATE_FORMAT(chg_dt,'%Y-%m-%d') chg_dt,
+			(SELECT count(file_id) FROM sys_notice_file_m WHERE notice_id = t1.notice_id) attach
+		FROM sys_notice_m t1
+		WHERE use_yn = 'Y' 
+		<if test="search_type=='subject'">
+			and subject  like concat('%', #{search_text}, '%') 
+		</if>
+		<if test="search_type=='reg_id'">
+			and reg_id  like concat('%', #{search_text}, '%') 
+		</if>
+		<if test="search_type=='contents'">
+			and contents  like concat('%', #{search_text}, '%') 
+		</if>
+		ORDER BY notice_id desc
+		LIMIT ${_start} , ${rows}
+	</select>
+	<select id="l_2_#cnt"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+		SELECT FOUND_ROWS() cnt
+	</select>
+
+
+	<update id="i_1" parameterType="org.apache.commons.collections.map.CaseInsensitiveMap">
+	  	INSERT INTO sys_notice_m(
+			subject,
+			contents,
+			stt_dt,
+			end_dt,
+			reg_id,
+			reg_dt,
+			chg_id,
+			chg_dt
+		)VALUES(
+			#{subject},
+			#{ir1},
+			#{stt_dt},
+			#{end_dt},
+			'dd',
+			now(),
+			'dd',
+			now()
+		)
+	</update>
+   	<update id="i_2" parameterType="org.apache.commons.collections.map.CaseInsensitiveMap">
+		INSERT INTO sys_notice_file_m(
+			file_id,
+			notice_id,
+			file_name,
+			file_path
+		)
+		SELECT 
+			file_id,
+			notice_id,
+			file_name,
+			file_path
+		FROM sys_notice_file_m
+		WHERE 1=2
+
+	  	<foreach item="loop"  collection="loop_" >
+	  		union all
+			SELECT
+				#{loop.attach},
+				LAST_INSERT_ID(),
+				#{loop.attach_name},
+				#{loop.attach_path}
+		</foreach>
+	</update>
+	
+</mapper>

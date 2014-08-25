@@ -10,10 +10,10 @@
 
 <c:forEach var="row" items="${rows }">
 	<table>
-		<tr id="${row.menu_id }" class="${row.upp_menu_id } sub_menu ovr_sub_menu" dep="${req.dep+1}">
+		<tr id="${row.menu_id }" class="${row.upp_menu_id } sub_menu ovr_sub_menu" dep="${row.level+1}">
 			<td>
 				<c:set var="m_id"><img style="vertical-align: bottom;" id="${row.menu_id}_f" src="${row.menu_count > 0 ? 'folder.png' : 'menu.png'  }"></c:set>
-				<div style=" margin-left:${req.dep*25-25}px;" >
+				<div style=" margin-left:${row.level*25-25}px;" >
 					<span id="${row.menu_id}_tree">${m_id} </span> 
 					<span  class="menu_name" style="cursor:pointer; color: #003399;" menu_id="${row.menu_id}" onclick="editMenu(this)">${row.menu_name}</span>
 				</div>
