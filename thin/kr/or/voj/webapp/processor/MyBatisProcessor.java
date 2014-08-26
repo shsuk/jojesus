@@ -38,18 +38,23 @@ public class MyBatisProcessor implements ProcessorService{
 		List<MappedStatementInfo> msList = getList(path, action);
 		
 		for(MappedStatementInfo msi : msList){
+			Object result = null;
+
 			if (msi.isSelect) {
 				 List list = sqlSession.selectList(msi.id, params);
 				 
 				 if(msi.isSingleRow){
-					 resultSet.put(msi.returnId, list.size()>0 ? list.get(0) : new HashMap());
+					 result = list.size()>0 ? list.get(0) : new HashMap();
 				 }else{
-					 resultSet.put(msi.returnId,list);
+					 result = list;
 				 }
 			}else{
-				resultSet.put(msi.returnId, sqlSession.update(msi.id, params));
+				result = sqlSession.update(msi.id, params);
 			}
-			
+			//리턴결과 설정
+			resultSet.put(msi.returnId, result);
+			//결과를 쿼리의 인자로 설정한다.
+			params.put(msi.returnId, result);
 		}
 
 		return resultSet;

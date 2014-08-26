@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/config/islim.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- ========================================================================================================
+									IBATIS, MYBATIS 쿼리 설정 예제 및 기타
+	=============================================================================================================
+		1) id구성 방법 
+			actionGroupId : actionGroupId가 같은 쿼리가 일괄 실행된다.
+			runSequence : actionGroupId가 같은 쿼리가 실행될 때 실행되는 순서를 입력한다.
+						  한번에 실행될 쿼리가 10개 이상일 경우 문자열로 인식되 정렬됨으로 01,02와 같이 넣어준다.
+			resultId : 리턴된 결과를 반환할 변수명을 입력한다. #을 붙여 주면 단일 레코드로 반환하여 준다.
+						resultId는 생략가능하며 생략시 actionGroupId_runSequence로 반환된다.
+			주의 : _ 는 구분자로 인식되기 때문에 각id에 상용하면 안된다.
+		2) loop_ 사용방법
+			프로세서 설정시 loop 프로퍼티에 폼변수 중 배열인자 명을 넣어 주면
+			다른 병렬로 구성된 변수의 값을 Map으로 구성하여 loop_로 배열로 구성하여 준다.
+			아래 예제는 attach프로세서에 의해 생성된 가상 변수를 loop프로퍼티를 사용해 Map 배열로 구성하여 이용한 예이다.
+		3) 기타 폼변수 규칙 : 
+			fieldId_all : 변수가 배열인 경우 콤마구분자로 문자열을 반환한다. 예) 'val1,val2,val3'
+			fieldId_ or fieldId[] : 배열로 반환한다.
+			fieldId : 배열 요소인 경우도 첫인자나 loop처리되는 경우 해당 index값을 반환한다.
+			fieldId[2] : 특정배열 요소를 반환한다.
+		4) 쿼리결과는 resultId로 접근하여 다음쿼리의 데이타로 사용할수 있다.
+		5) 예제
+				<select id="actionGroupId_runSequence_#resultId"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+					INSERT INTO sys_notice_file_m(
+						notice_id, file_id, file_name, file_path
+					)
+					SELECT 
+						file_id, notice_id, file_name, file_path
+					FROM sys_notice_file_m
+					WHERE 1=2
+				  	<foreach item="loop"  collection="loop_" >
+				  		UNION ALL
+						SELECT
+							LAST_INSERT_ID(),#{loop.attach},#{loop.attach_name},#{loop.attach_path}
+					</foreach>
+				</select>
+		6) AttachProcessor는 첨부파일 업로드시 설정한 저장소로 저장하고
+			request에 controlId, controlId_name, controlId_path 변수로 해당 값을 설정하여 준다.
+	 =========================================================================================================-->
+	<!-- IBATIS -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="WEB-INF/config/SqlMapConfig.xml" />
+	</bean>
+	
+	<!-- MYBATIS -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="kr.co.model"/>
+        <property name="mapperLocations" value="WEB-INF/sql/mybatis/*.xml"/>
+    </bean>
+   
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="kr.or.voj.webapp.processor" />
+
+	<bean id="processorServiceFactory" class="kr.or.voj.webapp.processor.ProcessorServiceFactory">
+		<property name="queryPath" value="/WEB-INF/sql" />
+		<property name="repositoryPath" value="/WEB-INF/rep"/>
+	</bean>
+
+
+</beans>

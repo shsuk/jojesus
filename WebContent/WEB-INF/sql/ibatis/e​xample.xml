@@ -5,7 +5,7 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="notice">
-	<select id="l_1_rows" xmlResultName="rows" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap" resultClass="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+	<select id="l_1_rows" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap" resultClass="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
 		SELECT SQL_CALC_FOUND_ROWS
 			notice_id,
 			subject,
@@ -22,51 +22,29 @@
 		ORDER BY notice_id desc
 		LIMIT $_start$ , $rows$
 	</select>
-	<select id="l_2_#cnt" xmlResultName="#cnt" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap" resultClass="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+	<select id="l_2_#cnt" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap" resultClass="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
 		SELECT FOUND_ROWS() cnt
 	</select>
 
-
-	<update id="i_1" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap">
-	  	INSERT INTO sys_notice_m(
-			subject,
-			contents,
-			stt_dt,
-			end_dt,
-			reg_id,
-			reg_dt,
-			chg_id,
-			chg_dt
-		)VALUES(
-			#subject#,
-			#ir1#,
-			#stt_dt#,
-			#end_dt#,
-			'dd',
-			now(),
-			'dd',
-			now()
-		)
-	</update>
    	<update id="i_2" parameterClass="org.apache.commons.collections.map.CaseInsensitiveMap">
 		INSERT INTO sys_notice_file_m(
-			file_id,
 			notice_id,
+			file_id,
 			file_name,
 			file_path
 		)
 		SELECT 
-			file_id,
 			notice_id,
+			file_id,
 			file_name,
 			file_path
 		FROM sys_notice_file_m
 		WHERE 1=2
 	  	<iterate  property="loop_"  >
-	  		union all
+	  		UNION ALL
 			SELECT
-				#loop_[].attach#,
 				LAST_INSERT_ID(),
+				#loop_[].attach#,
 				#loop_[].attach_name#,
 				#loop_[].attach_path#
 		</iterate>

@@ -76,6 +76,14 @@
 		
 		changeEmoticon();
 	    
+		$( "#rep_text" ).focus(function() {
+			$('#prev_layer').hide();
+		});	
+		$( "#rep_text" ).focusout(function() {
+			setTimeout(function(){
+				$('#prev_layer').show();
+			}, 5000);			
+		});	
 	});
 	
 	function body_print(){

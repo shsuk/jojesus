@@ -36,47 +36,20 @@
 	</select>
 
 
-	<update id="i_1" parameterType="org.apache.commons.collections.map.CaseInsensitiveMap">
-	  	INSERT INTO sys_notice_m(
-			subject,
-			contents,
-			stt_dt,
-			end_dt,
-			reg_id,
-			reg_dt,
-			chg_id,
-			chg_dt
-		)VALUES(
-			#{subject},
-			#{ir1},
-			#{stt_dt},
-			#{end_dt},
-			'dd',
-			now(),
-			'dd',
-			now()
-		)
-	</update>
    	<update id="i_2" parameterType="org.apache.commons.collections.map.CaseInsensitiveMap">
 		INSERT INTO sys_notice_file_m(
-			file_id,
-			notice_id,
-			file_name,
-			file_path
+			 notice_id, file_id,file_name, file_path
 		)
 		SELECT 
-			file_id,
-			notice_id,
-			file_name,
-			file_path
+			 notice_id, file_id,file_name, file_path
 		FROM sys_notice_file_m
 		WHERE 1=2
 
 	  	<foreach item="loop"  collection="loop_" >
-	  		union all
+	  		UNION ALL
 			SELECT
-				#{loop.attach},
 				LAST_INSERT_ID(),
+				#{loop.attach},
 				#{loop.attach_name},
 				#{loop.attach_path}
 		</foreach>

@@ -6,7 +6,5 @@
 	
 	<settings useStatementNamespaces = "true" forceMultipleResultSetSupport="true"/>
 
-    <sqlMap  resource="../sql/notice.xml" />
-    <sqlMap  resource="../sql/menu.xml" />
-    <sqlMap  resource="../sql/role.xml" />
+    <sqlMap  resource="../sql/ibatis/e​xample.xml" />
 </sqlMapConfig>
