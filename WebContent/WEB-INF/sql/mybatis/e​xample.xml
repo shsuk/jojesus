@@ -5,7 +5,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="notice">
-	<select id="l_1_rows"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+	<select id="list_1_#row"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+		SELECT *
+		FROM sys_notice_m t1
+		WHERE notice_id = ${notice_id}
+	</select>
+	<select id="list_2_rows"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
 		SELECT SQL_CALC_FOUND_ROWS
 			notice_id,
 			subject,
@@ -31,7 +36,7 @@
 		ORDER BY notice_id desc
 		LIMIT ${_start} , ${rows}
 	</select>
-	<select id="l_2_#cnt"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
+	<select id="list_3_#cnt"  parameterType="org.apache.commons.collections.map.CaseInsensitiveMap" resultType="kr.or.voj.webapp.utils.DefaultLowerCaseMap">
 		SELECT FOUND_ROWS() cnt
 	</select>
 

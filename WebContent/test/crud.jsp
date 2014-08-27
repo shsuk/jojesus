@@ -23,7 +23,7 @@
 </head>
 <body >
 
-<sp:sp queryPath="test/crud" actionFild="act" processorList="db" exception="true">
+<sp:sp queryPath="test/crud" actionFild="act" processorList="mybatis" exception="true">
 	{
 		act:'${empty(param.bd_id) ? "i" : "u" }',
 		bd_id: '${req.bd_id }'

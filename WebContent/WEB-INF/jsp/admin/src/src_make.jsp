@@ -12,8 +12,15 @@
 		${param.defaultValue }
 	}
 </sp:sp> 
+<div id="tab">
+<ul>
+	<li><a href="#tabs-1">UI설정</a></li>
+	<li><a href="#tabs-2">소스</a></li>
+</ul>
+
 생성일 : <%=new Date() %> (WebContent/WEB-INF/jsp/layout.jsp 참조)
 <!-- UI설정 -->
+<div id="tabs-1">
 <table  class="lst" border="0" cellspacing="0" cellpadding="0">
 	<colgroup>
 		<col width="100">
@@ -24,6 +31,9 @@
 	<c:forEach var="map" items="${JSON }">
 	
 		<c:if test="${map.key!='success' }">
+		<tr>
+			<td class="ui-state-default ui-th-column ui-th-ltr" colspan="10" style="text-align: left;">레코드 아이디 : ${map.key}</td>
+		</tr>
 		<tr>
 			<th class="ui-state-default ui-th-column ui-th-ltr">필드</th>
 			<th class="ui-state-default ui-th-column ui-th-ltr">필드명</th>
@@ -73,11 +83,11 @@
 		</c:if>
 	</c:forEach>
 </table>
-
+</div>
 <!-- ************* -->
 <!-- 소스 생성-->
 <!-- ************* -->
-	
+<div id="tabs-2">	
 <c:forEach var="map" items="${JSON }">
 	<c:if test="${map.key!='success' }">
 	<c:set var="src">
@@ -86,7 +96,6 @@
 		</c:forEach>
 		
 		<c:if test="${isList}"><%//리스트인 경우 %>
-			<c:set var="title" value="" />
 			${'<' }c:forEach var="row" items="${'$'}{${map.key } }" varStatus="status">
 				<tr class="row_${'$' }{status.index + 1}">
 					<c:forEach var="info" items="${map.value[0] }" >
@@ -106,7 +115,7 @@ function link_${info.name }(obj){
 }
 							</c:set>
 						</c:if>
-						<td><tag:fild src_id="row" name="${info.key }" type="${param[type] }" edit="${param[edit] }" link="${param[link] }" index="row_${'$' }{status.index + 1}" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
+						<td ${param[type]=='date' ? 'align="center"' : (param[type]=='number' ? 'align="right"' : '') }><tag:fild src_id="row" name="${info.key }" type="${param[type] }" edit="${param[edit] }" link="${param[link] }" index="row_${'$' }{status.index + 1}" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
 					</c:forEach>
 				</tr>
 			${'<' }/c:forEach>
@@ -143,9 +152,8 @@ function link_${info.name }(obj){
 	</c:set>
 	<c:set var="html">
 		${html }
-		<table class="${isList ? 'lst' : 'vw' }" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 10px;">
-			<c:if test=""
-			${isList ? title : '' }
+		<table class="${isList ? 'lst' : 'vw' }" border="0" cellspacing="0" cellpadding="0"  style="margin-bottom: 10px;">
+			${title }
 			${src }
 		</table>
 	</c:set>
@@ -228,3 +236,6 @@ function link_${info.name }(obj){
 -->
 </textarea>
 </form>
+</div>
+
+</div>

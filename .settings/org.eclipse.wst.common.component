@@ -3,7 +3,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/site"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/thin"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/chili"/>
         <property name="java-output-path" value="/voj/build/classes"/>
         <property name="context-root" value="voj"/>
     </wb-module>
