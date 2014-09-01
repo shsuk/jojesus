@@ -174,7 +174,7 @@ public class Aes {
 			newkey = getKeyEncode(key);
 			System.out.println(key + ":" + newkey);
 			
-			key = getKeyDecode(newkey);
+			key = getKeyDecode("Cg09PVFUVVZFZU5GVlA5MGdD");
 			System.out.println(key);
 			
 
