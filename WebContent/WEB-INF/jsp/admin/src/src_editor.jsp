@@ -64,8 +64,8 @@
 	}
 	function openPage(){
 		var frm = $('#new_form');
-		var param = '{'+$('#defaultValue').val()+'}';
-		frm.attr('action', '/test/main.sh?_ps=temp&' + $.param($.parseJSON(param)));
+		var param = $('#defaultValue').val().split(',').join('&').split(':').join('=').split(' ').join('').split('""').join('').split("'").join('');
+		frm.attr('action', '/test/main.sh?_ps=temp&' + param);
 		frm.submit();
 		
 	}
@@ -77,7 +77,7 @@
 		<div id="defaultData"  style="float: left;padding:1px;">
 			<div class="border f_l p_1 m_3 ui-widget-header" >쿼리경로 <input type="text" id="queryPath" name="queryPath" value="notice"></div>
 			<div class="border f_l p_1 m_3 ui-widget-header" >실행쿼리 그룹 <input type="text" id="action" name="action" value="list"></div>
-			<div class="border f_l p_1 m_3 ui-widget-header" >기본값 <input type="text" id="defaultValue" name="defaultValue" value="rows:10,_start:1,notice_id=72"></div>
+			<div class="border f_l p_1 m_3 ui-widget-header" >기본값 <input type="text" id="defaultValue" name="defaultValue" style="width: 200px;" value="rows:10,_start:1,notice_id:72"></div>
 			<div class=" ui-widget-header ui-corner-all  m_3" style="float: left; cursor:pointer;  margin-left: 10px; padding: 3px;" onclick="loadData()">읽기</div>
 		</div>
 		<div class=" ui-widget-header ui-corner-all  m_3" style="float: right; cursor:pointer;  margin-left: 10px; padding: 3px;" onclick="save()">임시저장</div>

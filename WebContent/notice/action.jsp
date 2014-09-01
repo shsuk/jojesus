@@ -12,7 +12,7 @@
 	}
 </sp:sp> 
 <c:choose>
-	<c:when test="${req.action == 'l' }">
+	<c:when test="${req.action == 'list' }">
 		{
 			"rows":${JSON.rows},
 			"records" : ${cnt.cnt},

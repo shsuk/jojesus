@@ -52,7 +52,6 @@
 					<td label="${info.key}" title='${info }'>${info.key }</td>
 					<c:set var="label">${info.key}_label</c:set>
 					<c:set var="type">${info.key}_type</c:set>
-					<c:set var="edit">${info.key}_edit</c:set>
 					<c:set var="link">${info.key}_link</c:set>
 					<c:set var="valid">${info.key}_valid</c:set>
 					<c:set var="keyValid">${info.key}_key_valid</c:set>
@@ -64,10 +63,9 @@
 							<%-- <c:set var="fieldType"><tag:field_type src="${info }" /></c:set> --%>
 						</c:if>
 						
-						<tag:select_array codes=" =타입선택,label=라벨,text=텍스트,date=날짜,number=숫자,select=콤보,check=체크박스,radio=라디오박스,hidden=Hidden,file=첨부파일,files=첨부파일들" name="${type }" selected="${fieldType }" style="width: 100%"/>
+						<tag:select_array codes="text=텍스트,date=날짜,number=숫자,select=콤보,check=체크박스,radio=라디오박스,hidden=Hidden,file=첨부파일,files=첨부파일들,view=---------,label=라벨,date_view=날짜,number_view=숫자,code=name" name="${type }" selected="${fieldType }" style="width: 100%"/>
 					</td>
 					<td>
-						<tag:check_array name="${edit}" codes="edit=Edit"  checked="${param[edit] }" />
 						<tag:check_array name="${link}" codes="link=링크"  checked="${param[link] }" />
 					</td>
 					<td>
@@ -101,7 +99,6 @@
 					<c:forEach var="info" items="${map.value[0] }" >
 						<c:set var="label">${info.key}_label</c:set>
 						<c:set var="type">${info.key}_type</c:set>
-						<c:set var="edit">${info.key}_edit</c:set>
 						<c:set var="link">${info.key}_link</c:set>
 						<c:set var="valid">${info.key}_valid</c:set>
 						<c:set var="keyValid">${info.key}_key_valid</c:set>
@@ -109,13 +106,13 @@
 						<c:if test="${!empty(param[link]) }">
 							<c:set var="links">
 ${links }
-function link_${info.name }(obj){
-	var ${info.name} = getVal('${info.name}', obj);
-	alert(${info.name});
+function link_${info.key }(obj){
+	var ${info.key} = getVal('${info.key}', obj);
+	alert(${info.key});
 }
 							</c:set>
 						</c:if>
-						<td ${param[type]=='date' ? 'align="center"' : (param[type]=='number' ? 'align="right"' : '') }><tag:fild src_id="row" name="${info.key }" type="${param[type] }" edit="${param[edit] }" link="${param[link] }" index="row_${'$' }{status.index + 1}" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
+						<td ${param[type]=='date' ? 'align="center"' : (param[type]=='number' ? 'align="right"' : '') }><tag:fild src_id="row" name="${info.key }" type="${param[type] }" link="${param[link] }" index="row_${'$' }{status.index + 1}" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
 					</c:forEach>
 				</tr>
 			${'<' }/c:forEach>
@@ -130,22 +127,21 @@ function link_${info.name }(obj){
 			<c:forEach var="info" items="${map.value}">
 				<c:set var="label">${info.key}_label</c:set>
 				<c:set var="type">${info.key}_type</c:set>
-				<c:set var="edit">${info.key}_edit</c:set>
 				<c:set var="link">${info.key}_link</c:set>
 				<c:set var="valid">${info.key}_valid</c:set>
 				<c:set var="keyValid">${info.key}_key_valid</c:set>
 				<c:if test="${!empty(param[link]) }">
 					<c:set var="links">
 ${links }
-function link_${info.name }(obj){
-	var ${info.name} = getVal('${info.name}');
-	alert(${info.name});
+function link_${info.key }(obj){
+	var ${info.key} = getVal('${info.key}');
+	alert(${info.key});
 }
 					</c:set>
 				</c:if>
 				<tr>
 					<th label="${info.key}">${param[label] }</th>
-					<td><tag:fild src_id="${map.key }" name="${info.key }" type="${param[type] }" edit="${param[edit] }" link="${param[link] }" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
+					<td><tag:fild src_id="${map.key }" name="${info.key }" type="${param[type] }" link="${param[link] }" valid="${param[valid] }"  keyValid="${param[keyValid] }" /> </td>
 				</tr>
 			</c:forEach>
 		</c:if>

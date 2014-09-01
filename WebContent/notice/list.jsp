@@ -43,7 +43,7 @@
 	
 	function initJqGrid(){
 		jQuery("#list6").jqGrid({
-		    url: url + '?action=l',
+		    url: url + '?action=list',
 		    datatype: "json",
 		    mtype: 'POST',
 		    colNames: [
