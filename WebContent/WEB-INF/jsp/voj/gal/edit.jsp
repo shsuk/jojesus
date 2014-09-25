@@ -143,9 +143,9 @@
 					</div>
 				</div>
 			</c:if>
+			<table><tr><td style="width: 100px;"><b>작성자 :</b></td><td><tp:radio_user_group name="writor"  userGroup="${session.user_group }" checked="${uf:urlDec(cookie.use_nick.value, 'utf-8')}"/></td></tr></table>
 		</form>
 		<p>
-	
 		<table style="width: 100%">
 			<tr>
 				<td width="250"></td>

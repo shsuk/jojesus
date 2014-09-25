@@ -14,7 +14,7 @@ INSERT INTO voj_gallery(
 	@{session.user_id},
 	now(),
 	@{session.ip},
-	@{session.nick_name},
+	'${empty( req.writor) ? session.nick_name : req.writor}',
 	@{bd_cat},
 	@{link_url},
 	@{file_id}

@@ -1,3 +1,4 @@
+<%@page import="net.ion.webapp.utils.CookieUtils"%>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,6 +32,9 @@
 		]</uf:organism>
 	</c:when>
 	<c:when test="${req.action=='i' }">
+	<%
+		CookieUtils.setCookie(response, "use_nick", request.getParameter("writor"), 30*24*60*60);
+	%>
 		<uf:organism noException="true">[
 			<uf:job id="rtn" jobId="attachFile" defaultValues="{unZip:true}"/>
 			<job:db id="row" query="voj/gal/insert"/>

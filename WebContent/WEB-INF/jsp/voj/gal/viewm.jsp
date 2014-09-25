@@ -110,7 +110,7 @@
 	}
 	table.rep td{border-bottom : 1px solid #cccccc;}
 </style>
-</head>
+
 
 
 <!-- jQuery is just for the demo! Hammer.js works without jQuery :-) -->
@@ -143,6 +143,12 @@
 		});
 		
 		changeEmoticon();
+		
+		$('#tip').show("slow");
+		
+		setTimeout(function(){
+			$('#tip').hide("slow");
+		},10000);
 	});
 	
 	/**
@@ -338,7 +344,7 @@
 	}
 
 </script>
-
+</head>
 <body>
 	<table style="position:fixed;bottom:0; left: 0px; z-index: 100;   background-color: #ffffff;opacity: .35;filter: Alpha(Opacity=35);"><tr>
 		<td>
@@ -359,8 +365,14 @@
 		<ul>
 		<c:forEach var="rowl" items="${rset.rows }" varStatus="status">
 			<li class="images ${row.ca_name } pane${status.index }" style="overflow:auto;">
-				<div style="position: absolute;left:0px;top:0px;"><a id="dwn_img" href="at.sh?_ps=at/upload/dl&file_id=${rowl.file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
-				<tp:img id="img${status.index }" file_id="${rowl.file_id}" thum="200"  style="width: 100%;vertical-align:middle;"/>
+				<div style="position: absolute;left:0px;top:0px;"><a id="dwn_img" href="at.sh?_ps=voj/gal/viewimg&file_id=${rowl.file_id }" style="background: #FAED7D;color: #22741C;">원본(<fmt:formatNumber value="${uf:round(rowl.file_size/1024) }" pattern="#,##0"/>k)</a></div>
+				<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
+					원본을 클릭하면 사진을 확대하거나 축소하여 볼 수 있습니다.
+					<br>원본은 사이즈가 클 수 있으므로 사이즈를 꼭 확인하세요.
+					<br>기본 사용량을 초과한 경우 데이타 통화료가 부가될 수 있으므로 wifi에서 사용하세요.
+					<br>원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 사이즈가 클 수 있습니다.
+				</div>
+				<tp:img id="img${status.index }" file_id="${rowl.file_id}" thum="200" style="width: 100%;vertical-align:middle;"/>
 			</li>
 		</c:forEach>
 		</ul>
