@@ -98,6 +98,7 @@
 <script src="./jquery/js/jquery-1.9.1.min.js"></script>
 <script src="./js/modernizr.js"></script>
 <script src="./js/hammer/hammer.min.2.0.1.js" type="text/javascript" ></script>
+<script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 
 <script>
 	$(function() {
@@ -127,6 +128,38 @@
 			$(e.currentTarget).toggleClass('bible_bg_s');
 		});
 		$('span', $('#carousel')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
+
+    	
+		var font_size = $.cookie('F_S');
+		if(font_size){
+			$('.bible div').css('font-size', font_size+'px');
+		}
+    	
+		$('.font_size').click(function(tar){
+			var font_size = $.cookie('F_S');
+			var step = -2;
+			
+			if($(tar.currentTarget).attr('value')=='+'){				
+				step = 2;	
+			}
+			
+			if(font_size){
+				font_size = Number(font_size) + step;
+			}else{
+				font_size = 14;					
+			}
+			
+			if(font_size > 24){
+				font_size = 24;
+			}else if(font_size < 14){
+				font_size = 14;
+			}
+
+			$.cookie('F_S', font_size,{expires:30});
+			$('.bible div').css('font-size', font_size+'px');
+		});
+
+	
 	});
 	
 	/**
@@ -290,7 +323,14 @@
 				<div id="bible_title"></div>
 			</div>
 		</td>
+		<td align="right">
+			<div style="margin: 2px 2px 2px 5px;font-size: 14px;">
+				<div class="font_size cc_bt" style="padding: 5px; min-width: 30px; font-weight:bold;" value="+">가+</div>
+				<div class="font_size cc_bt" style="padding: 5px; margin-top:3px; min-width: 30px; " value="-">가-</div> 
+			</div>
+		</td>
 	</tr></table>
+
 	<div id="tip" style="position:fixed; bottom: 50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
 		상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
 	</div>
@@ -308,6 +348,6 @@
 		</c:forEach>
 		</ul>
 	</div>
- 
+	 
 </body>
 </html>
