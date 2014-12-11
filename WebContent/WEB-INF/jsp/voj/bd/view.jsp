@@ -75,17 +75,25 @@
 		init_load();
 		
 		changeEmoticon();
-	    
-		$( "#rep_text" ).focus(function() {
-			$('#prev_layer').hide();
-		});	
+		
+		$( document ).scroll(function() {
+			hideShow_nav();
+		});
+		
 		$( "#rep_text" ).focusout(function() {
-			setTimeout(function(){
-				$('#prev_layer').show();
-			}, 5000);			
+			hideShow_nav();
 		});	
+		
 	});
 	
+	
+	function hideShow_nav(){
+		$('#prev_layer').hide();
+		setTimeout(function(){
+			$('#prev_layer').show();
+		}, 3000);			
+
+	}
 	function body_print(){
 		alert('인쇄후 페이지를 새로고침 하세요.');
 		var bd_contents = $('#bd_contents');
@@ -163,6 +171,7 @@
 </script>
 
 <div style="${row.bd_cat=='ser' && !isMobile ? 'width:700px;margin-left:120px;' : 'width:100%;'}">
+	<form id="imgForm" target="new" method="get"></form>
 	<table style="width:100%"><tr ><td>
 		<div style="float:left;"><b>제목 : <font color="#0000C9">${row.title }</font></b></div>
 		<div style="float:right;">
@@ -188,7 +197,9 @@
 					</c:if>
 				</c:forEach>
 			</c:if>
-			${row['CONTENTS@dec'] }
+			<c:set var="html">${fn:replace(row['CONTENTS@dec'], '<img ', '<img onerror="imgError(this)" ') }</c:set>
+			<c:set var="html">${fn:replace(html, '<IMG ', '<img onerror="imgError(this)" ') }</c:set>
+			${html }
 		</div>
 	</div>
 	<div id="bd_bt">
@@ -253,19 +264,19 @@
 				</tr>
 			</table>
 		</div>
-		
-		<%//버튼 %>
-		<a style="float:right;margin-left: 5px;"  class="cc_bt" href="#" onclick="goPage(${req.pageNo})">목 록</a>
-		<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' }">
-			<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="edit(${req.bd_id},${row.reg_id=='guest' })" style="margin-right: 10px;">수 정</a>
-		</c:if>
-		<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' || session.myGroups[row.bd_cat]}">
-			<a style="float:right;margin-left: 5px;" class="${session.myGroups[row.bd_cat] && viewAdminButton ? 'cc_bt' : 'cc_bt'}" href="#" onclick="del(${req.bd_id },'${row.bd_cat}',${row.reg_id=='guest' })" style="margin-right: 10px;" >삭 제</a>
-		</c:if>
-		<c:if test="${row.bd_cat=='ser'}">
-			<a style="float:right;margin-left: 5px;" class="cc_bt" href="#" onclick="body_print()">본문인쇄</a>
-		</c:if>
-		<br><br>
+		<div ${isMobile ? 'style="position: fixed; z-index:1100; bottom:10px; right:10px;"' : ''}>
+			<%//버튼 %>
+			<a style="float:right;margin-left: 5px;"  class="cc_bt" href="#" onclick="goPage(${req.pageNo})">목 록</a>
+			<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' }">
+				<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="edit(${req.bd_id},${row.reg_id=='guest' })" style="margin-right: 10px;">수 정</a>
+			</c:if>
+			<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' || session.myGroups[row.bd_cat]}">
+				<a style="float:right;margin-left: 5px;" class="${session.myGroups[row.bd_cat] && viewAdminButton ? 'cc_bt' : 'cc_bt'}" href="#" onclick="del(${req.bd_id },'${row.bd_cat}',${row.reg_id=='guest' })" style="margin-right: 10px;" >삭 제</a>
+			</c:if>
+			<c:if test="${row.bd_cat=='ser'}">
+				<a style="float:right;margin-left: 5px;" class="cc_bt" href="#" onclick="body_print()">본문인쇄</a>
+			</c:if>
+		</div>
 	</div>
 	<div id="re_mask" style="position: fixed; z-index:1000; top:0px; left:0px; width:100%; height:100%; background: #eeeeee;border:1px solid #C0C0C0;display: none; opacity: .3;filter: Alpha(Opacity=30);">
 	</div>

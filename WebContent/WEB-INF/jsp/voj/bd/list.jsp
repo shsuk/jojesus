@@ -47,6 +47,12 @@
 	    }
 	}); 
 	
+	function imgError(el){
+		var img = $(el);
+		img.css('border','1px solid #ff0000');
+		img.before('<br><br><a target="new" href='+ img.attr('src') +'><font color="red">아래 이미지가 안보이면 클릭. 새 창에서 이미지가 열림. 새창에서도 안보이면 주소창에 커서를 놓고 엔터 또는 새로고침 하세요.</font></a><br>');
+		
+	}
 	
 	function view_bd(bd_id){
 		var target_layer = $('.bd_body');

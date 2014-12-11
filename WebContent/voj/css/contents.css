@@ -190,6 +190,7 @@ a.cc_bt:hover   {font-family: 'Malgun Gothic', sans-serif,"Dotum", "Gulim", "Ari
     line-height: 25px;
     text-align: center;
     min-width: 60px;
+     background: #ffffff;
 }
 .center {text-align: center; }
 

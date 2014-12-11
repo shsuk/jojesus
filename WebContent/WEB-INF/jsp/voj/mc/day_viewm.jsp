@@ -97,7 +97,7 @@
 <!-- jQuery is just for the demo! Hammer.js works without jQuery :-) -->
 <script src="./jquery/js/jquery-1.9.1.min.js"></script>
 <script src="./js/modernizr.js"></script>
-<script src="./js/hammer/hammer.min.2.0.1.js" type="text/javascript" ></script>
+<script src="./js/hammer/hammer.min.2.0.4.js" type="text/javascript" ></script>
 <script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 
 <script>
