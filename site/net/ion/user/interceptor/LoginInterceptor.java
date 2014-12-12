@@ -39,6 +39,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter
 			}
 			return hasAccess;
 		}
+		if("/dl.sh".equals(request.getServletPath())){
+			return true;
+		}
 		//로그인 없이 접근하는 페이지
 		String _ps = ServletRequestUtils.getStringParameter(request, "_ps", "");
 		if(ProcessInitialization.PUBLIC_URL==null){

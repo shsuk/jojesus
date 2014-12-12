@@ -50,8 +50,11 @@
 	function imgError(el){
 		var img = $(el);
 		img.css('border','1px solid #ff0000');
-		img.before('<br><br><a target="new" href='+ img.attr('src') +'><font color="red">아래 이미지가 안보이면 클릭. 새 창에서 이미지가 열림. 새창에서도 안보이면 주소창에 커서를 놓고 엔터 또는 새로고침 하세요.</font></a><br>');
+		img.before('<br><br><a target="new" href="'+ img.attr('src') +'"><font color="red">아래 사진은 다른 사이트의 사진으로 불러 올 수 없는 사진입니다<br>서버에서 보이도록 처리 하였지만 보이지 않을 수도 있습니다.<br>이 글은 원본 이미지와 연결되어 있습니다. 클릭하세요.</font></a><br>');
 		
+		$.getJSON('dl.sh?url=' + img.attr('src'),function(data){
+			img.attr('src', data.url);
+		});
 	}
 	
 	function view_bd(bd_id){
@@ -134,7 +137,6 @@
 	<div style="width:100%;margin-top: 40px;margin-bottom: 40px;">
 		${HEADER }
 	</div>
-
 	<div class="bd_body">
 		<div style="width: 100%;min-height: 400px;">
 		<table class="bd" >

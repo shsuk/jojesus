@@ -1,10 +1,12 @@
 package net.ion.webapp.controller;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +15,11 @@ import kr.or.voj.webapp.processor.ProcessorServiceFactory;
 import net.ion.webapp.controller.DefaultAutoController;
 import net.ion.webapp.utils.CookieUtils;
 import net.ion.webapp.utils.DbUtils;
+import net.ion.webapp.utils.Function;
+import net.ion.webapp.utils.HttpUtils;
 import net.ion.webapp.utils.JobLogger;
 import net.ion.webapp.utils.LowerCaseMap;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.apache.commons.lang.StringUtils;
@@ -66,6 +71,23 @@ public class AutoController extends DefaultAutoController {
 	@RequestMapping(value = "/at.sh")
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return super.execute(request, response);
+	}
+	@RequestMapping(value = "/dl.sh")
+	public ModelAndView dowonload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setHeader("Content-Type", "text/javascript;charset=utf-8");
+		
+		Map<String, Object> resultSet = new JSONObject();
+		String url = request.getParameter("url");
+		String fileName = StringUtils.substringAfterLast(url, "/");
+		File f = new File(request.getRealPath("/thum") + "/etc/" + fileName);
+		if(!f.exists()){
+			HttpUtils.getFile(url, null, f);
+		}
+		resultSet.put("url", "thum/etc/" + fileName);
+		resultSet.put("sucess", true);
+		ModelAndView mv = new ModelAndView("voj/json");
+		mv.addObject("result", resultSet);
+		return mv;
 	}
 
 	@RequestMapping(value = "/atm.sh")
