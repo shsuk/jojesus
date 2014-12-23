@@ -47,21 +47,19 @@ public class AutoController extends DefaultAutoController {
 	@RequestMapping(value = "/{path}/api.sh")
 	@ResponseBody
 	public Map<String, Object> api(HttpServletRequest request, HttpServletResponse response, @PathVariable("path") String path, @RequestParam("act") String action) throws Exception {
-		Map<String, Object> resultSet = null;
+		Map<String, Object> resultSet = new HashMap<String, Object>();
 		try {
-			String queryPath = path.replace('_', '/');
-			List<String> processorList = new ArrayList<String>();
-			processorList.add("db");
-			CaseInsensitiveMap params = new CaseInsensitiveMap();
-			resultSet = ProcessorServiceFactory.executeMainTransaction(processorList, params, queryPath, action, "", request, response);
+			String queryPath = path.replace('-', '/');
 			
-			if(resultSet.size()>0){
-				resultSet.put("sucess", true);
-			}else{
-				resultSet.put("sucess", false);
-				resultSet.put("message", "패스나 데이타에 오류가 있습니다.");				
+			resultSet.put("sucess", true);
+			if("S".equals(action)){
+				resultSet.put("list", DbUtils.select(queryPath, new HashMap<String, Object>()));
+			}else if("U".equals(action)){
+				resultSet.put("list", DbUtils.update(queryPath, (Map<String, Object>)request.getAttribute("req")));
 			}
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultSet = new HashMap<String, Object>();
 			resultSet.put("sucess", false);
 			resultSet.put("message", e.toString());
@@ -109,7 +107,9 @@ public class AutoController extends DefaultAutoController {
 
 		return super.atm(request, response);
 	}
-	
+	/*
+	 * 미사용
+	 */
 	@RequestMapping(value = "/call.sh")
 	public ModelAndView call(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

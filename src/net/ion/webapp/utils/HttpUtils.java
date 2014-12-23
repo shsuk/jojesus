@@ -33,7 +33,13 @@ public class HttpUtils {
 	}
 	public static File getFile(String url, Map<String, Object> parameterMap, File f, int timeout)throws Exception {
 		FileOutputStream fos = new FileOutputStream(f);
-		getByteArrayOutputStream(url, parameterMap, fos, timeout);
+		try {
+			getByteArrayOutputStream(url, parameterMap, fos, timeout);
+		} finally {
+			try {
+				fos.close();;
+			} catch (Exception e) {}
+		}
 		return f;
 	}
 	private static void getByteArrayOutputStream(String url, Map<String, Object> parameterMap, OutputStream os, int timeout)throws Exception {
