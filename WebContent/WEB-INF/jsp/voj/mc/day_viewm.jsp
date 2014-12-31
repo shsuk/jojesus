@@ -159,6 +159,20 @@
 			$('.bible div').css('font-size', font_size+'px');
 		});
 
+		//모바일 스트롤시 헤더 숨김
+		var scrollTop = -1;
+		$('.bible').scroll(function(eventData , handler) {
+			var cSrollTop = $(this).scrollTop();
+			
+			if(scrollTop===-1){
+				
+			}else if(cSrollTop<scrollTop){
+				$( "#bible_header" ).show();
+			}else{
+				$( "#bible_header" ).hide();
+			}
+			scrollTop = $(this).scrollTop();
+		});				
 	
 	});
 	
@@ -307,9 +321,9 @@
 </script>
 
 <body>
-	<table style="position:fixed;left: 0px; z-index: 100;   background-color: #ffffff"><tr>
+	<table id="bible_header" style="position:fixed;left: 0px; z-index: 100;width: 100%; background-color: #ffffff"><tr>
 		<td>
-			<div style="font-size: 20px;font-weight: bold;width: 100%">
+			<div style="font-size: 20px;font-weight: bold;width: 100%;">
 				<a href="/"><img src="./voj/images/log.png" border="0" height="30" style="vertical-align: middle;"></a>
 				<span style="color:#2fb9d1;"> 맥체인</span>&nbsp;
 				<c:set var="day" value="_${rset.rows[0].mc_dt }일"/>
