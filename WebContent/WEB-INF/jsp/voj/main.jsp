@@ -166,7 +166,7 @@
 							<table class="sub_cube mob_2" style="height: 110px;" cellpadding="0" cellspacing="0"  border="0" ><tr>
 								<td width="18"><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_left.png') repeat-x"></div></td>
 								<td><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_center.png') repeat-x">
-						     		<a href="at.sh?_ps=voj/intro/show&id=bow">
+						     		<a href="at.sh?_ps=voj/intro/show&id=${isMobile? 'm_' : ''}bow">
 										<img style="margin-top:13px;" src="voj/images/layout/bc11.png"  border="0"><br>
 										<img style="margin-top:5px;" src="voj/images/layout/bc12.png"  border="0">
 									</a>
@@ -184,7 +184,7 @@
 							<table class="sub_cube mob_9" style="height: 110px;" cellpadding="0" cellspacing="0"  border="0" ><tr>
 								<td width="18"><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_left.png') repeat-x"></div></td>
 								<td><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_center.png') repeat-x">
-						     		<a href="at.sh?_ps=voj/intro/show&id=chtm">
+						     		<a href="at.sh?_ps=voj/intro/show&id=${isMobile? 'm_' : ''}chtm">
 										<img style="margin-top:20px;" src="voj/images/layout/bc21.png"  border="0"><br>
 										<img style="margin-top:10px;" src="voj/images/layout/bc22.png"  border="0">
 									</a>
@@ -202,7 +202,7 @@
 							<table class="sub_cube mob_9" style="height: 110px;" cellpadding="0" cellspacing="0"  border="0" ><tr>
 								<td width="18"><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_left.png') repeat-x"></div></td>
 								<td><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_center.png') repeat-x">
-						     		<a href="at.sh?_ps=voj/intro/show&id=rough">
+						     		<a href="at.sh?_ps=voj/intro/show&id=${isMobile? 'm_' : ''}rough">
 										<img style="margin-top:20px;" src="voj/images/layout/way_info.png"  border="0">
 									</a>
 								</div></td>
