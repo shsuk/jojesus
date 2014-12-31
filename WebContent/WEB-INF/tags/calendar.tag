@@ -12,23 +12,27 @@ String[] week = {"일","월","화","수","목","금","토"};
 Date date = new Date();
 Calendar cal = Calendar.getInstance();
 String cur_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
+String start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
 
 
 if(year>0){
 	cal.set(cal.YEAR, year);
+	cal.set(cal.DATE, 1);
 	cal.set(cal.MONTH, month-1);
 }
+start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
 Calendar calcal = (Calendar)cal.clone();
 int cmon = cal.get(cal.MONTH);
 
-cal.set(cal.DATE, 1);
+start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
 int sWeek = cal.get(cal.DAY_OF_WEEK)-1;
 
 if(sWeek>0){
 	cal.add(cal.DATE, -sWeek);
 }
+start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
 
-String start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
+start_date = Function.formatDate(cal.getTime(), "yyyy-MM-dd");
 List list = new ArrayList();
 
 for(int i=0; i<6; i++){
