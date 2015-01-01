@@ -168,7 +168,7 @@
 								<td><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_center.png') repeat-x">
 						     		<a href="at.sh?_ps=voj/intro/show&id=${isMobile? 'm_' : ''}bow">
 										<img style="margin-top:13px;" src="voj/images/layout/bc11.png"  border="0"><br>
-										<img style="margin-top:5px;" src="voj/images/layout/bc12.png"  border="0">
+										<img style="margin-top:5px;" src="voj/images/layout/bc2015.png"  border="0">
 									</a>
 								</div></td>
 								<td width="18"><div style="width:100%;height:110px; text-align:center;background: url('voj/images/layout/cube_right.png') repeat-x"></div></td>

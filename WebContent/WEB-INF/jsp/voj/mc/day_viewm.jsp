@@ -15,6 +15,7 @@
 		}
 	</job:db>]
 </uf:organism>
+<c:set var="mc_dt" value="${rset.rows[0].mc_dt }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,24 @@
 	#carousel li.pane11 { background: #42d692; }
 	#carousel li.pane21 { background: #4986e7; }
 	#carousel li.pane31 { background: #d06b64; }
+	
+	.bible_bookmark0{color: #FFF612;background:#0100FF;}
+	.bible_bookmark1{color: #FFF612;background:#0100FF;}
+	.bible_bookmark2{color: #FFF612;background:#0100FF;}
+	.bible_bookmark3{color: #FFF612;background:#0100FF;}
 
+	.button_bookmark{
+		border: 1px solid #cccccc;
+		border-radius: 3px;
+		box-sizing: border-box;
+		margin-right:3px;
+		padding:3px;
+		color: #000000;
+		cursor: pointer;
+		font-size: 12px;
+		//line-height: 25px;
+		text-align: center;
+	}
 </style>
 </head>
 
@@ -101,11 +119,13 @@
 <script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 
 <script>
+	var carousel;
+
 	$(function() {
 		
 		$('div', $('#carousel')).css({"background-color":''});
 		
-		var carousel = new Carousel("#carousel", function(){
+		carousel = new Carousel("#carousel", function(){
 			setTitle(carousel.getIndex());
 		});
 		carousel.init();
@@ -124,17 +144,30 @@
 			$('#tip').hide("slow");
 		},3000);
 		
-		$('div',$('.bible')).click(function(e){
+		var section = $('div',$('.bible'));
+		section.click(function(e){
 			$(e.currentTarget).toggleClass('bible_bg_s');
 		});
+		//절표시
+		for(var i=0; i<section.length; i++){
+			$(section[i]).attr('id', 'section'+i);
+		}
+		//북마크 표시
+		bookMark();
+		$('#bookmark').find('div').click(function(e){
+			var el = $(e.target);
+			var section =$.cookie('bible_bookmark_'+el.attr('idx'));
+			document.location.href = 'at.sh?_ps=${req._ps }&mc_dt='+el.attr('date')+'&pg='+el.attr('idx')+'&section='+section;
+		});
+		
 		$('span', $('#carousel')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
 
-    	
+		
 		var font_size = $.cookie('F_S');
 		if(font_size){
 			$('.bible div').css('font-size', font_size+'px');
 		}
-    	
+		
 		$('.font_size').click(function(tar){
 			var font_size = $.cookie('F_S');
 			var step = -2;
@@ -172,9 +205,42 @@
 				$( "#bible_header" ).hide();
 			}
 			scrollTop = $(this).scrollTop();
-		});				
-	
+		});
+		
+		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
+
+		if(${!empty(req.section)}){
+			$( "#bible_header" ).hide();
+			setTimeout(function(){
+				var top = $('#${req.section}').position().top;
+				var bible = $('.bible');
+				bible.scrollTop(top-100);
+			},500);
+		}
+
+		var mc2 = new Hammer(document.getElementById('bible_header')).on("panleft panright", function(ev) {
+			callJang(ev.type=='panleft' ? 'a' : 'b');
+		});
 	});
+	function bookMark(){
+		$( "#bible_header" ).hide();
+		//북마크 표시
+		for(var i=0; i<4;++i){
+			var bDay =$.cookie('bible_bookmark_day_'+i);
+			
+			if(bDay=='${mc_dt}'){
+				var selector = '#'+$.cookie('bible_bookmark_'+i);
+				$(selector).addClass('bible_bookmark'+i);
+			}
+			if(bDay){
+				var bm = $('#bookmark'+i);
+				bm.html('<b>'+(i+1)+'</b> : ' + bDay.replace('-','월') + '일');
+				bm.addClass('button_bookmark');
+				bm.attr('date',bDay);
+			}
+		}
+		$( "#bible_header" ).show();
+	}
 	
 	/**
 	* super simple carousel
@@ -225,6 +291,14 @@
 		 */
 		this.showPane = function(index, animate) {
 			// between the bounds
+			if(index > pane_count-1){
+				callJang2('a');
+				return;
+			}
+			if(index < 0){
+				callJang2('b');
+				return;
+			}
 			index = Math.max(0, Math.min(index, pane_count-1));
 			current_pane = index;
 
@@ -312,29 +386,57 @@
 						}
 					}
 					break;
+				case 'press':
+					$('.bible_bookmark'+current_pane).removeClass();
+					var section = $(ev.target).closest('div');
+					section.addClass('bible_bookmark'+current_pane);
+					var val = section.attr('id');
+					$.cookie('bible_bookmark_day_'+current_pane, '${mc_dt}', {expires:365});
+					$.cookie('bible_bookmark_'+current_pane, val, {expires:365});
+					
+					//setTimeout(function(){
+						bookMark();
+						//location.hash = val;
+						//var bible = $('.bible');
+						//bible.scrollTop(bible.scrollTop()-100);
+					//},1000);
+					break;
 			}
 		}
 ///
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight press", handleHammer);
 	}
-
+	
+	function callJang(nevi){
+		var idx = carousel.getIndex();
+		
+		document.location.href = 'at.sh?_ps=${req._ps }&mc_dt=${mc_dt}&nevi='+nevi+'&pg='+idx;
+	}
+	function callJang2(nevi){
+		$('#changeDate').show();
+		setTimeout(function(){
+			document.location.href = 'at.sh?_ps=${req._ps }&mc_dt=${mc_dt}&nevi='+nevi;
+		},1000);
+	}
 </script>
 
 <body>
 	<table id="bible_header" style="position:fixed;left: 0px; z-index: 100;width: 100%; background-color: #ffffff"><tr>
-		<td>
+		<td width="70">
+			<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
+		</td>
+		<td align="center">
 			<div style="font-size: 20px;font-weight: bold;width: 100%;">
-				<a href="/"><img src="./voj/images/log.png" border="0" height="30" style="vertical-align: middle;"></a>
 				<span style="color:#2fb9d1;"> 맥체인</span>&nbsp;
-				<c:set var="day" value="_${rset.rows[0].mc_dt }일"/>
+				<c:set var="day" value="_${mc_dt }일"/>
 				<c:set var="day" value="${fn:replace(day,'_0','') }"/>
 				<c:set var="day" value="${fn:replace(day,'_','') }"/>
 				<c:set var="day" value="${fn:replace(day,'-0','-') }"/>
-				<a href="at.sh?_ps=${req._ps }&mc_dt=${rset.rows[0].mc_dt }&nevi=b" style="font-size: 24px;"><img src="../images/icon/actions-go-previous-view-icon.png" border="0"></a>
-				
-				<span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${rset.rows[0].mc_dt }"/>)</span>
-				<a href="at.sh?_ps=${req._ps }&mc_dt=${rset.rows[0].mc_dt }&nevi=a" style="font-size: 24px;"><img src="../images/icon/actions-go-next-view-icon.png" border="0"></a>
-				<div id="bible_title"></div>
+				<a href="at.sh?_ps=voj/sch/show"><span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${mc_dt}"/>)</span></a>
+				<br>
+				<img onclick="callJang('b')" src="../images/icon/back-icon.png" border="0">
+				<span id="bible_title" style="vertical-align:40%;"></span>
+				<img onclick="callJang('a')" src="../images/icon/next-icon.png" border="0">
 			</div>
 		</td>
 		<td align="right">
@@ -343,11 +445,17 @@
 				<div class="font_size cc_bt" style="padding: 5px; margin-top:3px; min-width: 30px; " value="-">가-</div> 
 			</div>
 		</td>
+	</tr><tr>
+		<td colspan="3">
+			<div id="bookmark" style=" ">
+				<div style="float: left;"><img src="../images/icon/bookmark-icon.png"></div>
+				<div id="bookmark0" idx="0" style="float: left;"></div>
+				<div id="bookmark1" idx="1" style="float: left;"></div>
+				<div id="bookmark2" idx="2" style="float: left;"></div>
+				<div id="bookmark3" idx="3" style="float: left;"></div>
+			</div>
+		</td>
 	</tr></table>
-
-	<div id="tip" style="position:fixed; bottom: 50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
-		상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
-	</div>
 
 	<div id="carousel">
 		<ul>
@@ -355,13 +463,21 @@
 			<li class="bible ${row.ca_name } pane${status.index }" style="overflow:auto;">
 				<br/><br/><br/>	
 			
-			
-				<div class="bible_title" style="display: none;"><b>${status.index+1 }. ${row.wr_subject }</b></div>
+				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b>${status.index+1 }. ${row.wr_subject }</b></div>
 				${row.WR_CONTENT }
 			</li>
 		</c:forEach>
 		</ul>
 	</div>
+	<div id="changeDate" style="position:fixed; top: 100px;left:50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
+		날짜를 변경합니다.
+	</div>
+
 	 
+	<div id="tip" style="position:fixed; bottom: 50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
+		파트별로 길게 눌러 북마크를 달 수 잇습니다.<br>
+		상단을 좌우 스크롤 하면 다른 장을 볼 수 있습니다.<br>
+		상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
+	</div>
 </body>
 </html>

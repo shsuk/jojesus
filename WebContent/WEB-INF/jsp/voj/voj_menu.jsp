@@ -174,12 +174,6 @@
 						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=serve" desc="섬기는이">
 							<img class="off" src="voj/images/menu/m14.png"><img class="on" src="voj/images/menu/m14_1.png">
 						</span>
-<c:if test="${viewAdminButton && session.myGroups['dev']}">
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=organize"> 교회조직 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=phil"> 목회철학 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=his"> 교회역사 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=trad"> 교회전통 </span>
-</c:if>
 						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" desc="오시는길">
 							<img class="off" src="voj/images/menu/m15.png"><img class="on" src="voj/images/menu/m15_1.png">
 						</span>
@@ -197,11 +191,6 @@
 						<span class="sub_menu_item" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun" desc="주일예배">
 							<img class="off" src="voj/images/menu/m21.png"><img class="on" src="voj/images/menu/m21_1.png">
 						</span> 
-<c:if test="${viewAdminButton && session.myGroups['dev']}">
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&bd_cat=praise" bd_cat="praise"> 경배와 찬양 </span>
-
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&bd_cat=hymn" bd_cat="hymn"> 성가대찬양 </span>
-</c:if>
 						<span class="sub_menu_item" value="at.sh?_ps=voj/mc/day_view" desc="성경읽기">
 							<img class="off" src="voj/images/menu/m22.png"><img class="on" src="voj/images/menu/m22_1.png">
 						</span> 
@@ -246,45 +235,7 @@
 							<img class="off" src="voj/images/menu/m44.png"><img class="on" src="voj/images/menu/m44_1.png">
 						</span>
 					</div>
-				</div>
-				<div class="d_ib" value="m5">
-					<c:if test="${rs.vrow.cnt > 0 }" >
-						<img style="position: absolute;margin-left: 35px;" src="images/icon/new_ico.gif" >
-						<c:set var="title3">title="${rs.vrow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
-					</c:if>
-					<div id="m5" class="top_menu_item" bd_cat="vil" onclick${mb }="goVillage('')" memo="마을속회">
-						<img value="menu4" src="voj/images/menu/menu4.png" border="0" ${title3 }>
-					</div>
-					<div class="sub_menu_list m5" value="m5" style="background: #ffffff url('voj/images/menu/bg${ uf:round(uf:floor(((uf:random()*100) % 5)))+1 }.jpg') no-repeat 20px 50px/90% 70%; cursor: default; ${isMobile ? 'left: 30px;' : '' }">
-						<tp:village bd_key="${req.bd_key }"/>		
-					</div>
-				</div>
-<c:if test="${viewAdminButton && session.myGroups['dev']}">			
-				<div class="d_ib">
-					<div id="m7" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&mid=m7&id=agl')"  memo="교육훈련">
-						<img value="menu5" src="voj/images/menu/menu5.png" border="0">
-					</div>
-					<div class="sub_menu_list m7" value="m7"  style=" ${isMobile ? 'left: 120px;' : '' }"">
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=agl" > 천사,꿈마당 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=jss" > 예수마당 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=frt" > 과일마당 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=ym" > 청년부 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=nbel"> 새신자교육 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m7&id=youth"> 꿈찾기 코칭 </span>
-					</div>
-				</div>
-				<div class="d_ib">
- 					<div id="m6" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&mid=m6&id=ser1')"  memo="섬김과나눔">
- 						<img value="menu6" src="voj/images/menu/menu6.png" border="0">
-					</div>
-	 				<div class="sub_menu_list m6" value="m6" style=" ${isMobile ? 'left: 170px;' : '' }">
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m6&id=ser1"> 장학 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m6&id=ser2"> 구제 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m6&id=ser3"> 나눔 </span>
-						<span class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&mid=m6&id=ser4"> 봉사 </span>
-					</div>
-				</div>
-</c:if>				
+				</div>			
 				<c:if test="${session.myGroups['mj']}">
 					<div class="d_ib">
 						<div id="m10"  class="top_menu_item" style="margin-top: 3px;" onclick="openPage('voj/bd/list&bd_cat=mj')">
