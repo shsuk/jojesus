@@ -91,10 +91,10 @@
 	#carousel li.pane21 { background: #4986e7; }
 	#carousel li.pane31 { background: #d06b64; }
 	
-	.bible_bookmark0{color: #FFF612;background:#0100FF;}
-	.bible_bookmark1{color: #FFF612;background:#0100FF;}
-	.bible_bookmark2{color: #FFF612;background:#0100FF;}
-	.bible_bookmark3{color: #FFF612;background:#0100FF;}
+	.bible_bookmark0{background: #FFF612;color:#0100FF;}
+	.bible_bookmark1{background: #FFF612;color:#0100FF;}
+	.bible_bookmark2{background: #FFF612;color:#0100FF;}
+	.bible_bookmark3{background: #FFF612;color:#0100FF;}
 
 	.button_bookmark{
 		border: 1px solid #cccccc;
@@ -138,14 +138,11 @@
 			
 		}
 		
-		$('#tip').show("slow");
-		
-		setTimeout(function(){
-			$('#tip').hide("slow");
-		},3000);
-		
 		var section = $('div',$('.bible'));
 		section.click(function(e){
+			if($(e.currentTarget).find('div').length){
+				return;
+			}
 			$(e.currentTarget).toggleClass('bible_bg_s');
 		});
 		//절표시
@@ -197,6 +194,8 @@
 		$('.bible').scroll(function(eventData , handler) {
 			var cSrollTop = $(this).scrollTop();
 			
+			$('#tip').hide();
+			
 			if(scrollTop===-1){
 				
 			}else if(cSrollTop<scrollTop){
@@ -228,15 +227,21 @@
 		for(var i=0; i<4;++i){
 			var bDay =$.cookie('bible_bookmark_day_'+i);
 			
+			$('.bible_bookmark'+i).removeClass();
+
+			var selector = '#'+$.cookie('bible_bookmark_'+i);
 			if(bDay=='${mc_dt}'){
-				var selector = '#'+$.cookie('bible_bookmark_'+i);
 				$(selector).addClass('bible_bookmark'+i);
+			}else{
+				$(selector).removeClass('bible_bookmark'+i);
 			}
+			var bm = $('#bookmark'+i);
+			bm.addClass('button_bookmark');
+			bm.attr('date',bDay);
 			if(bDay){
-				var bm = $('#bookmark'+i);
-				bm.html('<b>'+(i+1)+'</b> : ' + bDay.replace('-','월') + '일');
-				bm.addClass('button_bookmark');
-				bm.attr('date',bDay);
+				bm.html('<b>'+(i+1)+'</b>:' + bDay.replace('-','월') + '일');
+			}else{
+				bm.html('<b>'+(i+1)+'</b>:');
 			}
 		}
 		$( "#bible_header" ).show();
@@ -387,19 +392,20 @@
 					}
 					break;
 				case 'press':
-					$('.bible_bookmark'+current_pane).removeClass();
 					var section = $(ev.target).closest('div');
-					section.addClass('bible_bookmark'+current_pane);
 					var val = section.attr('id');
-					$.cookie('bible_bookmark_day_'+current_pane, '${mc_dt}', {expires:365});
-					$.cookie('bible_bookmark_'+current_pane, val, {expires:365});
+					var dt = $.cookie('bible_bookmark_day_'+current_pane);
+					var sel = $.cookie('bible_bookmark_'+current_pane);
 					
-					//setTimeout(function(){
-						bookMark();
-						//location.hash = val;
-						//var bible = $('.bible');
-						//bible.scrollTop(bible.scrollTop()-100);
-					//},1000);
+					if(dt=='${mc_dt}' && sel==val){
+						$.cookie('bible_bookmark_day_'+current_pane, '', {expires:365});
+						$.cookie('bible_bookmark_'+current_pane, '', {expires:365});
+					}else{
+						$.cookie('bible_bookmark_day_'+current_pane, '${mc_dt}', {expires:365});
+						$.cookie('bible_bookmark_'+current_pane, val, {expires:365});
+					}
+
+					bookMark();
 					break;
 			}
 		}
@@ -446,7 +452,7 @@
 			</div>
 		</td>
 	</tr><tr>
-		<td colspan="3">
+		<td colspan="2">
 			<div id="bookmark" style=" ">
 				<div style="float: left;"><img src="../images/icon/bookmark-icon.png"></div>
 				<div id="bookmark0" idx="0" style="float: left;"></div>
@@ -454,6 +460,9 @@
 				<div id="bookmark2" idx="2" style="float: left;"></div>
 				<div id="bookmark3" idx="3" style="float: left;"></div>
 			</div>
+		</td>
+		<td align="right">
+			<img src="../images/icon/help-icon.png" onclick="$('#tip').slideToggle()" style="margin-right: 10px;">
 		</td>
 	</tr></table>
 
@@ -474,10 +483,12 @@
 	</div>
 
 	 
-	<div id="tip" style="position:fixed; bottom: 50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
-		파트별로 길게 눌러 북마크를 달 수 잇습니다.<br>
-		상단을 좌우 스크롤 하면 다른 장을 볼 수 있습니다.<br>
-		상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
+	<div id="tip" style="position:fixed; bottom: 0px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
+		1) 파트별로 길게 눌러 북마크를 달 수 있습니다.<br>
+		2) 상단을 좌우 스크롤 하면 동일 파트의 다른 날짜로 이동합니다.<br>
+		2) 본문을 상하좌우 스크롤 할 수 있습니다.
+		3) 본문 좌우 스크롤시 양 끝에서는 다른 날짜로 이동합니다.<br>
+		4) 상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
 	</div>
 </body>
 </html>
