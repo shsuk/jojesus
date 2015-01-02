@@ -32,7 +32,6 @@
 	
 		change_img($('.img_list')[0]);
 
-		showAutoItemNevi();
 		showNevi();
 	    
     	$('.prev_item').show();

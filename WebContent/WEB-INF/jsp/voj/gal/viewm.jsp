@@ -143,14 +143,12 @@
 		});
 		
 		changeEmoticon();
-		
-		$('#tip').show("slow");
-		
+				
 		setTimeout(function(){
 			$('#tip').hide("slow");
 		},10000);
 	});
-	
+
 	/**
 	* super simple carousel
 	* animation between panes happens with css transitions
@@ -271,6 +269,14 @@
 					//ev.gesture.stopDetect();
 					break;
 
+				case 'panup':
+					$('#header').show();
+					break;
+
+				case 'pandown':
+					$('#header').hide();
+					break;
+
 				case 'release':
 					// more then 50% moved, navigate
 					if(Math.abs(ev.gesture.deltaX) > pane_width/2) {
@@ -287,7 +293,7 @@
 			}
 		}
 
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight panup pandown", handleHammer);
 	}
 	function loadRepList(){
 		var url = 'at.sh?_ps=voj/gal/viewm_re&gal_id=${req.gal_id}';
@@ -346,18 +352,22 @@
 </script>
 </head>
 <body>
-	<table style="position:fixed;bottom:0; left: 0px; z-index: 100;   background-color: #ffffff;opacity: .35;filter: Alpha(Opacity=35);"><tr>
-		<td>
+	<table id="header" style="position:fixed;bottom:0; left: 0px; z-index: 100; width:100%;  background-color: #ffffff;opacity: .55;filter: Alpha(Opacity=55);"><tr>
+		<td rowspan="2">
+			<a href="/"><img src="./voj/images/log.png" border="0" height="35" style="vertical-align: middle;"></a>
+		</td>
+		<td colspan="2">
 			<div style="font-size: 20px;font-weight: bold;width: 100%">
-				<div>
 					${row.title } (<span id="gal_info" style="font-size: 14px;"></span>)
-					
-				</div>
-				<a href="/"><img src="./voj/images/log.png" border="0" height="30" style="vertical-align: middle;"></a>
-				<span style="color:#2fb9d1;"> 갤러리</span>&nbsp;
-				<span class="cc_bt" onclick="loadRepList();"> 댓글(${fn:length(rset.reprows)})</span>
 				
 			</div>
+		</td>
+	</tr><tr>
+		<td>
+			<span class="cc_bt" onclick="loadRepList();"> 댓글(${fn:length(rset.reprows)})</span>
+		</td>
+		<td width="20" align="right">
+			<img src="../images/icon/help-icon.png" onclick="$('#tip').slideToggle()" style="margin-right: 10px;">
 		</td>
 	</tr></table>
 
@@ -366,19 +376,20 @@
 		<c:forEach var="rowl" items="${rset.rows }" varStatus="status">
 			<li class="images ${row.ca_name } pane${status.index }" style="overflow:auto;">
 				<div style="position: absolute;left:0px;top:0px;"><a id="dwn_img" href="at.sh?_ps=voj/gal/viewimg&file_id=${rowl.file_id }" style="background: #FAED7D;color: #22741C;">원본(<fmt:formatNumber value="${uf:round(rowl.file_size/1024) }" pattern="#,##0"/>k)</a></div>
-				<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
-					원본을 클릭하면 사진을 확대하거나 축소하여 볼 수 있습니다.
-					<br>원본은 사이즈가 클 수 있으므로 사이즈를 꼭 확인하세요.
-					<br>기본 사용량을 초과한 경우 데이타 통화료가 부가될 수 있으므로 wifi에서 사용하세요.
-					<br>원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 사이즈가 클 수 있습니다.
-				</div>
 				<tp:img id="img${status.index }" file_id="${rowl.file_id}" thum="200" style="width: 100%;vertical-align:middle;"/>
 			</li>
 		</c:forEach>
 		</ul>
 	</div>
+	
+	<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
+		원본을 클릭하면 사진을 확대하거나 축소하여 볼 수 있습니다.
+		<br>원본은 사이즈가 클 수 있으므로 사이즈를 꼭 확인하세요.
+		<br>기본 사용량을 초과한 경우 데이타 통화료가 부가될 수 있으므로 wifi에서 사용하세요.
+		<br>원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 사이즈가 클 수 있습니다.
+	</div>
  	
- 	<div id="rep_list" style="position:absolute; top:0px; padding:5px; display:none; left:0px; width: 90%; height: 90%;overflow: auto;; z-index:1100; background-color: #ffffff;opacity:.85;filter: Alpha(Opacity=85);">
+ 	<div id="rep_list" style="position:absolute; top:0px; padding:5px; display:none; left:0px; width: 95%; height: 90%;overflow: auto;; z-index:1100; background-color: #ffffff;opacity:.75;filter: Alpha(Opacity=75);">
  	</div>
 </body>
 </html>

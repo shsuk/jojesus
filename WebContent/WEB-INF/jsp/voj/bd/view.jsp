@@ -47,6 +47,7 @@
 </uf:organism>
 <c:set var="row" value="${rset.row }"/>
 <script type="text/javascript">
+	var isEdit = false;
 	
 	$(function() {
 		<c:if test="${empty(row)}">
@@ -56,22 +57,20 @@
 		</c:if>
 		
 		<c:if test="${row.bd_cat== 'cafe'}">
-	    	$('.prev_item').show();
-	    	$('.next_item').show();
-	    	
-		    if('${rset.prev.bd_id }'==''){
-		    	$('.prev_item').hide();
-		    }
-		    if('${rset.next.bd_id }'==''){
-		    	$('.next_item').hide();
-		    }
+			$('.prev_item').show();
+			$('.next_item').show();
+			
+			if('${rset.prev.bd_id }'==''){
+				$('.prev_item').hide();
+			}
+			if('${rset.next.bd_id }'==''){
+				$('.next_item').hide();
+			}
 		   
-		    $('.prev_item').attr('bd_id', '${rset.prev.bd_id }');
-		    $('.next_item').attr('bd_id', '${rset.next.bd_id }');
-	    </c:if>
-	    
-	    showAutoItemNevi();
-			    
+			$('.prev_item').attr('bd_id', '${rset.prev.bd_id }');
+			$('.next_item').attr('bd_id', '${rset.next.bd_id }');
+		</c:if>
+
 		init_load();
 		
 		changeEmoticon();
@@ -80,18 +79,26 @@
 			hideShow_nav();
 		});
 		
+		$( "#rep_text" ).focusin(function() {
+			$( "#rep_text" ).css({height:'200px'})
+			$('#prev_layer').hide();
+			isEdit = true;
+		});	
 		$( "#rep_text" ).focusout(function() {
-			hideShow_nav();
+			isEdit = false;
 		});	
 		
 	});
 	
 	
 	function hideShow_nav(){
-		$('#prev_layer').hide();
+		if(isEdit){
+			return;
+		}
+		$('#prev_layer').show();
 		setTimeout(function(){
-			$('#prev_layer').show();
-		}, 3000);			
+			$('#prev_layer').hide();
+		}, 5000);			
 
 	}
 	function body_print(){
@@ -147,7 +154,7 @@
 		$('#viewer_img').attr('src', src);
 		setTimeout(function(){
 			$('#viewer_img').attr('src',"at.sh?_ps=at/upload/dl${isMobile ? '&thum=500' : ''}&file_id="+id);
-		}, 500);
+		}, 400);
 		//var isOpen = false;
 		try {
 			isOpen = img_viewer.dialog( "isOpen" );
@@ -229,14 +236,15 @@
 						${item['reg_dt@yyyy-MM-dd'] }
 					</td><td width="40">
 						<c:if test="${session.user_id==item.reg_id || session.myGroups[item.bd_cat]}">
-							<img title="수정" onclick="edit_reply(${item.rep_id})" class="link" border="0" src="images/icon/edit-file-icon.png">
+							<img title="수정" onclick="edit_reply(this, ${item.rep_id})" class="link" border="0" src="images/icon/edit-file-icon.png">
 							<img title="삭제" onclick="del_reply(${req.bd_id },${item.rep_id})" class="link" border="0" src="images/icon/Close-icon.png">
 						</c:if>
 						<c:if test="${item.rep_id == item.upper_rep_id && session.user_id != 'guest'}">
-							<img title="댓글 달기" onclick="reReply(${item.rep_id})" class="link" border="0" src="images/icon/reply-icon.png">
+							<img title="댓글 달기" onclick="reReply(this, ${item.rep_id})" class="link" border="0" src="images/icon/reply-icon.png">
 						</c:if>
 					</td>
 				</tr>
+				<tr><td colspan="3"  id="edit_re_${item.rep_id}"></td></tr>
 			</table>
 		</c:forEach>
 		<%//답글 작성 %>
@@ -260,7 +268,7 @@
 							<textarea name="rep_text" id="rep_text" style="width: 100%;" title="이곳에 글을 남겨 주세요."   value="" valid="[['notempty']]"></textarea>
 						</form>
 					</td>
-					<td width="60"><a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="save_reply()" style="margin-right: 10px;">댓글 저장</a></td>
+					<td width="60" valign="bottom"><a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="save_reply()" style="margin-right: 10px;">댓글 저장</a></td>
 				</tr>
 			</table>
 		</div>
@@ -278,11 +286,10 @@
 			</c:if>
 		</div>
 	</div>
-	<div id="re_mask" style="position: fixed; z-index:1000; top:0px; left:0px; width:100%; height:100%; background: #eeeeee;border:1px solid #C0C0C0;display: none; opacity: .3;filter: Alpha(Opacity=30);">
 	</div>
-	<div id="re_reply" style="position: fixed; z-index:1100; top:100px; left:${isMobile ? '0' : '100'}px; background: #eeeeee;border:1px solid #C0C0C0;display: none;">
+	<div id="re_reply" style="background: #eeeeee;border:1px solid #C0C0C0;display: none;">
 		<span style="float: left; ;margin:4px;font-size: 14px;"><b id="re_tilte"></b></span>
-		<img class="link" onclick="colseReReply()" style="float:right;margin:4px;" src="images/icon/Close-2-icon.png">
+		<a style="float:right;margin: 5px;" class="cc_bt"  href="#" onclick="colseReReply()" style="margin-right: 10px;">취 소</a>
 		<div id="re_reply_comtents" style="clear: both;"></div>
 	</div>
 </div>

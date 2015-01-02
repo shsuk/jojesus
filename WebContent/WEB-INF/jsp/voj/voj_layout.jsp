@@ -104,18 +104,6 @@
 		document.location.href = url + '?' + $.param(data); 
 	}
 
-	function showAutoItemNevi(){
-		showItemNevi();
-		hideItemNevi();
-	}
-	function showItemNevi(){
-		$('.content_nevi').css({opacity: .35,filter: 'Alpha(Opacity=35)'});
-	}
-	function hideItemNevi(){
-		//setTimeout(function(){
-		//	$('.content_nevi').css({opacity: 0,filter: 'Alpha(Opacity=0)'});
-		//},5000);
-	}
 </script>
 
 </head>
@@ -158,7 +146,7 @@
 			</footer>
 		</div>
 		
-		<div id="prev_layer" onmousemove="showItemNevi()" onmouseout="hideItemNevi()" style="position: fixed; bottom: 50px;right: 0px;">
+		<div id="prev_layer" style="position: fixed; bottom: 50px;right: 0px;">
 			<div class="next_item content_nevi" title="최신 자료" style="width:100px; opacity: .3;filter: Alpha(Opacity=30); display: none; cursor: pointer;text-align: center;">다음글<br><img src="./voj/images/up-icon.png"></div>
 			<div class="prev_item content_nevi" title="이전 자료" style="width:100px; opacity: .3;filter: Alpha(Opacity=30); display: none; cursor: pointer;text-align: center; margin-top:20px;"><img src="./voj/images/down-icon.png"><br>이전글</div>
 		</div>

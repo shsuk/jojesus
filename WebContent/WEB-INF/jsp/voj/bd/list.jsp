@@ -89,10 +89,13 @@
 	}
 	
 	
-	function reReply(upper_rep_id){
+	function reReply(e, upper_rep_id){
+		try{
+			$(e).closest('tr').next().find('td').append($('#re_reply'));
+		}catch(e){}
+		
 		$('#action', $('#reply_form')).val('i');
 		
-		$('#re_mask').show();
 		$('#re_reply').show();
 		$('#re_tilte').text('댓글 달기');
 		$('#re_reply_comtents').append($('#reply'));
@@ -101,13 +104,15 @@
 	}
 	function colseReReply(){
 		$('#action', $('#reply_form')).val('i');
-		$('#re_mask').hide();
 		$('#re_reply').hide();
 		$('#reply_comtents').append($('#reply'));
 	}
-	function edit_reply(rep_id){
+	function edit_reply(e, rep_id){
+		try{
+			$(e).closest('tr').next().find('td').append($('#re_reply'));
+		}catch(e){}
+
 		$('#action', $('#reply_form')).val('u');
-		$('#re_mask').show();
 		$('#re_reply').show();
 		$('#re_tilte').text('댓글 수정');
 		$('#re_reply_comtents').append($('#reply'));
