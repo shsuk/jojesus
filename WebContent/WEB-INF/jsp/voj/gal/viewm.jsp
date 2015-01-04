@@ -143,10 +143,6 @@
 		});
 		
 		changeEmoticon();
-				
-		setTimeout(function(){
-			$('#tip').hide("slow");
-		},10000);
 	});
 
 	/**
@@ -291,9 +287,10 @@
 					}
 					break;
 			}
+			$('#tip').hide("slow");
 		}
 
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight panup pandown", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight panup pandown press", handleHammer);
 	}
 	function loadRepList(){
 		var url = 'at.sh?_ps=voj/gal/viewm_re&gal_id=${req.gal_id}';
@@ -353,21 +350,20 @@
 </head>
 <body>
 	<table id="header" style="position:fixed;bottom:0; left: 0px; z-index: 100; width:100%;  background-color: #ffffff;opacity: .55;filter: Alpha(Opacity=55);"><tr>
-		<td rowspan="2">
-			<a href="/"><img src="./voj/images/log.png" border="0" height="35" style="vertical-align: middle;"></a>
+		<td>
+			<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
 		</td>
-		<td colspan="2">
-			<div style="font-size: 20px;font-weight: bold;width: 100%">
-					${row.title } (<span id="gal_info" style="font-size: 14px;"></span>)
-				
-			</div>
-		</td>
-	</tr><tr>
 		<td>
 			<span class="cc_bt" onclick="loadRepList();"> 댓글(${fn:length(rset.reprows)})</span>
 		</td>
 		<td width="20" align="right">
 			<img src="../images/icon/help-icon.png" onclick="$('#tip').slideToggle()" style="margin-right: 10px;">
+		</td>
+	</tr><tr>
+		<td colspan="3">
+			<div style="font-size: 20px;font-weight: bold;width: 100%">
+					${row.title } (<span id="gal_info" style="font-size: 14px;"></span>)
+			</div>
 		</td>
 	</tr></table>
 
@@ -383,10 +379,10 @@
 	</div>
 	
 	<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
-		원본을 클릭하면 사진을 확대하거나 축소하여 볼 수 있습니다.
-		<br>원본은 사이즈가 클 수 있으므로 사이즈를 꼭 확인하세요.
-		<br>기본 사용량을 초과한 경우 데이타 통화료가 부가될 수 있으므로 wifi에서 사용하세요.
-		<br>원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 사이즈가 클 수 있습니다.
+		1) 원본 클릭하여 사진을 확대 축소할 수 있습니다.
+		<br>2) 원본은 사이즈가 클 수 있으므로 wifi에서 사용하세요.
+		<br>3) 원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 더클 수 있습니다.
+		<br>4) 화면을 상하좌우 스크롤하여 다른 정보를 보거나 숨길 수 있습니다.
 	</div>
  	
  	<div id="rep_list" style="position:absolute; top:0px; padding:5px; display:none; left:0px; width: 95%; height: 90%;overflow: auto;; z-index:1100; background-color: #ffffff;opacity:.75;filter: Alpha(Opacity=75);">

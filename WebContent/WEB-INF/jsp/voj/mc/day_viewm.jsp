@@ -483,7 +483,7 @@
 	</div>
 
 	 
-	<div id="tip" style="position:fixed; bottom: 0px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
+	<div id="tip" style="position:fixed; bottom: 0px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
 		1) 파트별로 절을 길게 눌러 북마크를 생성해 읽은 위치를 표시 할 수 있습니다.<br>
 		2) 상단을 좌우 스크롤 하면 동일 파트의 다른 날짜로 이동합니다.<br>
 		2) 본문을 상하좌우 스크롤 할 수 있습니다.<br>
