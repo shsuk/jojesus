@@ -143,6 +143,10 @@
 		});
 		
 		changeEmoticon();
+		
+		setTimeout(function(){
+			$('#tip').hide();
+		},3000);
 	});
 
 	/**
@@ -366,7 +370,7 @@
 			</div>
 		</td>
 	</tr></table>
-
+      
 	<div id="carousel">
 		<ul>
 		<c:forEach var="rowl" items="${rset.rows }" varStatus="status">
@@ -378,11 +382,11 @@
 		</ul>
 	</div>
 	
-	<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
+	<div id="tip" style="position:fixed; bottom: 100px; z-index: 100; padding:20px; background-color: #B2CCFF" onclick="$(this).hide()">
 		1) 원본 클릭하여 사진을 확대 축소할 수 있습니다.
 		<br>2) 원본은 사이즈가 클 수 있으므로 wifi에서 사용하세요.
 		<br>3) 원본 사이즈는 보통 1,000k 전후 입니다. 휴대폰으로 촬영한 사진은 더클 수 있습니다.
-		<br>4) 화면을 상하좌우 스크롤하여 다른 정보를 보거나 숨길 수 있습니다.
+		<br>4) 화면을 상하좌우로 밀어 다른 정보를 보거나 숨길 수 있습니다.
 	</div>
  	
  	<div id="rep_list" style="position:absolute; top:0px; padding:5px; display:none; left:0px; width: 95%; height: 90%;overflow: auto;; z-index:1100; background-color: #ffffff;opacity:.75;filter: Alpha(Opacity=75);">
