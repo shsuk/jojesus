@@ -91,6 +91,9 @@
 			<div class="bible  ${row.ca_name }">
 				<div><b>${row.wr_subject }</b></div>
 				${row.WR_CONTENT }
+				<c:if test="${session.myGroups['intro'] && viewAdminButton}">
+					<a href="at.sh?_ps=voj/mc/edit&wr_id=${row.wr_id }" target="new" class="action_blue btn-r">수정</a>
+				</c:if>
 			</div>
 		</c:forEach>
 		

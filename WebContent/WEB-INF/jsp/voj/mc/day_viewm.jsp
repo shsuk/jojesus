@@ -159,6 +159,9 @@
 		
 		$('span', $('#carousel')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
 
+		setTimeout(function(){
+			$('#tip').hide();
+		},3000);
 		
 		var font_size = $.cookie('F_S');
 		if(font_size){
@@ -187,6 +190,7 @@
 
 			$.cookie('F_S', font_size,{expires:30});
 			$('.bible div').css('font-size', font_size+'px');
+			
 		});
 
 		//모바일 스트롤시 헤더 숨김
@@ -474,6 +478,9 @@
 			
 				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b>${status.index+1 }. ${row.wr_subject }</b></div>
 				${row.WR_CONTENT }
+				<c:if test="${session.myGroups['intro'] && viewAdminButton}">
+					<a href="at.sh?_ps=voj/mc/edit&wr_id=${row.wr_id }" target="new" class="action_blue btn-r" style="background: #ffffff;">수정</a>
+				</c:if>
 			</li>
 		</c:forEach>
 		</ul>
@@ -483,12 +490,13 @@
 	</div>
 
 	 
-	<div id="tip" style="position:fixed; bottom: 0px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF" onclick="$(this).hide()">
-		1) 파트별로 절을 길게 눌러 북마크를 생성해 읽은 위치를 표시 할 수 있습니다.<br>
-		2) 상단을 좌우 스크롤 하면 동일 파트의 다른 날짜로 이동합니다.<br>
-		2) 본문을 상하좌우 스크롤 할 수 있습니다.<br>
-		3) 본문 좌우 스크롤시 양 끝에서는 다른 날짜로 이동합니다.<br>
-		4) 상하 스크롤이 잘 안될 때에는 클릭 후 잠시 멈추었다가 스크롤 해보세요.
+	<div id="tip" style="position:fixed; bottom: 0px; z-index: 100; padding:20px; background-color: #B2CCFF; display: ${!empty(req.nevi) ? 'none' : ''};" onclick="$(this).hide()">
+		1) 파트별로 절을 길게 눌러 <img src="../images/icon/bookmark-icon.png">북마크를 생성해 읽은 위치를 표시 할 수 있습니다.<br>
+		2) 타이틀을 좌우로 밀면 동일 파트의 다른 날짜로 이동합니다.<br>
+		2) 본문을 상하좌우로 밀어 보세요.<br>
+		3) 본문 좌우로 밀면 양 끝에서는 다른 날짜로 이동합니다.<br>
+		4) 상하로 밀기가 잘 안될 때에는 클릭 후 잠시 멈추었다가 밀어 보세요.<br>
+		5) <img src="../images/icon/help-icon.png" >클릭시 이 화면을 다시 볼 수 있습니다.
 	</div>
 </body>
 </html>
