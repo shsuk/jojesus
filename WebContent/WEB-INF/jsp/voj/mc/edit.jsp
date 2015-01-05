@@ -109,7 +109,6 @@
 		return false;
 	}
 	
-	
 </script>
 <div  id="body_main"  class="bd_title" style="display: none;">
 	
