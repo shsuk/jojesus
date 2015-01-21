@@ -116,6 +116,7 @@
 <script src="./jquery/js/jquery-1.9.1.min.js"></script>
 <script src="./js/modernizr.js"></script>
 <script src="./js/hammer/hammer.min.2.0.4.js" type="text/javascript" ></script>
+<script src="./js/hammer/touch-emulator.js" type="text/javascript" ></script>
 <script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 
 <script>
@@ -153,8 +154,10 @@
 		bookMark();
 		$('#bookmark').find('div').click(function(e){
 			var el = $(e.target);
-			var section =$.cookie('bible_bookmark_'+el.attr('idx'));
-			document.location.href = 'at.sh?_ps=${req._ps }&mc_dt='+el.attr('date')+'&pg='+el.attr('idx')+'&section='+section;
+			if(el.attr('date')){
+				var section =$.cookie('bible_bookmark_'+el.attr('idx'));
+				document.location.href = 'at.sh?_ps=${req._ps }&mc_dt='+el.attr('date')+'&pg='+el.attr('idx')+'&section='+section;
+			}
 		});
 		
 		$('span', $('#carousel')).css({"background": '', "font-size": '', "mso-fareast-font-family":''});
@@ -195,6 +198,7 @@
 
 		//모바일 스트롤시 헤더 숨김
 		var scrollTop = -1;
+/* 		
 		$('.bible').scroll(function(eventData , handler) {
 			var cSrollTop = $(this).scrollTop();
 			
@@ -202,16 +206,35 @@
 			
 			if(scrollTop===-1){
 				
-			}else if(cSrollTop<scrollTop){
-				$( "#bible_header" ).show();
-			}else{
+			}else if(cSrollTop - scrollTop > 3){
 				$( "#bible_header" ).hide();
+			}else if(cSrollTop - scrollTop < -3){
+				$( "#bible_header" ).show();
 			}
 			scrollTop = $(this).scrollTop();
 		});
-		
+ */		
+		TouchEmulator();
+		document.body.addEventListener('touchstart', touchstart, false);
+		//document.body.addEventListener('touchmove', log, false);
+		document.body.addEventListener('touchend', touchend, false);
 		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
-
+		
+		function touchstart(ev) {
+			scrollTop = ev.touches[0].clientY;
+		}
+		function touchend(ev) {
+			if(ev.changedTouches.length < 1){
+				return;
+			}
+			var h = scrollTop - ev.changedTouches[0].clientY;
+			if(h < -50){
+				$( "#bible_header" ).slideDown(2000, function() {});
+			}else if(h > 50){
+				$( "#bible_header" ).hide();
+			}
+		}
+		
 		if(${!empty(req.section)}){
 			$( "#bible_header" ).hide();
 			setTimeout(function(){
@@ -229,18 +252,20 @@
 		$( "#bible_header" ).hide();
 		//북마크 표시
 		for(var i=0; i<4;++i){
+			var bm = $('#bookmark'+i);
 			var bDay =$.cookie('bible_bookmark_day_'+i);
 			
 			$('.bible_bookmark'+i).removeClass();
 
 			var selector = '#'+$.cookie('bible_bookmark_'+i);
-			if(bDay=='${mc_dt}'){
+			//if(bDay=='${mc_dt}'){
+			if(bDay){
+				bm.addClass('button_bookmark');
 				$(selector).addClass('bible_bookmark'+i);
 			}else{
+				bm.removeClass('button_bookmark');
 				$(selector).removeClass('bible_bookmark'+i);
 			}
-			var bm = $('#bookmark'+i);
-			bm.addClass('button_bookmark');
 			bm.attr('date',bDay);
 			if(bDay){
 				bm.html('<b>'+(i+1)+'</b>:' + bDay.replace('-','월') + '일');
@@ -414,7 +439,7 @@
 			}
 		}
 ///
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight press", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight press panup pandown", handleHammer);
 	}
 	
 	function callJang(nevi){
@@ -428,6 +453,12 @@
 			document.location.href = 'at.sh?_ps=${req._ps }&mc_dt=${mc_dt}&nevi='+nevi;
 		},1000);
 	}
+	function nextPane(){
+		carousel.showPane(carousel.getIndex()+1, true);
+	}
+	function befPane(){
+		carousel.showPane(carousel.getIndex()-1, true);
+	}
 </script>
 
 <body>
@@ -436,7 +467,7 @@
 			<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
 		</td>
 		<td align="center">
-			<div style="font-size: 20px;font-weight: bold;width: 100%;">
+			<div style="font-size: 20px;font-weight:;width: 100%;">
 				<span style="color:#2fb9d1;"> 맥체인</span>&nbsp;
 				<c:set var="day" value="_${mc_dt }일"/>
 				<c:set var="day" value="${fn:replace(day,'_0','') }"/>
@@ -444,9 +475,9 @@
 				<c:set var="day" value="${fn:replace(day,'-0','-') }"/>
 				<a href="at.sh?_ps=voj/sch/show"><span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${mc_dt}"/>)</span></a>
 				<br>
-				<img onclick="callJang('b')" src="../images/icon/back-icon.png" border="0">
+				<img onclick="befPane()" src="../images/icon/back-icon.png" border="0">
 				<span id="bible_title" style="vertical-align:40%;"></span>
-				<img onclick="callJang('a')" src="../images/icon/next-icon.png" border="0">
+				<img onclick="nextPane()" src="../images/icon/next-icon.png" border="0">
 			</div>
 		</td>
 		<td align="right">
@@ -476,7 +507,7 @@
 			<li class="bible ${row.ca_name } pane${status.index }" style="overflow:auto;">
 				<br/><br/><br/>	
 			
-				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b>${status.index+1 }. ${row.wr_subject }</b></div>
+				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b style="color: #980000;">${status.index+1 }.</b> ${row.wr_subject }</div>
 				${row.WR_CONTENT }
 				<c:if test="${session.myGroups['intro'] && viewAdminButton}">
 					<a href="at.sh?_ps=voj/mc/edit&wr_id=${row.wr_id }" target="new" class="action_blue btn-r" style="background: #ffffff;">수정</a>
