@@ -196,47 +196,42 @@
 			
 		});
 
-		//모바일 스트롤시 헤더 숨김
+		//모바일 위 아래 밀기시 헤더 숨김
 		var scrollTop = -1;
-/* 		
-		$('.bible').scroll(function(eventData , handler) {
-			var cSrollTop = $(this).scrollTop();
-			
-			$('#tip').hide();
-			
-			if(scrollTop===-1){
-				
-			}else if(cSrollTop - scrollTop > 3){
-				$( "#bible_header" ).hide();
-			}else if(cSrollTop - scrollTop < -3){
-				$( "#bible_header" ).show();
-			}
-			scrollTop = $(this).scrollTop();
-		});
- */		
+		var isTouch = false;
 		TouchEmulator();
-		document.body.addEventListener('touchstart', touchstart, false);
-		//document.body.addEventListener('touchmove', log, false);
-		document.body.addEventListener('touchend', touchend, false);
+		document.body.addEventListener('touchstart', touchStart, false);
+		//document.body.addEventListener('touchmove', touchMove, false);
+		document.body.addEventListener('touchend', touchEnd, false);
 		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
+		var bible_header = $("#bible_header");
+		var bHeight = bible_header.height();
 		
-		function touchstart(ev) {
+		function touchStart(ev) {
+			isTouch = true;
 			scrollTop = ev.touches[0].clientY;
 		}
-		function touchend(ev) {
+
+		function touchEnd(ev) {
+			isTouch = false;
+			
 			if(ev.changedTouches.length < 1){
 				return;
 			}
-			var h = scrollTop - ev.changedTouches[0].clientY;
-			if(h < -50){
-				$( "#bible_header" ).slideDown(2000, function() {});
-			}else if(h > 50){
-				$( "#bible_header" ).hide();
+			
+			var h =  ev.changedTouches[0].clientY - scrollTop;
+			var top = bible_header.position().top;
+			
+			if(h < -10 && top > -20){
+				bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
+			}else if(h > 10 && top < -20){
+				bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
 			}
+		
 		}
 		
 		if(${!empty(req.section)}){
-			$( "#bible_header" ).hide();
+			bible_header.hide();
 			setTimeout(function(){
 				var top = $('#${req.section}').position().top;
 				var bible = $('.bible');
@@ -249,7 +244,6 @@
 		});
 	});
 	function bookMark(){
-		$( "#bible_header" ).hide();
 		//북마크 표시
 		for(var i=0; i<4;++i){
 			var bm = $('#bookmark'+i);
@@ -273,7 +267,7 @@
 				bm.html('<b>'+(i+1)+'</b>:');
 			}
 		}
-		$( "#bible_header" ).show();
+		$("#bible_header").show();
 	}
 	
 	/**
@@ -462,7 +456,7 @@
 </script>
 
 <body>
-	<table id="bible_header" style="position:fixed;left: 0px; z-index: 100;width: 100%; background-color: #ffffff"><tr>
+	<table id="bible_header" style="position:fixed;left: 0px; top:0; z-index: 100;width: 100%; background-color: #ffffff"><tr>
 		<td width="70">
 			<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
 		</td>
