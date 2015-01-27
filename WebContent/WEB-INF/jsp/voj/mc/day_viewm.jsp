@@ -121,6 +121,8 @@
 
 <script>
 	var carousel;
+	var bible_header;
+	var bHeight;
 
 	$(function() {
 		
@@ -204,8 +206,8 @@
 		//document.body.addEventListener('touchmove', touchMove, false);
 		document.body.addEventListener('touchend', touchEnd, false);
 		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
-		var bible_header = $("#bible_header");
-		var bHeight = bible_header.height();
+		bible_header = $("#bible_header");
+		bHeight = bible_header.height();
 		
 		function touchStart(ev) {
 			isTouch = true;
@@ -220,22 +222,23 @@
 			}
 			
 			var h =  ev.changedTouches[0].clientY - scrollTop;
+			
 			var top = bible_header.position().top;
 			
 			if(h < -10 && top > -20){
-				bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
+				hide();
 			}else if(h > 10 && top < -20){
-				bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
+				show();
 			}
 		
 		}
 		
 		if(${!empty(req.section)}){
-			bible_header.hide();
 			setTimeout(function(){
 				var top = $('#${req.section}').position().top;
 				var bible = $('.bible');
 				bible.scrollTop(top-100);
+				hide();
 			},500);
 		}
 
@@ -243,6 +246,29 @@
 			callJang(ev.type=='panleft' ? 'a' : 'b');
 		});
 	});
+	
+	function show(){
+		if(!bible_header){
+			return;
+		}
+		var top = bible_header.position().top;
+
+		if(top < -20){
+			bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
+		}
+
+	}
+	function hide(){
+		if(!bible_header){
+			return;
+		}
+		var top = bible_header.position().top;
+
+		if(top > -20){
+			bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
+		}
+
+	}
 	function bookMark(){
 		//북마크 표시
 		for(var i=0; i<4;++i){
@@ -267,7 +293,7 @@
 				bm.html('<b>'+(i+1)+'</b>:');
 			}
 		}
-		$("#bible_header").show();
+		show();
 	}
 	
 	/**
