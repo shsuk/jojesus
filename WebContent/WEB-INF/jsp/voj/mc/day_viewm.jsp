@@ -197,18 +197,20 @@
 			$('.bible div').css('font-size', font_size+'px');
 			
 		});
+		
+		bible_header = $("#bible_header");
+		bHeight = bible_header.height();
 
 		//모바일 위 아래 밀기시 헤더 숨김
 		var scrollTop = -1;
 		var isTouch = false;
+/* 		
 		TouchEmulator();
 		document.body.addEventListener('touchstart', touchStart, false);
 		//document.body.addEventListener('touchmove', touchMove, false);
 		document.body.addEventListener('touchend', touchEnd, false);
 		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
-		bible_header = $("#bible_header");
-		bHeight = bible_header.height();
-		
+ */		
 		function touchStart(ev) {
 			isTouch = true;
 			scrollTop = ev.touches[0].clientY;
@@ -248,6 +250,7 @@
 	});
 	
 	function show(){
+/* 		
 		if(!bible_header){
 			return;
 		}
@@ -256,9 +259,10 @@
 		if(top < -20){
 			bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
 		}
-
+ */
 	}
 	function hide(){
+/* 		
 		if(!bible_header){
 			return;
 		}
@@ -267,7 +271,7 @@
 		if(top > -20){
 			bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
 		}
-
+ */
 	}
 	function bookMark(){
 		//북마크 표시
@@ -423,7 +427,23 @@
 					self.prev();
 					//ev.gesture.stopDetect();
 					break;
-
+/* 
+				case 'panstart':
+					isTouch = true;
+					//scrollTop = ev.clientY;
+					break;
+				case 'panend':
+					var h =  ev.deltaY;// - scrollTop;
+					
+					var top = bible_header.position().top;
+					
+					if(h < -10 && top > -20){
+						hide();
+					}else if(h > 10 && top < -20){
+						show();
+					}
+					break;
+ */
 				case 'release':
 					// more then 50% moved, navigate
 					if(Math.abs(ev.gesture.deltaX) > pane_width/2) {
@@ -525,7 +545,7 @@
 		<ul>
 		<c:forEach var="row" items="${rset.rows }" varStatus="status">
 			<li class="bible ${row.ca_name } pane${status.index }" style="overflow:auto;">
-				<br/><br/><br/>	
+				<br/><br/><br/><br/><br/>
 			
 				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b style="color: #980000;">${status.index+1 }.</b> ${row.wr_subject }</div>
 				${row.WR_CONTENT }
