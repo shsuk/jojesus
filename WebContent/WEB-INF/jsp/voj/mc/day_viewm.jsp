@@ -91,6 +91,10 @@
 	#carousel li.pane21 { background: #4986e7; }
 	#carousel li.pane31 { background: #d06b64; }
 	
+	#bookmark{
+		font-size: 12px;
+	}
+	
 	.bible_bookmark0{background: #FFF612;color:#0100FF;}
 	.bible_bookmark1{background: #FFF612;color:#0100FF;}
 	.bible_bookmark2{background: #FFF612;color:#0100FF;}
@@ -116,7 +120,6 @@
 <script src="./jquery/js/jquery-1.9.1.min.js"></script>
 <script src="./js/modernizr.js"></script>
 <script src="./js/hammer/hammer.min.2.0.4.js" type="text/javascript" ></script>
-<script src="./js/hammer/touch-emulator.js" type="text/javascript" ></script>
 <script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 
 <script>
@@ -200,57 +203,25 @@
 		
 		bible_header = $("#bible_header");
 		bHeight = bible_header.height();
-
-		//모바일 위 아래 밀기시 헤더 숨김
-		var scrollTop = -1;
-		var isTouch = false;
-/* 		
-		TouchEmulator();
-		document.body.addEventListener('touchstart', touchStart, false);
-		//document.body.addEventListener('touchmove', touchMove, false);
-		document.body.addEventListener('touchend', touchEnd, false);
+		//장이동
 		carousel.showPane('${empty(req.pg) ? 0 : req.pg}', true);
- */		
-		function touchStart(ev) {
-			isTouch = true;
-			scrollTop = ev.touches[0].clientY;
-		}
-
-		function touchEnd(ev) {
-			isTouch = false;
-			
-			if(ev.changedTouches.length < 1){
-				return;
-			}
-			
-			var h =  ev.changedTouches[0].clientY - scrollTop;
-			
-			var top = bible_header.position().top;
-			
-			if(h < -10 && top > -20){
-				hide();
-			}else if(h > 10 && top < -20){
-				show();
-			}
-		
-		}
-		
-		if(${!empty(req.section)}){
+		//북마크 절이동
+		if('${!empty(req.section)}'=='true'){
 			setTimeout(function(){
 				var top = $('#${req.section}').position().top;
 				var bible = $('.bible');
 				bible.scrollTop(top-100);
-				hide();
+				//hide();
 			},500);
 		}
-
+		//헤더 좌우 터치
 		var mc2 = new Hammer(document.getElementById('bible_header')).on("panleft panright", function(ev) {
 			callJang(ev.type=='panleft' ? 'a' : 'b');
 		});
 	});
 	
 	function show(){
-/* 		
+
 		if(!bible_header){
 			return;
 		}
@@ -259,10 +230,10 @@
 		if(top < -20){
 			bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
 		}
- */
+
 	}
 	function hide(){
-/* 		
+
 		if(!bible_header){
 			return;
 		}
@@ -271,7 +242,7 @@
 		if(top > -20){
 			bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
 		}
- */
+ 
 	}
 	function bookMark(){
 		//북마크 표시
@@ -427,13 +398,8 @@
 					self.prev();
 					//ev.gesture.stopDetect();
 					break;
-/* 
-				case 'panstart':
-					isTouch = true;
-					//scrollTop = ev.clientY;
-					break;
 				case 'panend':
-					var h =  ev.deltaY;// - scrollTop;
+					var h =  ev.deltaY;
 					
 					var top = bible_header.position().top;
 					
@@ -443,7 +409,7 @@
 						show();
 					}
 					break;
- */
+
 				case 'release':
 					// more then 50% moved, navigate
 					if(Math.abs(ev.gesture.deltaX) > pane_width/2) {
@@ -478,8 +444,8 @@
 					break;
 			}
 		}
-///
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright swipeleft swiperight press panup pandown", handleHammer);
+
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright panend swipeleft swiperight press", handleHammer);
 	}
 	
 	function callJang(nevi){
@@ -502,44 +468,43 @@
 </script>
 
 <body>
-	<table id="bible_header" style="position:fixed;left: 0px; top:0; z-index: 100;width: 100%; background-color: #ffffff"><tr>
-		<td width="70">
-			<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
-		</td>
-		<td align="center">
-			<div style="font-size: 20px;font-weight:;width: 100%;">
-				<span style="color:#2fb9d1;"> 맥체인</span>&nbsp;
-				<c:set var="day" value="_${mc_dt }일"/>
-				<c:set var="day" value="${fn:replace(day,'_0','') }"/>
-				<c:set var="day" value="${fn:replace(day,'_','') }"/>
-				<c:set var="day" value="${fn:replace(day,'-0','-') }"/>
-				<a href="at.sh?_ps=voj/sch/show"><span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${mc_dt}"/>)</span></a>
-				<br>
-				<img onclick="befPane()" src="../images/icon/back-icon.png" border="0">
-				<span id="bible_title" style="vertical-align:40%;"></span>
-				<img onclick="nextPane()" src="../images/icon/next-icon.png" border="0">
-			</div>
-		</td>
-		<td align="right">
-			<div style="margin: 2px 2px 2px 5px;font-size: 14px;">
-				<div class="font_size cc_bt" style="padding: 5px; min-width: 30px; font-weight:bold;" value="+">가+</div>
-				<div class="font_size cc_bt" style="padding: 5px; margin-top:3px; min-width: 30px; " value="-">가-</div> 
-			</div>
-		</td>
-	</tr><tr>
-		<td colspan="2">
-			<div id="bookmark" style=" ">
-				<div style="float: left;"><img src="../images/icon/bookmark-icon.png"></div>
-				<div id="bookmark0" idx="0" style="float: left;"></div>
-				<div id="bookmark1" idx="1" style="float: left;"></div>
-				<div id="bookmark2" idx="2" style="float: left;"></div>
-				<div id="bookmark3" idx="3" style="float: left;"></div>
-			</div>
-		</td>
-		<td align="right">
-			<img src="../images/icon/help-icon.png" onclick="$('#tip').slideToggle()" style="margin-right: 10px;">
-		</td>
-	</tr></table>
+	<div id="bible_header" style="position:fixed;left: 0px; top:0; z-index: 100;width: 100%; background-color: #ffffff;">
+		<table style=" width: 100%; max-width: 400px; float: left;"><tr>
+			<td width="70">
+				<a href="/"><img src="./voj/images/log.png" border="0" height="45" style="vertical-align: middle;"></a>
+			</td>
+			<td align="center">
+				<div style="font-size: 20px;font-weight:;width: 100%;">
+					<span style="color:#2fb9d1;"> 맥체인</span>&nbsp;
+					<c:set var="day" value="_${mc_dt }일"/>
+					<c:set var="day" value="${fn:replace(day,'_0','') }"/>
+					<c:set var="day" value="${fn:replace(day,'_','') }"/>
+					<c:set var="day" value="${fn:replace(day,'-0','-') }"/>
+					<a href="at.sh?_ps=voj/sch/show"><span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${mc_dt}"/>)</span></a>
+					<br>
+					<img onclick="befPane()" src="../images/icon/back-icon.png" border="0">
+					<span id="bible_title" style="vertical-align:40%;"></span>
+					<img onclick="nextPane()" src="../images/icon/next-icon.png" border="0">
+				</div>
+			</td>
+			<td align="right">
+				<div style="margin: 2px 5px 2px 5px;font-size: 14px;">
+					<div class="font_size cc_bt" style="padding: 5px; min-width: 30px; font-weight:bold;" value="+">가+</div>
+					<div class="font_size cc_bt" style="padding: 5px; margin-top:3px; min-width: 30px; " value="-">가-</div> 
+				</div>
+			</td>
+		</tr></table>
+	
+		<span id="bookmark">
+			<div style="float: left;"><img src="../images/icon/bookmark-icon.png"></div>
+			<div id="bookmark0" idx="0" style="float: left;padding:3px;"></div>
+			<div id="bookmark1" idx="1" style="float: left;padding:3px;"></div>
+			<div id="bookmark2" idx="2" style="float: left;padding:3px;"></div>
+			<div id="bookmark3" idx="3" style="float: left;padding:3px;"></div>
+			<img src="../images/icon/help-icon.png" onclick="$('#tip').slideToggle()" style="margin-right: 10px; float: right;">
+		</span>
+	
+	</div>
 
 	<div id="carousel">
 		<ul>
