@@ -21,64 +21,67 @@ var isMobileView = false;
 
 	$(function($){
 		initMenu();
-	    var bef_over_menu='';
-	    $("#main_body").hover(function(e){
-	    	;
-	    },function(e){
-	    	menu_out();
-		    $('.sub_menu_list').hide();
-	    });
-	    
-	    $(".top_menu div.top_menu_item").hover(function(e){
-	    	menu_out();
-	    	var t = $(e.currentTarget);
+		var bef_over_menu='';
+		$("#main_body").hover(function(e){
+			;
+		},function(e){
+			menu_out();
+			$('.sub_menu_list').hide();
+		});
+		
+		$(".top_menu div.top_menu_item").hover(function(e){
+			showMenu();
+/* 			
+			menu_out();
+			var t = $(e.currentTarget);
 
-	     	t.css('background', "url('voj/images/menu/untitled-2.jpg') repeat-x  scroll 0 0 #F5F5F3")
-        	
-    	   	$('.sub_menu_list').hide();
+		 	t.css('background', "url('voj/images/menu/untitled-2.jpg') repeat-x  scroll 0 0 #F5F5F3")
+			
+		   	$('.sub_menu_list').hide();
 
-	        var submenu = t.attr('id');
-    	   	$('.'+submenu).show({
-        		effect: "fade",
-        		duration: 300
-        	});
-	    },function(e){
-	    	bef_over_menu = $(e.currentTarget);
-	    });
-	    
-	    function menu_out(){
+			var submenu = t.attr('id');
+		   	$('.'+submenu).show({
+				effect: "fade",
+				duration: 300
+			});
+ */		   	
+		},function(e){
+			bef_over_menu = $(e.currentTarget);
+		});
+		
+		function menu_out(){
 			if(bef_over_menu){
 				bef_over_menu.css('background', "url('voj/images/menu/untitled-1.jpg') repeat-x  scroll 0 0 #F5F5F3")
 			}
-	    	
-	    }
-	    
-	    $(".sub_menu_list div").hover(function(e){
-	    	$(e.currentTarget).addClass('m_over');
-	    },function(e){
-	    	$(e.currentTarget).removeClass('m_over');
-	    });
-	    
-	    $('#body_main_contents').click(function(){
-	    	$('.sub_menu_list').hide();
-	    });
-	    $('header').click(function(){
-	    	$('.sub_menu_list').hide();
-	    });
-	    
-	    $('.sub_menu_item').click(function(e){
+			
+		}
+		
+		$(".sub_menu_list div").hover(function(e){
+			$(e.currentTarget).addClass('m_over');
+		},function(e){
+			$(e.currentTarget).removeClass('m_over');
+		});
+		
+		$('#body_main_contents').click(function(){
+			$('.sub_menu_list').hide();
+		});
+		$('header').click(function(){
+			$('.sub_menu_list').hide();
+		});
+		
+		$('.sub_menu_item').click(function(e){
 			document.location.href=$(e.currentTarget).attr('value');
-	    });
+		});
 
-    	var submenu = $('div[bd_cat=${req.bd_cat}]').parent();
-    	
-    	setCurrentMenu(submenu.attr('value'));
-    	
+		var submenu = $('div[bd_cat=${req.bd_cat}]').parent();
+		
+		setCurrentMenu(submenu.attr('value'));
+		
 		var font_size = $.cookie('F_S');
 		if(font_size){
 			$('.bible').css('font-size', font_size+'px');
 		}
-    	
+		
 		$('.font_size').click(function(tar){
 			var font_size = $.cookie('F_S');
 			var step = -2;
@@ -105,9 +108,9 @@ var isMobileView = false;
 
 	});
 	
-	function setCurrentMenu(menuid){    
-     	$('#'+menuid).css('background', "url('voj/images/menu/untitled-2.jpg') repeat-x  scroll 0 0 #F5F5F3");
-     	$('#'+menuid).css('border-bottom', "2px solid #ff0000");
+	function setCurrentMenu(menuid){	
+	 	$('#'+menuid).css('background', "url('voj/images/menu/untitled-2.jpg') repeat-x  scroll 0 0 #F5F5F3");
+	 	$('#'+menuid).css('border-bottom', "2px solid #ff0000");
 	}
 	function goVillage(vil_id){
 		
@@ -137,7 +140,7 @@ var isMobileView = false;
 				select: function( event, ui ) {
 					hideMenu();
 				}
-		    });
+			});
 		}
 		
 		//if(menu.length<1 || $.cookie('isMobile') != 'Y'){//모바일이 아닌 경우 
@@ -149,9 +152,9 @@ var isMobileView = false;
 		//모바일인 경우
 		var body = $('body');
 		body.append('<div id="menu_left_div" class=""  style="position: fixed; left: 0; top: 0; height: 100%;width: 15px;"></div>');
-		body.append('<div id="menu_div" style="position: fixed;left: 0; top: 0; height: 100%; overflow: auto; background: #D9E5FF; border:1px solid #cccccc; z-index:1001;"></div>');
-		body.append('<div id="menu_mask" style="position: fixed;left: 0; top: 0; width:100%; height: 100%; background:#D9E5FF; border:1px solid #cccccc; opacity: 0.3; filter: alpha(opacity=30); z-index:1000; disply:none;"></div>');
-		body.append('<div id="menu-btn" class="" style="position: fixed;left: 0; bottom: 0; opacity: 0.6; filter: alpha(opacity=60); background: #cccccc; z-index:1002;"><img src="../images/icon/menu-icon.png"></div>');
+		body.append('<div id="menu_div" style="position: fixed;left: 0; top: 0; height: 100%; overflow: auto;  z-index:1001;"></div>');
+		body.append('<div id="menu_mask" style="position: fixed;left: 0; top: 0; width:100%; height: 100%; background:#D9E5FF; border:1px solid #cccccc; opacity: 0.6; filter: alpha(opacity=60); z-index:1000; disply:none;"></div>');
+		body.append('<div id="menu-btn" class="" style="position: fixed;left: 0; bottom: 0; opacity: 0.6; filter: alpha(opacity=60); background: #D9E5FF; z-index:1002;"><img src="../images/icon/menu-icon.png"></div>');
 
 		//메뉴버튼 생성
 		$('#menu-btn').button().click(function( event ) {
@@ -204,6 +207,7 @@ var isMobileView = false;
 	
 </script>
 	<ul class="menu" style="width: 160px;display: none;">
+		<a href="/"><img src="./voj/images/log.png" border="0" height="50" style="margin: 3px;"></a>
 		<li class="ui-widget-header">교회안내</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_bow">인사말</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_church">교회소개</li>

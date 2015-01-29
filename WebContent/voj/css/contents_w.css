@@ -7,6 +7,9 @@ html,body {
 
 .top_menu .top_menu_item {display: inline-block;cursor: pointer;;margin: 0px;}
 .sub_menu_list a{color: #a39c97;font: bold;font-size: 12px;letter-spacing: 1px;}
+.sub_menu_list div{width:120px;; padding:3px; margin:3px; cursor: pointer;}
+.sub_menu_item{ cursor: pointer;font-weight: bold;padding : 5px;}
+.sub_menu_list div11{width:120px;; padding:3px; margin:3px; cursor: pointer;color: #4374D9;border: 1px solid #aaaaaa;border-bottom: 1px solid #cccccc;border-right:  1px solid #cccccc;}
 .sub_cube{width: 220px;}
 .sub_cube table{width: 100%;}
 div.d_ib{ float: left; }

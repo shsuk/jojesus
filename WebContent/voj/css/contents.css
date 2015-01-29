@@ -211,9 +211,6 @@ a.cc_bt:hover   {font-family: 'Malgun Gothic', sans-serif,"Dotum", "Gulim", "Ari
 	display: none;
 	z-index: 100;
 }
-.sub_menu_list div{width:120px;; padding:3px; margin:3px; cursor: pointer;}
-.sub_menu_item{ cursor: pointer;font-weight: bold;padding : 5px;}
-.sub_menu_list div11{width:120px;; padding:3px; margin:3px; cursor: pointer;color: #4374D9;border: 1px solid #aaaaaa;border-bottom: 1px solid #cccccc;border-right:  1px solid #cccccc;}
 .m_out{ color:#777777;}
 .m_over{ color:#000000;}
 .ie7_img_list{position: relative;}

@@ -47,7 +47,6 @@
 <script src="./js/formValid.js" type="text/javascript" ></script>
 
 <script src="./js/commonUtil.js"></script>
-
 <c:if test="${!empty(param.inc) }">
 	<script src="./voj/js/${param.inc }.js"></script>
 </c:if>
