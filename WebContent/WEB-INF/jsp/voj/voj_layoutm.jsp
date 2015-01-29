@@ -40,9 +40,7 @@
 <script src="./jquery/js/jquery.cookie.js" type="text/javascript"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="./jquery/js/excanvas.min.js"></script><![endif]-->
 <script src="./jquery/js/jquery.dynatree.js" type="text/javascript"></script>
-
-<script src="./jquery/flot/jquery.flot.js"></script>
-<script src="./jquery/flot/jquery.flot.pie.js"></script>
+<script src="./js/hammer/hammer.min.2.0.4.js" type="text/javascript" ></script>
 
 <script src="./at.sh?_ps=js/message" type="text/javascript" ></script>
 <script src="./js/graph.js" type="text/javascript" ></script>
