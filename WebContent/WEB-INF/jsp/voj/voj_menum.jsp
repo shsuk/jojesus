@@ -152,7 +152,7 @@ var isMobileView = false;
 		//모바일인 경우
 		var body = $('body');
 		body.append('<div id="menu_left_div" class=""  style="position: fixed; left: 0; top: 0; height: 100%;width: 15px;"></div>');
-		body.append('<div id="menu_div" style="position: fixed;left: 0; top: 0; height: 100%; overflow: auto;  z-index:1001;"></div>');
+		body.append('<div id="menu_div" style="position: fixed;left: 0; top: 0; height: 100%; overflow: auto; background:#D9E5FF; z-index:1001;"></div>');
 		body.append('<div id="menu_mask" style="position: fixed;left: 0; top: 0; width:100%; height: 100%; background:#D9E5FF; border:1px solid #cccccc; opacity: 0.6; filter: alpha(opacity=60); z-index:1000; disply:none;"></div>');
 		body.append('<div id="menu-btn" class="" style="position: fixed;left: 0; bottom: 0; opacity: 0.6; filter: alpha(opacity=60); background: #D9E5FF; z-index:1002;"><img src="../images/icon/menu-icon.png"></div>');
 
