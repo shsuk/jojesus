@@ -31,8 +31,6 @@
 <link href="./voj/css/contents_m.css" rel="stylesheet" type="text/css" />
 <link href="./voj/css/contents.css" rel="stylesheet" type="text/css" />
 <link href="./jquery/development-bundle/themes/redmond/jquery.ui.all.css" rel="stylesheet"  id="css" />
-<link href="./jquery/dynatree/src/skin/ui.dynatree.css" rel="stylesheet" type="text/css"/>
-<link href="./jquery/dynatree/doc/skin-custom/custom.css" rel="stylesheet" type="text/css" />
 
 <script src="./jquery/js/jquery-1.9.1.min.js"></script>
 <script src="./jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
