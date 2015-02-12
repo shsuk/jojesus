@@ -272,7 +272,7 @@
 			//setTimeout(function(){self.showPane(current_pane, true);}, 50);
 		};
 
-
+		var isEnd = true;
 		function handleHammer(ev) {
 			// disable browser scrolling
 			//ev.gesture.preventDefault();
@@ -282,24 +282,38 @@
 				case 'dragleft':
 					// stick to the finger
 					var pane_offset = -(100/pane_count)*current_pane;
-					var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
+					var drag_offset = ((100/pane_width)*ev.deltaX) / pane_count;
 
 					// slow down at the first and last pane
-					if((current_pane == 0 && ev.gesture.direction == "right") ||
-						(current_pane == pane_count-1 && ev.gesture.direction == "left")) {
+					if((current_pane == 0 && ev.direction == "right") ||
+						(current_pane == pane_count-1 && ev.direction == "left")) {
 						drag_offset *= .4;
 					}
 
 					setContainerOffset(drag_offset + pane_offset);
 					break;
-
+				case 'panstart':
+					isEnd = false;
+					break;
+				case 'panend':
+					if(isEnd || -150 > ev.deltaY || 150 < ev.deltaY){
+						break;
+					}
+					if(ev.deltaX > pane_width/2) {
+						self.prev();
+					}else if(-(pane_width/2) > ev.deltaX) {
+						self.next();
+					}
+					break;
 				case 'swipeleft':
 					self.next();
+					isEnd = true;
 					//ev.gesture.stopDetect();
 					break;
 
 				case 'swiperight':
 					self.prev();
+					isEnd = true;
 					//ev.gesture.stopDetect();
 					break;
 				case 'release':
@@ -337,7 +351,7 @@
 			}
 		}
 
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragleft dragright panend swipeleft swiperight press", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release dragright dragleft panstart panend swipeleft swiperight press", handleHammer);
 	}
 	
 	function callJang(nevi){
