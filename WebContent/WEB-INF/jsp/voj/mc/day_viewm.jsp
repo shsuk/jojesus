@@ -31,6 +31,9 @@
 
 <script>
 	var carousel;
+	var isEnd = true;
+	var isUpDn = false;
+	var isLR = false;
 
 	$(function() {
 		initMenu();
@@ -117,37 +120,14 @@
 				//hide();
 			},500);
 		}
-		//헤더 좌우 터치
-		//var mc2 = new Hammer(document.getElementById('bible_header')).on("panleft panright", function(ev) {
-		//	callJang(ev.type=='panleft' ? 'a' : 'b');
-		//});
+
+		$('.bible').scroll(function() {
+			isUpDn = true;
+		});
+
 	});
-/* 	
-	function show(){
 
-		if(!bible_header){
-			return;
-		}
-		var top = bible_header.position().top;
 
-		if(top < -20){
-			bible_header.animate({ "top": "+="+bHeight+"px" }, "slow" );
-		}
-
-	}
-	function hide(){
-
-		if(!bible_header){
-			return;
-		}
-		var top = bible_header.position().top;
-
-		if(top > -20){
-			bible_header.animate({ "top": "-="+bHeight+"px" }, "slow" );
-		}
- 
-	}
- */	
 	function bookMark(){
 		//북마크 표시
 		for(var i=0; i<4;++i){
@@ -272,38 +252,76 @@
 			//setTimeout(function(){self.showPane(current_pane, true);}, 50);
 		};
 
-		var isEnd = true;
+		
 		function handleHammer(ev) {
 			// disable browser scrolling
 			//ev.gesture.preventDefault();
 
 			switch(ev.type) {
-				case 'dragright':
-				case 'dragleft':
+				case 'panup':
+				case 'pandown':
+					if(isLR){
+						return;
+					}
+					isUpDn = true;
+					break;
+				case 'panright':
+				case 'panleft':
+					if(isUpDn){
+						return;
+					}
 					// stick to the finger
 					var pane_offset = -(100/pane_count)*current_pane;
 					var drag_offset = ((100/pane_width)*ev.deltaX) / pane_count;
 
 					// slow down at the first and last pane
-					if((current_pane == 0 && ev.direction == "right") ||
-						(current_pane == pane_count-1 && ev.direction == "left")) {
+					//if((current_pane == 0 && ev.direction == 4) ||
+					//	(current_pane == pane_count-1 && ev.direction == 2)) {
+					//	/drag_offset *= .4;
+					//}
+					if(current_pane == 0 || current_pane == pane_count-1 ) {
+						if(Math.abs(ev.deltaX) > pane_width/2) {
+							if(current_pane == 0){
+								$('#bDate').show().css({opacity: (drag_offset/(pane_width/10)), filter: 'alpha(opacity='+(drag_offset*100/(pane_width/10))+')'});
+							}else{
+								$('#nDate').show().css({opacity: (-drag_offset/(pane_width/10)), filter: 'alpha(opacity='+(drag_offset*100/(pane_width/10))+')'});
+							}
+						}else{
+							$('#bDate').hide();
+							$('#nDate').hide();
+						}
 						drag_offset *= .4;
 					}
 
 					setContainerOffset(drag_offset + pane_offset);
+					
+					isLR = true;
+					$('.bible').css({'overflow-y':'hidden'});
 					break;
 				case 'panstart':
+					isUpDn = false;
 					isEnd = false;
+					isLR = false;
 					break;
 				case 'panend':
+					isUpDn = false;
+					isLR = false;
+					$('#bDate').hide();
+					$('#nDate').hide();
+					$('.bible').css({'overflow-y':'auto'});
 					if(isEnd || -150 > ev.deltaY || 150 < ev.deltaY){
+						self.showPane(current_pane, true); 
+						isEnd = false;
 						break;
 					}
 					if(ev.deltaX > pane_width/2) {
 						self.prev();
 					}else if(-(pane_width/2) > ev.deltaX) {
 						self.next();
+					}else{
+						self.showPane(current_pane, true); 
 					}
+					isEnd = false;
 					break;
 				case 'swipeleft':
 					self.next();
@@ -351,7 +369,7 @@
 			}
 		}
 
-		new Hammer(element[0], { dragLockToAxis: true }).on("release dragright dragleft panstart panend swipeleft swiperight press", handleHammer);
+		new Hammer(element[0], { dragLockToAxis: true }).on("release panup pandown panright panleft panstart panend panleft swipeleft swiperight press", handleHammer);
 	}
 	
 	function callJang(nevi){
@@ -517,7 +535,7 @@
 	<div id="carousel">
 		<ul>
 		<c:forEach var="row" items="${rset.rows }" varStatus="status">
-			<li class="bible ${row.ca_name } pane${status.index }" style="overflow:auto;">
+			<li class="bible ${row.ca_name } pane${status.index }" style="overflow-y:auto;">
 			
 				<div id="bible_${status.index }" class="bible_title" style="display: none;"><b style="color: #980000;">${status.index+1 }.</b> ${row.wr_subject }</div>
 				
@@ -539,6 +557,8 @@
 		</c:forEach>
 		</ul>
 	</div>
+	<div id="bDate" style="position:fixed; top: 50%;left:0px;display: none;color:black; background:white; font-weight: bold;"><b>이<br>전<br>날<br>로<br>이<br>동</b></div>
+	<div id="nDate" style="position:fixed; top: 50%;right:0px;display: none;color:black; background:white; font-weight: bold;"><b>다<br>음<br>날<br>로<br>이<br>동</b></div>
 	<div id="changeDate" style="position:fixed; top: 100px;left:50px; z-index: 100; padding:20px; display: none; background-color: #B2CCFF">
 		날짜를 변경합니다.
 	</div>

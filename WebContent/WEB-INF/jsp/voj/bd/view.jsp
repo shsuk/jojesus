@@ -286,7 +286,7 @@
 			</c:if>
 		</div>
 	</div>
-	</div>
+
 	<div id="re_reply" style="background: #eeeeee;border:1px solid #C0C0C0;display: none;">
 		<span style="float: left; ;margin:4px;font-size: 14px;"><b id="re_tilte"></b></span>
 		<a style="float:right;margin: 5px;" class="cc_bt"  href="#" onclick="colseReReply()" style="margin-right: 10px;">취 소</a>

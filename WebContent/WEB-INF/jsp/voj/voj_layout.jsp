@@ -88,13 +88,9 @@
 		alert(1);
 	}
 	function show(layer, ur, data, noHide, callBack){
-		if(noHide){
-		}else{
-			layer.hide();
-		}
+		
 		layer.html('');
 		layer.load(ur, data, function(){
-			//layer.show({duration:700,easing:'fade'});
 			layer.show();
 			if(callBack) callBack();
 		});

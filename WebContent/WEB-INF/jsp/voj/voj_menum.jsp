@@ -29,7 +29,7 @@ var isMobileView = false;
 			$('.sub_menu_list').hide();
 		});
 		
-		$(".top_menu div.top_menu_item").hover(function(e){
+		$(".top_menu div.top_menu_item").click(function(e){
 			showMenu();
 /* 			
 			menu_out();
@@ -45,8 +45,6 @@ var isMobileView = false;
 				duration: 300
 			});
  */		   	
-		},function(e){
-			bef_over_menu = $(e.currentTarget);
 		});
 		
 		function menu_out(){
