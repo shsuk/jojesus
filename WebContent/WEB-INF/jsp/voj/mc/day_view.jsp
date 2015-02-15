@@ -64,7 +64,7 @@
 	</div>
 
 	<div class="bd_body">
-		<table ><tr>
+		<table style="width:100%;"><tr>
 			<td>
 				<c:set var="day" value="_${rset.rows[0].mc_dt }일"/>
 				<c:set var="day" value="${fn:replace(day,'_0','') }"/>
@@ -75,7 +75,9 @@
 				<span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${rset.rows[0].mc_dt }"/>)</span>
 				<a href="at.sh?_ps=voj/mc/day_view&mc_dt=${rset.rows[0].mc_dt }&nevi=a" style="font-size: 24px;"><img src="../images/icon/actions-go-next-view-icon.png" border="0"></a>
 			</td>
-			<td width="20" ></td>
+			<td align="right">
+				<span style="color:#a39c97;float: right;"><a href="at.sh?_ps=voj/intro/show&id=mjb"><b>예수마당 성경읽기표</b></a></span>
+			</td>
 		</tr></table>
 		<table>
 			<tr>

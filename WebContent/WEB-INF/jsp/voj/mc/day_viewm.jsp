@@ -520,7 +520,9 @@
 					<div  class="button" class="label" style="margin-left:15px; padding: 5px;float:left;  width: 80px; font-size: 12px;" onclick="$('#tip').slideToggle();hideMenu();" >도움말</div>
 				</td>
 			</tr><tr>
-				<td style="height: 3px;"></td>
+				<td style="height: 3px;">
+					<span  class="font_size cc_bt button" style="padding: 5px;float:left; min-width: 30px; " ><a href="at.sh?_ps=voj/intro/show&id=mjb" style="color:#a39c97;"><b>예수마당 성경읽기표</b></a></span>
+				</td>
 			</tr><tr>
 				<td>
 					<div class="font_size cc_bt button" style="padding: 5px;float:left; margin-right:5px; min-width: 30px; font-weight:bold;" value="+">가+</div>
