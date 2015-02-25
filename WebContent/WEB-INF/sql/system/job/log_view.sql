@@ -14,7 +14,7 @@ SELECT
 	message,
 	class_name,
 	file_id,
-	(SELECT file_name FROM ATTACH_TBL WHERE file_id = t1.file_id) file_name,
+	(SELECT file_name FROM attach_tbl WHERE file_id = t1.file_id) file_name,
 	log_status,
 	server,
 	log_dt

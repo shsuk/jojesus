@@ -40,7 +40,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter
 			return hasAccess;
 		}
 		String servletPath = request.getServletPath();
-		if("/dl.sh".equals(servletPath) || "/backup.sh".equals(servletPath)){
+		if("/dl.sh".equals(servletPath) || "/backup.sh".equals(servletPath) || "/del_backup.sh".equals(servletPath)){
 			return true;
 		}
 		if(StringUtils.endsWith(servletPath,"/api.sh")){

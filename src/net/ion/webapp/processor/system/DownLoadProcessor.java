@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -20,23 +21,32 @@ import net.ion.webapp.process.ProcessInfo;
 import net.ion.webapp.process.ProcessInitialization;
 import net.ion.webapp.process.ReturnValue;
 import net.ion.webapp.processor.ImplProcessor;
+import net.ion.webapp.utils.HttpUtils;
 import net.ion.webapp.utils.IslimUtils;
 import net.ion.webapp.utils.ParamUtils;
 import net.ion.webapp.utils.Thumbnail;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DownLoadProcessor  extends ImplProcessor {
 	private boolean isRun = false;
+	@Value("#{system['backup.bakupServerUrl']}")
+	private String bakupServerUrl;
+	private String[] bakupServerUrlList;
+
 	public ReturnValue execute(ProcessInfo processInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ReturnValue returnValue = new ReturnValue();
 		//Map<String, List<Map<String, Object>>> result = new HashMap<String, List<Map<String, Object>>>();
-
+		if(bakupServerUrlList==null){
+			bakupServerUrlList = bakupServerUrl.split(",");
+		}
 		returnValue.setResult(true);
-
+		
+		String ext = null;
 		String fileName;
 		String fid = processInfo.getString("fid");
 		String thum = request.getParameter("thum");
@@ -63,7 +73,7 @@ public class DownLoadProcessor  extends ImplProcessor {
 		
 		try {
 			out = response.getOutputStream();
-			String ext = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+			ext = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
 
 			if(StringUtils.isNotEmpty(thum) && !".png".equals(ext)){
 				try {
@@ -77,29 +87,43 @@ public class DownLoadProcessor  extends ImplProcessor {
 					}
 					
 					isRun = true;
+					
 					ByteArrayOutputStream bufOs = new ByteArrayOutputStream();
-					ra.load(bufOs);
+					
+					try {
+						ra.load(bufOs);
+					} catch (Exception e) {
+						
+					}
+					
 					is = getThumnail(new ByteArrayInputStream(bufOs.toByteArray()), thum, fileName, fileId, ext);
+					
 					writeHeader(response, request, fileName, 0);
 					
 					IOUtils.copyLarge(is, out);
 				
-				} catch (Exception e) {
-					// TODO: handle exception
+				
 				}finally{
 					isRun = false;
 				}
 			}else{
-				writeHeader(response, request, fileName, size);
-				try {
+				//sendRedirect(response, ra.getPath()+ext);;
+				if((new File(ra.getFullPath())).exists()){
+					writeHeader(response, request, fileName, size);
 					ra.load(out);
-				} catch (Exception e) {
-					response.setHeader("Content-Length", String.valueOf(0));
-					throw e;
+				}else{
+					throw new Exception("서버에 패일이 없어 백업서버로 이동합니다.");
 				}
 			}
 			
 			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 백업서버의 파일을 반환하도록 백업서버로 경로를 바꾼다.
+			System.out.println("Start sendRedirectToBackupServer");
+			sendRedirectToBackupServer(response, ra.getPath()+ext);;
+			System.out.println("End sendRedirectToBackupServer");
+			return returnValue;
 		}finally{
 			if (out != null){
 				try {
@@ -114,7 +138,27 @@ public class DownLoadProcessor  extends ImplProcessor {
 		}
 		return returnValue;
 	}
-
+	/**
+	 * 백업서버의 파일을 반환하도록 백업서버로 경로를 바꾼다.
+	 * @param response
+	 * @param path
+	 * @throws Exception
+	 */
+	private void sendRedirectToBackupServer(HttpServletResponse response, String path) throws Exception {
+		
+		for(String url : bakupServerUrlList){
+			String ack = url + "/ack.jsp";
+			try {
+				String str = HttpUtils.getString(ack, null, 1).trim();
+				if("OK".equalsIgnoreCase(str)){
+					response.sendRedirect(url + "/web_rep" + path);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	private InputStream getThumnail(InputStream is, String thum, String fileName, String fileId, String ext) throws Exception{
 		
 		String thumPath = ProcessInitialization.getWebRoot() + "/thum/" + thum + "/" + fileId.substring(0, 4)  + "/";

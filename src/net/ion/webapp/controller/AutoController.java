@@ -53,7 +53,7 @@ public class AutoController extends DefaultAutoController {
 			
 			resultSet.put("sucess", true);
 			if("S".equals(action)){
-				resultSet.put("list", DbUtils.select(queryPath, new HashMap<String, Object>()));
+				resultSet.put("list", DbUtils.select(queryPath, (Map<String, Object>)request.getAttribute("req")));
 			}else if("U".equals(action)){
 				resultSet.put("list", DbUtils.update(queryPath, (Map<String, Object>)request.getAttribute("req")));
 			}

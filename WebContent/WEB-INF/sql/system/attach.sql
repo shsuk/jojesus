@@ -7,7 +7,8 @@ INSERT INTO attach_tbl (
 	file_path, 
 	creater, 
 	mime_type, 
-	ref_tbl
+	ref_tbl,
+	created
 )
 VALUES (
 	@{fileId}, 
@@ -18,6 +19,7 @@ VALUES (
 	@{filePath},
 	@{user_id},
 	@{mimeType},
-	@{ref_tbl}
+	@{ref_tbl},
+	now()
 	);
  

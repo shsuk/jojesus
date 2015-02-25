@@ -270,6 +270,11 @@
 					if(isUpDn){
 						return;
 					}
+					if(!isLR && Math.abs(ev.deltaY) > Math.abs(ev.deltaX)){
+						isUpDn = true;
+						return;
+					}
+
 					// stick to the finger
 					var pane_offset = -(100/pane_count)*current_pane;
 					var drag_offset = ((100/pane_width)*ev.deltaX) / pane_count;
@@ -480,13 +485,13 @@
 						<table style="width: 100%;">
 							<tr>
 								<td style="width:30px;">
-									<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('b')" src="../images/icon/back1-icon.png" border="0">
+									<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('b')" src="../images/icon/up-icon.png" border="0">
 								</td>
 								<td align="center">
 									<a href="at.sh?_ps=voj/sch/show"><span style="font-size: 16px;font-weight: bold;color:#f6a400;">${fn:replace(day,'-','월') }(<tp:week m_d="${mc_dt}"/>)</span></a>
 								</td>
 								<td style="width:30px; text-align: right;">
-									<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('a')" src="../images/icon/next1-icon.png" border="0">
+									<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('a')" src="../images/icon/dn-icon.png" border="0">
 								</td>
 							</tr>
 							<tr>
@@ -552,6 +557,24 @@
 				</tr></table>
 				
 				${row.WR_CONTENT }
+				
+				<table style="width: 100%;">
+					<tr>
+						<td style="width:50%;text-align: right;">
+							<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('b')" src="../images/icon/up-icon.png" border="0">
+						</td>
+						<td style="width:60px; text-align: right;">
+							<img class="cc_bt button" style=" margin-right: 5px;" onclick="befPane()" src="../images/icon/back1-icon.png" border="0">
+						</td>
+						<td style="width:60px; text-align: left;">
+							<img class="cc_bt button" style=" margin-right: 5px;" onclick="nextPane()" src="../images/icon/next1-icon.png" border="0">
+						</td>
+						<td style="width:50%; text-align: left;">
+							<img class="cc_bt button" style=" margin-right: 5px;" onclick="callJang('a')" src="../images/icon/dn-icon.png" border="0">
+						</td>
+					</tr>
+				</table>
+
 				<c:if test="${session.myGroups['intro'] && viewAdminButton}">
 					<a href="at.sh?_ps=voj/mc/edit&wr_id=${row.wr_id }" target="new" class="action_blue btn-r" style="background: #ffffff;">수정</a>
 				</c:if>
