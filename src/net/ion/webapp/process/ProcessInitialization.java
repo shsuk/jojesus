@@ -27,6 +27,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
@@ -35,6 +36,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 public class ProcessInitialization implements ApplicationContextAware{
 	protected static final Logger logger = Logger.getLogger(ProcessInitialization.class);
+	@Value("#{system['backup.isBackupServer']}")
+	private String isBackupServer;
 	//private static String tmpScheduleRunIp;
 	//private static String scheduleRunIp;
 	//private static boolean isScheduleRunIp = false;
@@ -199,6 +202,10 @@ public class ProcessInitialization implements ApplicationContextAware{
 		//initPath();
 		DataSourceUtils.init(ctx);
 		ProcessorFactory.init();
+		
+		if("True".equalsIgnoreCase(isBackupServer)) {
+			return;
+		}
 		ScheduleFactory.init() ;
 	}
 	/*		

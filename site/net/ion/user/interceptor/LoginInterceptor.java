@@ -14,6 +14,7 @@ import net.ion.webapp.process.ProcessInitialization;
 import net.ion.webapp.utils.JobLogger;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -22,14 +23,20 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter
 {	
-	SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	@Value("#{system['backup.isBackupServer']}")
+	private String isBackupServer;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception  {
 		//세션아이디 저장
 		JobLogger.setSessionId(request.getSession().getId());
 		
-		String[] auths = PagePermission.getAuthUser(request, response);
+		String[] auths = null;
+		
+		if(!"True".equalsIgnoreCase(isBackupServer)) {
+			auths = PagePermission.getAuthUser(request, response);
+		}
+
 		if(auths!=null){//접근권한이 설정된 경우 권한 체크
 			boolean hasAccess = PagePermission.hasAccess(request, response, auths);
 			

@@ -270,7 +270,7 @@
 					if(isUpDn){
 						return;
 					}
-					if(!isLR && Math.abs(ev.deltaY) > Math.abs(ev.deltaX)){
+					if(!isLR && Math.abs(ev.deltaY*2) > Math.abs(ev.deltaX)){
 						isUpDn = true;
 						return;
 					}

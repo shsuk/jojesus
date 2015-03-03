@@ -131,7 +131,9 @@
 						<br>
 					</span>
 				</c:forEach>
-				<input style="width: 250px;" type="file" name="file_id" title="첨부파일" >
+				<input style="width: 250px;" type="file" name="file_id" title="첨부파일" > <br>
+				사진을 첨부하는 경우 사진이 표시될 위치에 $IMG1$ $IMG2$ 와 같이 입력하면 번호에 따라 사진이 순서대로 해당 위치에 표시됩니다.<br>
+				사진은 한번에 한개씩 첨부할 수 있으며 수정버튼을 눌러 하나씩 사진을 추가하면 여러개의 사진을 넣을 수 있습니다.
 			</td></tr>
 			
 			<c:if test="${session.user_id=='guest' }">

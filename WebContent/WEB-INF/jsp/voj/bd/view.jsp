@@ -196,16 +196,18 @@
 	<%//본문 %>
 	<div id="bd_contents" style="${row.bd_cat=='ser' && !isMobile ? 'width:700px;' : 'width:100%;'} clear:both;border:1px solid #B6B5DB; min-height: 500px;margin-bottom: 5px;overflow: auto;">
 		<div style="padding: 5px;">
+			<c:set var="html">${fn:replace(row['CONTENTS@dec'], '<img ', '<img onerror="imgError(this)" ') }</c:set>
+			<c:set var="html">${fn:replace(html, '<IMG ', '<img onerror="imgError(this)" ') }</c:set>
 			<c:if test="${ row.bd_cat!='ser' }">
-				<c:forEach var="item" items="${rset.attrows }">
+				<c:forEach var="item" items="${rset.attrows }" varStatus="status">
 					<c:set var="file_ext" value="${ item.file_ext }"/>
 					<c:if test="${ file_ext=='jpg' || file_ext=='jpeg' }">
-						<tp:img file_id="${item.file_id}" thum="180" style="cursor:pointer; float: left;margin-bottom:: 5px;margin-right :10px;" attr="onclick=\"showImg('${item.file_id }', this.src);\"" />
+						<c:set var="imgIdx">$IMG${status.index+1 }$</c:set>
+						<c:set var="img"><tp:img file_id="${item.file_id}" thum="1000" style="cursor:pointer; margin-bottom: 5px;" attr="onclick=\"showImg('${item.file_id }', this.src);\"" /></c:set>
+						<c:set var="html">${fn:replace(html, imgIdx, img) }</c:set>
 					</c:if>
 				</c:forEach>
 			</c:if>
-			<c:set var="html">${fn:replace(row['CONTENTS@dec'], '<img ', '<img onerror="imgError(this)" ') }</c:set>
-			<c:set var="html">${fn:replace(html, '<IMG ', '<img onerror="imgError(this)" ') }</c:set>
 			${html }
 		</div>
 	</div>

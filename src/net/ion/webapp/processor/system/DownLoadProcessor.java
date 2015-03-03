@@ -172,6 +172,8 @@ public class DownLoadProcessor  extends ImplProcessor {
 		if(!destFile.exists()){
 			if(!Thumbnail.createThumbnail(is, thumPath, Integer.parseInt(thum), ext)){
 				return is;
+			}else{
+				System.out.println();
 			}
 		}
 		return new FileInputStream(destFile);

@@ -72,6 +72,8 @@ public class BackupController extends DefaultAutoController {
 	}
 
 	private Map<String, Object> backup(HttpServletRequest request, HttpServletResponse response) throws Exception {	
+		int errCount = 0;
+		int sizeZeroCount = 0;
 		Map<String, Object> resultSet = new HashMap<String, Object>();
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -94,6 +96,8 @@ public class BackupController extends DefaultAutoController {
 			
 			System.out.println("백업 리스트 URL : " + listUrl);
 			System.out.println("백업 데이타 갯수 : " + list.size());
+			resultSet.put("callUrl", listUrl);
+			resultSet.put("listCount", list.size());
 			
 			for(Map row:list){
 				try {
@@ -105,7 +109,8 @@ public class BackupController extends DefaultAutoController {
 					f.getParentFile().mkdirs();
 					HttpUtils.getFile(dwUrl, params, f);
 					if(f.length()==0){
-						params.put("backup", "0");						
+						params.put("backup", "0");
+						sizeZeroCount++;
 					}else{
 						params.put("backup", "Y");
 					}
@@ -125,16 +130,23 @@ public class BackupController extends DefaultAutoController {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
+					errCount++;
 					params.put("backup", "E");
 				}
 				
 				json = HttpUtils.getString(actUrl+row.get("file_id"), params);
 				System.out.println(json);
 			}
-			startDate = dateFormater.format(lastDate);
+			if(lastDate!=null){
+				startDate = dateFormater.format(lastDate);
+			}
 			FileUtils.writeStringToFile(fi, startDate);
+			
 			System.out.println("마자막 자료의 생성일 : " + startDate);
 			
+			resultSet.put("errorCount", errCount);
+			resultSet.put("lastWorkDate", startDate);
+			resultSet.put("sizeZeroCount", sizeZeroCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 			resultSet = new HashMap<String, Object>();
@@ -146,16 +158,17 @@ public class BackupController extends DefaultAutoController {
 	}
 	
 	private Map<String, Object> delete(HttpServletRequest request, HttpServletResponse response) throws Exception {	
+		int errCount = 0;
 		Map<String, Object> resultSet = new HashMap<String, Object>();
-
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		try {
 			resultSet.put("sucess", true);
 			
 			List<LowerCaseMap<String, Object>> list = DbUtils.select("system/attach/delete_list", params);
-;
+
 			
+			resultSet.put("listCount", list.size());
 			System.out.println("삭제대상 데이타 갯수 : " + list.size());
 			
 			for(Map row:list){
@@ -168,11 +181,13 @@ public class BackupController extends DefaultAutoController {
 					int i = DbUtils.update("system/attach/back_ok", params);
 					System.out.println(i + ":" + isOk);
 				} catch (Exception e) {
+					errCount++;
 					e.printStackTrace();
 				}
 				
 			}
 			
+			resultSet.put("errrorCount", errCount);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
