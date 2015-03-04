@@ -102,7 +102,7 @@
 		$('#'+id).dialog({
 			title: '공지사항',
 			autoOpen: false,
-			width: isMobile ? '325' : '625',
+			width: 'auto',
 			resizable:false,
 			modal: false,
 			close: function( event, ui ) {
