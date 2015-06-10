@@ -45,7 +45,7 @@ public class  ProcessorFactory{
 
 
 	/**
-	 * findObjId의 ProcessJobService 또는 서블릿을 반환한다.
+	 * findObjId의 ProcessJobService 또는 서블릿을 반환한다.ss
 	 * @param request
 	 * @param findObjId
 	 * @param isTest
