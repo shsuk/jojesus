@@ -54,6 +54,8 @@
 		
 		$.getJSON('dl.sh?url=' + img.attr('src'),function(data){
 			img.attr('src', data.url);
+			
+			img.attr('onerror', '');
 		});
 	}
 	

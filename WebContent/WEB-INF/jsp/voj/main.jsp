@@ -126,9 +126,9 @@
 <div id="body_main" style="display: none;">
 	
 	<c:forEach var="pop" items="${pops }">
-		<div id="popup_win" style="display: none;position: relative;" title="${pop.title }">
+		<div id="popup_win" style="display: none;position: relative; padding:2px;" title="${pop.title }">
 			<a href="${pop.link_url }">
-				<tp:img file_id="${pop.file_id }" thum="${isMobile ? 300 : 600}"/>
+				<tp:img file_id="${pop.file_id }" thum="1000" style="width:${isMobile ? 300 : 500}px;"/>
 			</a>
 			<div style="position: absolute;; top:7px;right:10px; z-index: 1000;cursor: pointer;background: #efefef;" onclick="notOpenPopup()">오늘하루 열지않음<input type="checkbox"></div>
 		</div>

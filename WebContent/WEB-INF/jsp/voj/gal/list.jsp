@@ -25,6 +25,7 @@
 	</job:db>
 ]
 </uf:organism>
+<script src="../jquery/jQueryRotate.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	
@@ -183,7 +184,7 @@
 	    	$('#next_img_item').hide();
 		}
 
-
+		$('#view_img').rotate({animateTo:0});
 	}
 
 	function edit(gal_id){
