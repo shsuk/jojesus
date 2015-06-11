@@ -28,6 +28,7 @@
 <script src="../jquery/jQueryRotate.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+	var animateTo = 0;
 	
 	$(function() {
 		$('#search_btn').button({icons: {primary: "ui-icon-search" },text:false}).click(function(){
@@ -45,6 +46,49 @@
 
 	});
 		
+	function icon901() {
+		animateTo += 90;
+		animateTo = animateTo % 360;
+		var view_img = $('#view_img');
+		var h = view_img.height();
+		var w = view_img.width();
+		
+		view_img.rotate({animateTo:animateTo});
+		
+	
+		if(animateTo==90 || animateTo==270){
+			
+			view_img.css({height:w, width:w*(w/h)+'px'});
+			
+		}
+
+		if(animateTo==0 || animateTo==180){
+			view_img.css({height:'', width:'100%'});
+		}
+	};
+	
+	function icon902() {
+		
+		animateTo += 90;
+		animateTo = animateTo % 360;
+		var view_img = $('#view_img');
+		var h = view_img.height();
+		var w = view_img.width();
+		
+		if(animateTo==90 || animateTo==270){
+			$('#pan_img').css({height:w});
+			view_img.css({'margin-top' : (w-h)/2+'px'});
+		}
+		
+		view_img.rotate({animateTo:animateTo});
+		
+	
+
+		if(animateTo==0 || animateTo==180){
+			$('#pan_img').css({height:h});
+			view_img.css({height:'', width:'100%', 'margin-top' : 0});
+		}
+	};
 	function goPrev(){
 		load_view($($('.prev_item')[0]).attr('gal_id'));	
 	}
@@ -184,7 +228,6 @@
 	    	$('#next_img_item').hide();
 		}
 
-		$('#view_img').rotate({animateTo:0});
 	}
 
 	function edit(gal_id){
