@@ -187,11 +187,18 @@
 		},3000);
 	}
 
+	function rotate(ele){
+		var url = $(ele).attr('url');
+		$.getJSON( url, function( data ) {
+			document.location.href = 'at.sh?_ps=voj/gal/list&bd_cat=voj';
+		});
+	}
 	function change_img(e){
 		showNevi();
 		var file_id = $(e).attr('file_id');
 
 		$('#dwn_img').attr('href', 'at.sh?_ps=at/upload/dl&file_id='+file_id);
+		$('#dwn_img1').attr('url', 'rotate.sh?thum=1000&file_id='+file_id);
 		
 		$('.img_list').css({background:''});
 		$('.img_list').attr('curent', '');

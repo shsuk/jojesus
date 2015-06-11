@@ -98,7 +98,11 @@
 		<table  style="clear:both; border:1px solid #B6B5DB; padding: 0px;margin-bottom:5px; margin-top:5px; width: 100%;"><tr><td style="padding-left: 7px;">
 			<%//이미지 %>
 			<div id="pan_img" onmouseover="showNevi()" style="position: relative; float:left;padding:5px; margin-bottom:5px; border:1px solid #B6B5DB;text-align: center; width: 632px; vertical-align: middle; ">
-				<div style="position: absolute;left:50px;z-index: 9900;"><a id="dwn_img" href="at.sh?_ps=at/upload/dl&file_id=${file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
+				<div style="position: absolute;left:50px;z-index: 9900;"><a id="dwn_img"   href="at.sh?_ps=at/upload/dl&file_id=${file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
+ 				
+ 				<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' || session.myGroups[row.bd_cat] || session.user_id == '13' }">
+ 					<div style="position: absolute; left:100px;background: #FAED7D;border: 1px solid #111111; z-index: 100;"><span id="dwn_img1" onclick="rotate(this)" url="rotate.sh?_ps=at/upload/dl&file_id=${file_id }" style="background: #FAED7D;color: #22741C;"><img src="../images/icon/icon90.png" ></span></div>
+ 				</c:if>
  				<div id="prev_img_item" title="이전 사진" class="img_nevi" onclick="goPrevImg()" style="position: absolute; left:0px;  height: 100%; width: 50px; cursor: pointer;opacity: .35;filter: Alpha(Opacity=35); background: #cccccc url('./voj/images/Arrow-previous-icon.png') no-repeat  center center;text-align: center; vertical-align: middle;z-index: 100;"></div>
 				<div id="next_img_item" title="다음 사진" class="img_nevi" onclick="goNextImg()" style="position: absolute; left:590px; height: 100%; width: 50px; cursor: pointer;opacity: .35;filter: Alpha(Opacity=35); background: #cccccc url('./voj/images/Arrow-next-icon.png') no-repeat  center center;text-align: center; vertical-align: middle;z-index: 100;"></div>
 				<tp:img id="view_img" file_id="${rset.rows[0].file_id}" thum="1000" style=" width: 100%;margin:auto;" />
