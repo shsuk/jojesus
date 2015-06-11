@@ -28,7 +28,7 @@
 <script src="../jquery/jQueryRotate.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	var animateTo = 0;
+	var animateTo = 0; //ss
 	
 	$(function() {
 		$('#search_btn').button({icons: {primary: "ui-icon-search" },text:false}).click(function(){
