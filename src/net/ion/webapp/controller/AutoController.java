@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.voj.webapp.processor.ProcessorServiceFactory;
 import net.ion.webapp.controller.DefaultAutoController;
+import net.ion.webapp.process.ProcessInitialization;
 import net.ion.webapp.utils.CookieUtils;
 import net.ion.webapp.utils.DbUtils;
 import net.ion.webapp.utils.Function;
 import net.ion.webapp.utils.HttpUtils;
 import net.ion.webapp.utils.JobLogger;
 import net.ion.webapp.utils.LowerCaseMap;
+import net.ion.webapp.utils.RotateImage90;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
@@ -86,6 +88,21 @@ public class AutoController extends DefaultAutoController {
 		ModelAndView mv = new ModelAndView("voj/json");
 		mv.addObject("result", resultSet);
 		return mv;
+	}
+	@RequestMapping(value = "/rotate.sh")
+	@ResponseBody
+	public Map<String, Object> rotate(HttpServletRequest request, HttpServletResponse response) throws Exception {	
+		Map<String, Object> resultSet = new HashMap<String, Object>();
+		String thum = request.getParameter("thum");
+		String fileId = request.getParameter("file_id");
+		String thumPath = ProcessInitialization.getWebRoot() + "/thum/" + thum + "/" + fileId.substring(0, 4)  + "/" +fileId + ".jpg";
+		File destFile = new File(thumPath);
+		RotateImage90.rotate(destFile, true);
+		
+		thumPath = ProcessInitialization.getWebRoot() + "/thum/160/" + fileId.substring(0, 4)  + "/" +fileId + ".jpg";
+		destFile = new File(thumPath);
+		RotateImage90.rotate(destFile, true);
+		return resultSet;
 	}
 
 	@RequestMapping(value = "/atm.sh")
