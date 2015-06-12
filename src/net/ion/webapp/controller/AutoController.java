@@ -95,16 +95,19 @@ public class AutoController extends DefaultAutoController {
 		Map<String, Object> resultSet = new HashMap<String, Object>();
 		String thum = request.getParameter("thum");
 		String fileId = request.getParameter("file_id");
+		
+		rotateImage90(fileId, thum);
+		rotateImage90(fileId, "160");
+		rotateImage90(fileId, "800");
+
+		return resultSet;
+	}
+	private void rotateImage90(String fileId, String thum) throws Exception{
 		String thumPath = ProcessInitialization.getWebRoot() + "/thum/" + thum + "/" + fileId.substring(0, 4)  + "/" +fileId + ".jpg";
 		File destFile = new File(thumPath);
 		RotateImage90.rotate(destFile, true);
 		
-		thumPath = ProcessInitialization.getWebRoot() + "/thum/160/" + fileId.substring(0, 4)  + "/" +fileId + ".jpg";
-		destFile = new File(thumPath);
-		RotateImage90.rotate(destFile, true);
-		return resultSet;
 	}
-
 	@RequestMapping(value = "/atm.sh")
 	public ModelAndView atm(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
