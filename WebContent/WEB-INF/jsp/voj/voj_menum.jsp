@@ -206,19 +206,33 @@ var isMobileView = false;
 </script>
 	<ul class="menu" style="width: 160px;display: none;">
 		<a href="/"><img src="./voj/images/log.png" border="0" height="50" style="margin: 3px;"></a>
-		<li class="ui-widget-header">교회안내</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_bow">인사말</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_church">교회소개</li>
+		<li class="ui-widget-header">교회소개</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_pst">담임목사소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_serve">섬기는이</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_serve">교역자소개</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_vision">핵심가치 및 비전</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_his">연역</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_rough">오시는길</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_chtm">예배시간</li>
 		
-		<li class="ui-widget-header">말씀과찬양</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">주일예배</li> 
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/mc/day_viewm">성경읽기</li> 
+		<li class="ui-widget-header">예배</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_chtm">예배안내</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
+		<li class="ui-widget-header">교육</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=eduw" bd_cat="eduw">수요성서대학</li> 
+		<li class="ui-widget-header">사역</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=mission" bd_cat="mission">선교</li> 
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=village">마을</li>
 
 		<li class="ui-widget-header">커뮤니티</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=notice" bd_cat="cafe">
+				<c:set scope="request" var="new_count">최근 등록된 글이 없습니다.</c:set>
+				<c:if test="${rs.crow.cnt > 0}" >
+					<img style="position: absolute;" src="images/icon/new_ico.gif">
+					<c:set var="new_count" scope="request" >${rs.nrow.b_hour+1}시간 내에 등록된<br>글이 있습니다.</c:set>
+					<c:set var="title1">title="${rs.crow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
+				</c:if>
+				공지사항
+			</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=cafe" bd_cat="cafe">
 				<c:set scope="request" var="new_count">최근 등록된 글이 없습니다.</c:set>
 				<c:if test="${rs.crow.cnt > 0}" >
@@ -226,15 +240,18 @@ var isMobileView = false;
 					<c:set var="new_count" scope="request" >${rs.crow.b_hour+1}시간 내에 등록된<br>글이 있습니다.</c:set>
 					<c:set var="title1">title="${rs.crow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
 				</c:if>
-				이야기나눔/카페
+				자유게시판
 			</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=help" bd_cat="help">Help</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=ghouse" bd_cat="ghouse">Gest House</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj">
 				<c:if test="${rs.grow.cnt > 0}" >
 					<img style="position: absolute;" src="images/icon/new_ico.gif">
 				</c:if>
 				갤러리
 			</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
+<%-- 			
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/sch/show" bd_cat="sch">교회일정</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=pst" bd_cat="pst">담임목사와 함께</li>
@@ -245,83 +262,28 @@ var isMobileView = false;
 						<a class="cc_bt" href="#">예당</a>
 					</li>
 			</c:if>
+ --%>
 			<c:if test="${session.myGroups['admin']}">
 				<li class="ui-widget-header">관리자</li>
 					
 						<li id="admin_btn" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/usr/user_list">회원관리</li>
-						<li class="sub_menu_item m_out" value="atm.sh?_t=list&_q=voj/header/list">게시판 제목 관리</li>
-						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/list">홈페이지 내용 관리</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=img">메인 이미지 관리</li>
-						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</li>
+						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/header/list">게시판 제목 관리</li>
+						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/list">홈페이지 내용 관리</li>
+						<!-- <li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</li> -->
 						<li class="sub_menu_item m_out" value="at.sh?_ps=main">시스템 관리</li>
 
 				</li>
 			</c:if>		
 	</ul>
 
-	<table style="width: 100%">
-		<tr>
-			<td class="top_menu" style="padding:0px; padding-left:10px; background: url('voj/images/menu/untitled-1.jpg') repeat-x  scroll 0 0 #F5F5F3;font: bold;color: white;">
-				<div class="d_ib">
-					<div id="m1" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=bow')"  title="교회안내">
-						교회안내
-					</div>
-					<div class="sub_menu_list m1" value="m1">
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_bow">인사말</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_church">교회소개</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_pst">담임목사소개</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_serve">섬기는이</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_rough">오시는길</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_chtm">예배시간</div>
-					</div>
-				</div>
-				<div class="d_ib">
-					<div id="m2" class="top_menu_item" onclick${mb }="openPage('voj/vod/list&&bd_cat=sun')" title="말씀과찬양">
-						말씀과찬양
-					</div>
-	
-					<div class="sub_menu_list m2" value="m2">
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">주일예배</div> 
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/mc/day_viewm">성경읽기</div> 
-					</div>
-				</div>
-				<div class="d_ib" style="position: relative; ">
-					<c:if test="${rs.crow.cnt > 0 || rs.grow.cnt > 0 }" >
-						<img style="position: absolute;" src="images/icon/new_ico.gif">
-					</c:if>
-					<div id="m4" class="top_menu_item" onclick${mb }="openPage('voj/bd/list&bd_cat=cafe')" title="커뮤니티">
-						커뮤니티
-					</div>
-					<div class="sub_menu_list m4" value="m4" >
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=cafe" bd_cat="cafe">
-							<c:set scope="request" var="new_count">최근 등록된 글이 없습니다.</c:set>
-							<c:if test="${rs.crow.cnt > 0}" >
-								<img style="position: absolute;" src="images/icon/new_ico.gif">
-								<c:set var="new_count" scope="request" >${rs.crow.b_hour+1}시간 내에 등록된<br>글이 있습니다.</c:set>
-								<c:set var="title1">title="${rs.crow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
-							</c:if>
-							이야기나눔/카페
-						</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj">
-							<c:if test="${rs.grow.cnt > 0}" >
-								<img style="position: absolute;" src="images/icon/new_ico.gif">
-							</c:if>
-							갤러리
-						</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/sch/show" bd_cat="sch">교회일정</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</div>
-						<div class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=pst" bd_cat="pst">담임목사와 함께</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div id="body_main_contents" >
-				</div>
-			</td>
-		</tr>		
-	</table>
+<div class="top_menu" style=" margin:3px 0; height:1; border-top:1px solid #eeeeee;">
+
+</div>
+
+<div id="body_main_contents" >
+</div>
+
+
 	

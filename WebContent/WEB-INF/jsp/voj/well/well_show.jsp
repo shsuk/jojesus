@@ -26,6 +26,8 @@
 		var data = {_ps:'voj/well/well_edit', bd_id: bd_id,  _layout: 'n', pageNo: (bd_id ? '${empty(req.pageNo) ? 1 : req.pageNo}' : '1')};
 		
 		show(target_layer, url, data);
+		
+		setCurrentMenu('m2');
 	}
 
 </script>

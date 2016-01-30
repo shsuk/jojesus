@@ -231,10 +231,14 @@
 
 <div  id="body_main" style="display: none;">
 	
-	<div style="width:100%;margin-top: 40px;margin-bottom: 40px;">
+	<div style="width:100%; margin-bottom: 10px;">
 		${HEADER }
 	</div>
-
+	
+	<c:if test="${req.bd_cat=='newfam' }">
+		<div id="sub2_menu" style="display:none; width: 100%;  border-bottom : 1px solid #444444;;margin-bottom: 30px;"></div>
+	</c:if>
+	
 	<div class="bd_body" style="${isMobile ? '' : 'margin-left: 80px;' }">
 		<c:forEach var="row" items="${rows }">
 			<div style=" ${row.bd_cat=='sun' ? 'width:48%;' : '' } display:inline-block; margin: 5px;font-size: 12px;vertical-align: top;float: left; ">

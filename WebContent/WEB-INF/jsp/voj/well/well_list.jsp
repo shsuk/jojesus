@@ -30,9 +30,11 @@
 	$(function() {
 
 		if(!${empty(req.bd_id)}){
-	    	load_view1('${req.bd_id == "max" ? '' : req.bd_id}');
-	    }
-	    init_load();
+			load_view1('${req.bd_id == "max" ? '' : req.bd_id}');
+		}
+		init_load();
+		
+		setCurrentMenu('m2');
 	});
 		
 	function search(){

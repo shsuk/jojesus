@@ -5,5 +5,5 @@ INSERT INTO voj_board_header(
 )VALUES(
 	@{bd_cat},
 	@{title},
-	@{header}
+	@{ir1}
 );

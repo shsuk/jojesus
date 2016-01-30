@@ -13,7 +13,8 @@ html,body {
 
 .top_menu .ml {display: inline-block;;margin-right: 2px;}
 .mm a{color: #4374D9;font-size: 14px;letter-spacing: 3px;}
-.top_menu_item{font-size: 12px;  margin-bottom: 6px;margin-top: 6px; }
+.top_menu_item {display: inline-block;cursor: pointer;  ;margin: 0px; padding:10px 20px;font-weight:bold; ; font-size:15px; color: #000000;}
+
 .bd_body{width: 100%;}
 .sub_cube{font-size: 12px;float: left;width: 50%;}
 .sub_cube table{width: 100%;}

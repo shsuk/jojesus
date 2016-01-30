@@ -5,13 +5,26 @@ html,body {
 }
 .main_body{font-size :13px;}
 
-.top_menu .top_menu_item {display: inline-block;cursor: pointer;;margin: 0px;}
+.top_menu .top_menu_item {display: inline-block;cursor: pointer;  ;margin: 0px; padding:10px 20px;font-weight:bold; ; font-size:15px; color: #000000;}
 .sub_menu_list a{color: #a39c97;font: bold;font-size: 12px;letter-spacing: 1px;}
-.sub_menu_list div{width:120px;; padding:3px; margin:3px; cursor: pointer;}
-.sub_menu_item{ cursor: pointer;font-weight: bold;padding : 5px;}
-.sub_menu_list div11{width:120px;; padding:3px; margin:3px; cursor: pointer;color: #4374D9;border: 1px solid #aaaaaa;border-bottom: 1px solid #cccccc;border-right:  1px solid #cccccc;}
+
+.top_menu{padding: 0px;}
+.sub_menu_list { position:absolute; width:150px;; padding:3px; margin:3px; background:#F6F6F6; border:1px solid #B6B5DB;text-align:center;color: #777777;display: none;z-index: 100;}
+.sub_menu_list div1{width:120px;; padding:3px; margin:3px; cursor: pointer;}
+.sub_menu_item{ cursor: pointer;font-weight: bold;padding : 5px; }
+.sub_menu_item_line{  border-bottom: 1px solid #cccccc;}
+
+table.sub2_menu { margin: 0; border-collapse: collapse; }
+.sub2_menu td{padding:3px 6px; border:1px solid #999999;color: #555555;}
+.m_out{ color:#777777;}
+.m_over{ color:#000000; background: #ffffff;}
+
+.sub2_menu{  background: #e4e4e4}
+.sub2_menu_on{ background: #fafafa}
+.sub2_menu_on div{color: #050099; }
 .sub_cube{width: 220px;}
 .sub_cube table{width: 100%;}
 div.d_ib{ float: left; }
 .bd_title{ background: url('../images/bd_bg.jpg') no-repeat 550px 140px;}
-.bd_body{width: 940px;margin-left: 30px;}
+.bd_body{width: 100%;}
+#sub_top_menu div div{float: left; }

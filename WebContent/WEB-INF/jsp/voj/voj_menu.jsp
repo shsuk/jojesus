@@ -40,10 +40,7 @@
     	   	$('.sub_menu_list').hide();
 
 	        var submenu = t.attr('id');
-    	   	$('.'+submenu).show({
-        		effect: "slidedown",
-        		duration: 300
-        	});
+    	   	$('.'+submenu).show();
 	    },function(e){
 	    	var t = $(e.currentTarget);
         	bef_over_menu = $('img', t);
@@ -73,7 +70,7 @@
 		//new
 	    $('.on', $('.sub_menu_list')).hide();
 		
-	    $(".sub_menu_list span").hover(function(e){
+	    $(".sub_menu_list div").hover(function(e){
 	    	$('.off', $(e.currentTarget)).hide();
 	    	$('.on', $(e.currentTarget)).show();
 	    	$(e.currentTarget).removeClass('m_out');
@@ -93,11 +90,11 @@
 	    	$('.sub_menu_list').hide();
 	    });
 	    
-	    $('.sub_menu_item').click(function(e){
+	    $(document).on('click', '.sub_menu_item',function(e){
 			document.location.href=$(e.currentTarget).attr('value');
 	    });
 
-    	var submenu = $('div[bd_cat=${req.bd_cat}]').parent();
+    	var submenu = $('div[bd_cat=${empty(req.bd_cat) ? req.id : req.bd_cat}]').parent();
     	
     	setCurrentMenu(submenu.attr('value'));
     	
@@ -131,13 +128,24 @@
 		});
 
 	});
-	
-	function setCurrentMenu(menuid){    
-     	var menu_img = $('img', $('#'+menuid));
-    	var src = menu_img.attr('value');
-    	var url = 'voj/images/menu/' + src + '_1.png';
-    	menu_img.attr('src', url);
-    	menu_img.attr('org', url);
+	/**
+	*선택된 메뉴 처리
+	*/
+	function setCurrentMenu(menuid){
+		//선택표시
+		var menu = $('#' + menuid);
+		menu.css({'color': 'rgb(158, 172, 0)', 'border-bottom' : '3px solid rgb(158, 172, 0)'});
+		
+		//서브메뉴가 상단에 노출되는 경우 처리
+		if(${req.bd_cat == 'voj'}){
+			return;
+		}
+		var sub2_menu_old = $('.sub2_' +menuid);
+		var sub2_menu = sub2_menu_old.clone();
+		sub2_menu.show();
+		if(sub2_menu.length==1){
+			$('#sub2_menu').append(sub2_menu).show();
+		}
 	}
 	function goVillage(vil_id){
 		
@@ -154,119 +162,173 @@
 		
 	}
 </script>
-	<table style="width: 100%; border: 0;" cellpadding="0" cellspacing="0" >
+	<table style="width: 1100px; margin: 0 auto; padding:0; border: 0;  " cellpadding="0" cellspacing="0" >
 		<tr id="top_menu_body">
-			<td class="top_menu" style="padding:0px; background: url('voj/images/menu/untitled-1.png') repeat-x  scroll 0 0 #F5F5F3;font: bold;color: white;">
+			<td class="top_menu" style="padding:0px; ">
 				<div class="d_ib">
-					<div id="m1" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=bow')"  memo="교회안내">
-						<img value="menu1" src="voj/images/menu/menu1.png" border="0">
+					<div id="m1" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=pst')" onclick1${mb }="openPage('voj/intro/show&id=bow')"  memo="교회소개">
+						교회소개
 					</div>
 					<div class="sub_menu_list m1" value="m1">
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=bow" desc="인사말">
-							<img class="off" src="voj/images/menu/m11.png"><img class="on" src="voj/images/menu/m11_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=church" desc="교회소개">
-							<img class="off" src="voj/images/menu/m12.png"><img class="on" src="voj/images/menu/m12_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=pst" desc="담임목사소개">
-							<img class="off" src="voj/images/menu/m13.png"><img class="on" src="voj/images/menu/m13_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=serve" desc="섬기는이">
-							<img class="off" src="voj/images/menu/m14.png"><img class="on" src="voj/images/menu/m14_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" desc="오시는길">
-							<img class="off" src="voj/images/menu/m15.png"><img class="on" src="voj/images/menu/m15_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=chtm" desc="예배시간">
-							<img class="off" src="voj/images/menu/m16.png"><img class="on" src="voj/images/menu/m16_1.png">
-						</span>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">
+							담임목사소개
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">
+							교역자소개
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">
+							핵심가치 및 비전
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">
+							연역
+						</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" bd_cat="rough" desc="오시는길">
+							오시는길
+						</div>
 					</div>
 				</div>
 				<div class="d_ib">
-					<div id="m2" class="top_menu_item" onclick${mb }="openPage('voj/vod/list&&bd_cat=sun')" memo="말씀과찬양">
-						<img value="menu2" src="voj/images/menu/menu2.png" border="0">
+					<div id="m2" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=chtm')" memo="예배">
+						예배
 					</div>
 	
 					<div class="sub_menu_list m2" value="m2">
-						<span class="sub_menu_item" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun" desc="주일예배">
-							<img class="off" src="voj/images/menu/m21.png"><img class="on" src="voj/images/menu/m21_1.png">
-						</span> 
-						<span class="sub_menu_item" value="at.sh?_ps=voj/mc/day_view" desc="성경읽기">
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=chtm" bd_cat="chtm" desc="예배안내">
+							예배안내
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/vod/list&bd_cat=sun" bd_cat="sun" desc="설교영상">
+							설교영상
+						</div> 
+<!-- 						
+
+						<div class="sub_menu_item" value="at.sh?_ps=voj/mc/day_view" desc="성경읽기">
 							<img class="off" src="voj/images/menu/m22.png"><img class="on" src="voj/images/menu/m22_1.png">
-						</span> 
+						</div> 
+ -->
+ 						<div class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가">
+							우물가
+						</div>
 					</div>
 				</div>
 				<div class="d_ib">
-					<c:if test="${rs.crow.cnt > 0 || rs.grow.cnt > 0 }" >
+					<div id="m3" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=eduw')" memo="교육">
+						교육
+					</div>
+					<div class="sub_menu_list m3" value="m3">
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw" desc="수요성서대학">
+							수요성서대학
+						</div>
+					</div>
+				</div>
+				<div class="d_ib">
+					<div id="m5" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=mission')" memo="사역">
+						사역
+					</div>
+					<div class="sub_menu_list m5" value="m5">
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=mission"  bd_cat="mission" desc="선교">
+							선교
+						</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=village"  bd_cat="village" desc="마을">
+							마을
+						</div>
+					</div>
+				</div>
+				<div class="d_ib">
+				
+					<c:if test="${rs.crow.cnt > 0 || rs.grow.cnt > 0  || rs.nrow.cnt > 0 }" >
 						<img style="position: absolute;margin-left: 35px;" src="images/icon/new_ico.gif">
 						<c:set var="title0">title="${rs.crow.b_hour < rs.grow.b_hour ? rs.crow.b_hour+1 : rs.grow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
 					</c:if>
-					<div id="m4" class="top_menu_item" desc="커뮤니티">
-						<img value="menu3" src="voj/images/menu/menu3.png" border="0"  ${title0 }>
+					<div id="m4" class="top_menu_item" onclick${mb }="openPage('voj/bd/list&bd_cat=notice')" desc="커뮤니티">
+						커뮤니티
 					</div>
 					<div class="sub_menu_list m4" value="m4" >
-						<span class="sub_menu_item " value="at.sh?_ps=voj/bd/list&bd_cat=cafe" bd_cat="cafe" desc="이야기나눔/카페">
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&bd_cat=notice" bd_cat="notice" desc="공지사항">
 							<c:set scope="request" var="new_count">최근 등록된 글이 없습니다.</c:set>
-							<c:if test="${rs.crow.cnt > 0}" >
-								<img style="position: absolute;" src="images/icon/new_ico.gif">
+							<c:if test="${rs.nrow.cnt > 0}" >
+								<img src="images/icon/new_ico.gif">
 								<c:set var="new_count" scope="request" >${rs.crow.b_hour+1}시간 내에 등록된<br>글이 있습니다.</c:set>
 								<c:set var="title1">title="${rs.crow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
 							</c:if>
-							<img class="off" src="voj/images/menu/m41.png"><img class="on" src="voj/images/menu/m41_1.png" ${title1 }>
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj" desc="갤러리">
+							공지사항
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&bd_cat=cafe" bd_cat="cafe" desc="자유게시판">
+							<c:set scope="request" var="new_count">최근 등록된 글이 없습니다.</c:set>
+							<c:if test="${rs.crow.cnt > 0}" >
+								<img  src="images/icon/new_ico.gif">
+								<c:set var="new_count" scope="request" >${rs.crow.b_hour+1}시간 내에 등록된<br>글이 있습니다.</c:set>
+								<c:set var="title1">title="${rs.crow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
+							</c:if>
+							자유게시판
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam" desc="새가족">
+							새가족
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=help" bd_cat="help" desc="Help">
+							Help
+						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=ghouse" bd_cat="ghouse" desc="Gest House">
+							Gest House
+						</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj" desc="갤러리">
 							<c:if test="${rs.grow.cnt > 0}" >
-								<img style="position: absolute;" src="images/icon/new_ico.gif">
+								<img src="images/icon/new_ico.gif">
 								<c:set var="title2">title="${rs.grow.b_hour+1}시간 내에 등록된 이미지나 댓글이 있습니다."</c:set>
 							</c:if>
-							<img class="off" src="voj/images/menu/m42.png"><img class="on" src="voj/images/menu/m42_1.png" ${title2 }>
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가소식">
-							<img class="off" src="voj/images/menu/m43.png"><img class="on" src="voj/images/menu/m43_1.png">
-						</span>
-
-						<span class="sub_menu_item " value="at.sh?_ps=voj/bd/list&bd_cat=pst" bd_cat="pst" desc="담임목사와 함께">
-							<img class="off" src="voj/images/menu/m46.png"><img class="on" src="voj/images/menu/m46_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam" desc="새가족">
-							<img class="off" src="voj/images/menu/m45.png"><img class="on" src="voj/images/menu/m45_1.png">
-						</span>
-						<span class="sub_menu_item " value="at.sh?_ps=voj/sch/show" bd_cat="sch"desc="교회일정">
-							<img class="off" src="voj/images/menu/m44.png"><img class="on" src="voj/images/menu/m44_1.png">
-						</span>
-					</div>
-				</div>			
-				<c:if test="${session.myGroups['mj']}">
-					<div class="d_ib">
-						<div id="m10"  class="top_menu_item" style="margin-top: 3px;" onclick="openPage('voj/bd/list&bd_cat=mj')">
-							<a class="cc_bt" href="#">예당</a>
+							갤러리
 						</div>
+ 					</div>
+					
+					<div class="sub2_m4" style="display:none;">
+						<table class="sub2_menu"  ><tr>
+						
+							<td class="${req.bd_cat=='notice' ? 'sub2_menu_on' : '' }">
+								<div class="sub_menu_item" value="at.sh?_ps=voj/bd/list&bd_cat=notice" >
+									공지사항
+								</div>
+							</td><td class="${req.bd_cat=='cafe' ? 'sub2_menu_on' : '' }">
+								<div class="sub_menu_item " value="at.sh?_ps=voj/bd/list&bd_cat=cafe" >
+									자유게시판
+								</div>
+							</td><td class="${req.bd_cat=='newfam' ? 'sub2_menu_on' : '' }">
+								<div class="sub_menu_item " value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" >
+									새가족
+								</div>
+							</td><td class="${req.bd_cat=='help' ? 'sub2_menu_on' : '' }">
+								<div class="sub_menu_item " value="at.sh?_ps=voj/bd/list&&bd_cat=help" >
+									Help
+								</div>
+							</td><td class="${req.bd_cat=='ghouse' ? 'sub2_menu_on' : '' }">
+								<div class="sub_menu_item " value="at.sh?_ps=voj/bd/list&&bd_cat=ghouse" >
+									Gest House
+								</div>
+							</td>
+						</tr></table>
 					</div>
-				</c:if>		
+				</div>
+
 				<c:if test="${session.myGroups['admin']}">
 					<div class="d_ib">
 						<div id="m8"  class="top_menu_item" style="margin-top: 3px;">
-							<a class="cc_bt" href="#">관리자</a>
+							<a href="#">관리자</a>
 						</div>
 		 				<div class="sub_menu_list m8" value="m8" >
-							<div id="admin_btn" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</div>
 							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/usr/user_list">회원관리</div>
-							<div class="sub_menu_item m_out" value="atm.sh?_t=list&_q=voj/header/list">게시판 제목 관리</div>
-							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/list">홈페이지 내용 관리</div>
+							<div style="background: #cccccc;height: 1px;margin: 3px;"></div>
 							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=img">메인 이미지 관리</div>
-							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</div>
+							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/header/list">게시판 제목 관리</div>
+							<div class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/list">페이지 내용 관리</div>
+							<div style="background: #cccccc;height: 1px;margin: 3px;"></div>
+							<!-- <div class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</div> -->
 							<div class="sub_menu_item m_out" value="at.sh?_ps=main">시스템 관리</div>
 						</div>
 					</div>
+					
+					<div id="admin_btn" class="d_ib link" style="margin-top: 15px; float: right;" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</div>
+						
 				</c:if>		
 
 			</td>
 		</tr>
-		<tr>
-			<td>
-				<div id="body_main_contents" >
-				</div>
-			</td>
-		</tr>		
 	</table>
 	

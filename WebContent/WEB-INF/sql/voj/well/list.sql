@@ -6,7 +6,7 @@ SELECT
 FROM voj_board
 WHERE bd_cat= 'well' 
 	and notice = 'N'
-	${session.myGroups['well'] ? '--' : '' } and disply_date < now()
+	${session.myGroups['well'] ? '--' : '' } and disply_date < now() 
 	${empty(req.search_val) ? '--' : ''} and title like concat('%', @{search_val}, '%')
 ORDER BY disply_date desc ;
 

@@ -45,6 +45,8 @@
 	    if(!${empty(req.bd_id)}){
 	    	view_bd('${req.bd_id}');
 	    }
+	    
+	    setCurrentMenu('m4');
 	}); 
 	
 	function imgError(el){
@@ -141,9 +143,12 @@
 
 <div  id="body_main"  class="bd_title" style="display: none;">
 	
-	<div style="width:100%;margin-top: 40px;margin-bottom: 40px;">
+	<div style="width:100%; margin-bottom: 1s0px;">
 		${HEADER }
 	</div>
+
+	<div id="sub2_menu" style="display:none; width: 100%;  border-bottom : 1px solid #444444;"></div>
+
 	<div class="bd_body">
 		<div style="width: 100%;min-height: 400px;">
 		<table class="bd" >
@@ -207,10 +212,9 @@
 			<table style="width: 100%">
 				<tr>
 					<td width="100%">
-						<c:if test="${session.user_id!='guest' || cookie.bd_add.value > uf:addMinutes(uf:now(),-160).time  }">
 							<c:set var="edit" value="edit(null,null,'${req.bd_key }')"/>
 							<a class="cc_bt" style="float:right;" href="#" onclick="${req.bd_cat!='vil' || !empty(req.bd_key) ? edit : "alert('마을을 선택한 후 글을 쓰세요.')" }">새 글</a>
-						</c:if>
+						 
 						<c:if test="${req.bd_cat=='vil' && session.myGroups['vil']}">
 							<a href="/at.sh?_ps=voj/bd/list&bd_cat=ser"  class="cc_bt" style="float:right;margin-right: 5px;">공과</a>
 						</c:if>
@@ -219,7 +223,7 @@
 				<c:if test="${!isMobile}">
 					<tr>
 						<td width="*" align="center">
-							<div style="clear:both;">
+							<div style="clear:both; margin-bottom : 30px;">
 								<form id="main_form" name="main_form" action="" onsubmit="return search()">
 									<input type="text" id="search_val" name="search_val" value="${req.cearch_val}" title="제목">
 									<span id="search_btn" class="ui-icon ui-icon-search" style="margin: 0px;">조회</span>

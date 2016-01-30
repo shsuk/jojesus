@@ -131,7 +131,7 @@
 <div  id="body_main" style="display: none;">
 	<br>
 	<div style="width:100%;height:30px;">
-		${HEADER }
+		<div style="float:left;font-size: 20px;font-weight: bold;">페이지 제목 관리</div>
 	</div>
 	<table class="${tpl_class_table}" style="margin-top: 0px;">
 		<tr class="${tpl_class_table_header}">
@@ -147,11 +147,11 @@
 		</tr>
 		</c:forEach>
 	</table>
-	</div>
+
 	<div style="width:100%;height:30px;">
-		<c:if test="${cookie.bd_add.value > uf:addMinutes(uf:now(),-60).time }">
+		<c:if test="${session.myGroups['intro']}">
 			<a class="cc_bt" style="float:right;" href="#" onclick="edit()">새 글</a>
 		</c:if>
 	</div>
-
+</div>
 	

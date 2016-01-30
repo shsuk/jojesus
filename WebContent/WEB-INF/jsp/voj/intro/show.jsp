@@ -25,15 +25,15 @@
 			$('.info_mobile').hide();
 		}
 	    init_load();
-	    var menuid = '${empty(req.mid) ? "m1" : req.mid}';
-    	setCurrentMenu(menuid);
+	    //var menuid = '${empty(req.mid) ? "m1" : req.mid}';
+    	//setCurrentMenu(menuid);
 	});
 	
 </script>
 
 <div  id="body_main">
 	<%//본문 %>
-	<div style="width:100%;clear:both;min-height: 300px;margin-bottom: 5px; overflow: auto;">
+	<div style="width:100%;clear:both;min-height: 300px;margin-bottom: 5px; ">
 		<div style="padding: 5px;">${row['CONTENTS']}</div>
 	</div>
 	<c:if test="${session.myGroups['intro'] && viewAdminButton}">

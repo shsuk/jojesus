@@ -51,7 +51,7 @@
 		
 		initEditor();
 
-	    init_load();
+		init_load();
 	});
 	
 

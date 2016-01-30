@@ -103,14 +103,14 @@
 <div  id="body_main" style="display: none;">
 	<br>
 	<div style="width:100%;height:30px;">
-		<div style="float:left;font-size: 20px;font-weight: bold;">홈페이지 내용관리</div>
+		<div style="float:left;font-size: 20px;font-weight: bold;">페이지 내용 관리</div>
 	</div>
 
 	<table class="${tpl_class_table}" style="margin-top: 0px;">
 		<tr class="${tpl_class_table_header}">
-			<th width="50" class="${mobile}">글번호</th>
+			<th width="80" class="${mobile}">글번호</th>
 			<th>제목</th>
-			<th width="80">작성자</th>
+			<th width="100">작성자</th>
 			<th width="100" class="${mobile}">작성일</th>
 			<th width="50" class="${mobile}">조회</th>
 		</tr>
