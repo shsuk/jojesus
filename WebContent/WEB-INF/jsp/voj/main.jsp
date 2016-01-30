@@ -224,7 +224,7 @@
 				}
 			</job:db>]</uf:organism>
 			<c:forEach var="row" items="${rows }">
-				<div style="overflow: hidden;width: 280px; text-overflow : ellipsis;">
+				<div style="overflow: hidden;width: 280px; height:20px;text-overflow : ellipsis;">
 					<a href="at.sh?_ps=voj/bd/list&bd_cat=notice&bd_id=${row.bd_id }"><nobr>. ${row['title'] }</nobr></a>
 				</div>
 			</c:forEach>
@@ -250,7 +250,7 @@
 				}
 			</job:db>]</uf:organism>
 			<c:forEach var="row" items="${rows }">
-				<div style="overflow: hidden;width: 280px; text-overflow : ellipsis;">
+				<div style="overflow: hidden;width: 280px; height:20px;text-overflow : ellipsis;">
 					<a href="at.sh?_ps=voj/well/well_list&bd_id=${row.bd_id }"><nobr>. ${row['title'] }</nobr></a>
 				</div>
 			</c:forEach>
@@ -275,7 +275,7 @@
 				}
 			</job:db>]</uf:organism>
 			<c:forEach var="row" items="${rows }">
-				<div style="overflow: hidden;width: 280px; text-overflow : ellipsis;">
+				<div style="overflow: hidden;width: 280px; height:20px;text-overflow : ellipsis;">
 					<a href="at.sh?_ps=voj/bd/list&bd_cat=cafe&bd_id=${row.bd_id }"><nobr>. ${row['title'] }</nobr></a>
 				</div>
 			</c:forEach>
@@ -297,7 +297,7 @@
 				}
 			</job:db>]</uf:organism>
 			<c:forEach var="row" items="${rows }">
-				<div style="overflow: hidden;width: 280px; height:20px; text-overflow : ellipsis;">
+				<div style="overflow: hidden;width: 280px; height:20px; line-height:30px; text-overflow : ellipsis;">
 					<a href="at.sh?_ps=${row.type == 'cafe' ? 'voj/bd/list&bd_cat=cafe&bd_id=' : 'voj/gal/list&bd_cat=voj&gal_id=' }${row.bd_id }"><nobr>. ${fn:substring(row['rep_text'],0, 100) }</nobr></a>
 				</div>
 			</c:forEach>
