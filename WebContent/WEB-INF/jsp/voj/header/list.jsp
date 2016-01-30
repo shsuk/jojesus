@@ -135,10 +135,12 @@
 	</div>
 	<table class="${tpl_class_table}" style="margin-top: 0px;">
 		<tr class="${tpl_class_table_header}">
+			<th width="100">아이디</th>
 			<th>제목</th>
 		</tr>
 		<c:forEach var="row" items="${rows }">
 		<tr>
+			<td style=" text-align: center;">${row.bd_cat}</td>
 			<td>
 				<div class="view_link" onclick="load_view(this)" bd_id="${row.id}" >
 					${row['title'] }

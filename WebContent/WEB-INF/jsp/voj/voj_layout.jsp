@@ -111,14 +111,12 @@
 			<table style="width: 100%; height: 175px;">
 				<tr>
 					<td valign="top" width="300"></td>
-					<td valign="bottom" align="center"><a href="/">
+					<td valign="bottom" align="center">
 						<uf:organism >[<job:db id="rset" query="voj/intro/main"  singleRow="true">
 							defaultValues:{bd_key_id: 'top_log'}
 						</job:db>]</uf:organism>
-						${rset['CONTENTS'] }
-					
-					<!-- <img src="./voj/images/log.png" border="0" height="80" style="vertical-align: middle;"> -->
-					</a></td>
+						<a href="/">${rset['CONTENTS'] }</a>
+					</td>
 					<td valign="top" width="300">
 						<!-- 로그인 -->
 						<div style="vertical-align: top;;float: right;">
@@ -161,7 +159,7 @@
 		</header>
 	</div>
 	<!-- 메뉴 -->
-	<div style="margin: 0; border-top:1px solid #eeeeee;background: url('./voj/images/menu/black.png') repeat-x bottom ; background-position: ">
+	<div style="margin: 0 auto; width: 1100px; border-top:1px solid #eeeeee;background: url('./voj/images/menu/black.png') repeat-x bottom ; background-position: ">
 		<jsp:include page="voj_menu.jsp" />
 	</div>
 	<div style="margin: 5px auto 0; width: 1100px; " id="main_body">
@@ -170,7 +168,7 @@
 
 	</div>
 	
-	<footer class="footer" style="text-align: center; margin-top:30px; clear: both; width: 100%;">
+	<footer class="footer" style="text-align: center; margin-top:30px; clear: both; margin: 5px auto 0; width: 1100px;">
 		<div style="font-size: 12px; text-align: center; width: 100%;">
 			<div style="  border-top:1px solid #000000;; border-bottom : 1px solid #000000; margin-bottom: 10px;">
 				<div style="margin: 0px auto 0; width: 1100px;  padding:10px; text-align:left; vertical-align:middle; ; ">

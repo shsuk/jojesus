@@ -31,7 +31,7 @@
 		$('#search_btn').button({icons: {primary: "ui-icon-search" },text:false}).click(function(){
 			search();
 		});
-	    init_load();
+		init_load();
 	});
 		
 	function search(){
@@ -109,6 +109,7 @@
 	<table class="${tpl_class_table}" style="margin-top: 0px;">
 		<tr class="${tpl_class_table_header}">
 			<th width="80" class="${mobile}">글번호</th>
+			<th width="100">아이디</th>
 			<th>제목</th>
 			<th width="100">작성자</th>
 			<th width="100" class="${mobile}">작성일</th>
@@ -117,6 +118,7 @@
 		<c:forEach var="row" items="${rows }">
 		<tr>
 			<td style=" text-align: center;" class="${mobile}">${row.bd_id }</td>
+			<td style=" text-align: center;">${row.bd_key}</td>
 			<td>
 				<div class="view_link" onclick="load_view(this)" bd_id="${row.bd_id}" >
 					${row['title'] }

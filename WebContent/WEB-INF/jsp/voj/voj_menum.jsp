@@ -251,7 +251,8 @@ var isMobileView = false;
 				</c:if>
 				갤러리
 			</li>
-<%-- 			
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/main&mb=n">PC모드</li>
+<%-- 			http://shsuk.i-on.net:8000/at.sh?_ps=voj/main
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/sch/show" bd_cat="sch">교회일정</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=pst" bd_cat="pst">담임목사와 함께</li>
