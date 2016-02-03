@@ -159,21 +159,22 @@
 		</header>
 	</div>
 	<!-- 메뉴 -->
-	<div style="margin: 0 auto; width: 1100px; border-top:1px solid #eeeeee;background: url('./voj/images/menu/black.png') repeat-x bottom ; background-position: ">
+	<div style=" min-width: 1120px; border-top:1px solid #eeeeee;background: url('./voj/images/menu/black.png') repeat-x bottom ; background-position: ">
 		<jsp:include page="voj_menu.jsp" />
 	</div>
-	<div style="margin: 5px auto 0; width: 1100px; " id="main_body">
+	<div style="margin: 5px auto 0; width: 1120px; padding: 0 10px;" id="main_body">
 		<!-- 메인 컨텐츠 영역 -->
 		<div id="body_main_contents" style="clear: both; width: 1100px; overflow: hidden;"></div>
 
 	</div>
 	
-	<footer class="footer" style="text-align: center; margin-top:30px; clear: both; margin: 5px auto 0; width: 1100px;">
+	<footer class="footer" style="text-align: center; margin-top:30px;  min-width: 1120px; clear: both; ">
 		<div style="font-size: 12px; text-align: center; width: 100%;">
 			<div style="  border-top:1px solid #000000;; border-bottom : 1px solid #000000; margin-bottom: 10px;">
 				<div style="margin: 0px auto 0; width: 1100px;  padding:10px; text-align:left; vertical-align:middle; ; ">
 					<a href="http://kmc.or.kr" target="_blank" style="margin-left: 20px;color: #000000;"><img height="10" src="./voj/images/info/check.png"> 감리교본부</a> 
 					<a href="http://www.methodist.or.kr" target="_blank" style="margin-left: 20px;color: #000000;"><img height="10" src="./voj/images/info/check.png"> 서울연회</a>
+					<a href="at.sh?_ps=voj/main&mb=y" style="margin-left: 20px;color: #000000;"><img height="10" src="./voj/images/info/check.png"> 모바일 보기</a>
 				</div>
 			</div>
 			<img src="./voj/images/log.png" border="0" height="24" style="vertical-align: middle;">예수마을교회 | (132-834) 서울 도봉구 시루봉로5길 38 - (방학3동496번지)  TEL : 0707-124-0000, 02-954-0254 | E-MAIL : info@vojesus.org  Copyright(c) 2016 All right reserved

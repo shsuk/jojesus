@@ -19,7 +19,7 @@ WHERE bd_id = @{bd_id}
 	and (security<>'Y' 
 		or (reg_id='guest' and pw=@{pw})
 		or (reg_id!='guest' and reg_id = @{session.user_id}) 
-		or '${session.myGroups['rev']}'='true' 
+		or '${session.myGroups['admin']}'='true' 
 	)
 ;
 /*

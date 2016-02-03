@@ -214,13 +214,13 @@ var isMobileView = false;
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_rough">오시는길</li>
 		
 		<li class="ui-widget-header">예배</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_chtm">예배안내</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
 		<li class="ui-widget-header">교육</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=eduw" bd_cat="eduw">수요성서대학</li> 
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw">수요성서대학</li> 
 		<li class="ui-widget-header">사역</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=mission" bd_cat="mission">선교</li> 
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=mission" bd_cat="mission">선교</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=village">마을</li>
 
 		<li class="ui-widget-header">커뮤니티</li>
@@ -251,7 +251,7 @@ var isMobileView = false;
 				</c:if>
 				갤러리
 			</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/main&mb=n">PC모드</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/main&mb=n">PC보기</li>
 <%-- 			http://shsuk.i-on.net:8000/at.sh?_ps=voj/main
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/sch/show" bd_cat="sch">교회일정</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
@@ -275,7 +275,6 @@ var isMobileView = false;
 						<!-- <li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</li> -->
 						<li class="sub_menu_item m_out" value="at.sh?_ps=main">시스템 관리</li>
 
-				</li>
 			</c:if>		
 	</ul>
 

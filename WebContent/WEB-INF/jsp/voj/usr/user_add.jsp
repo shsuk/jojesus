@@ -156,7 +156,8 @@
 						<input type="password" id="pwdchk" name="pwdchk" value="" valid="[['notempty'],['equals:pwd']]">
 					</td>
 				</tr>
-				<tr>
+				<input type="hidden" id="village" name="village" value="" valid="">
+<%-- 				<tr>
 					<th class="${tpl_class_table_header}" title="village">마을이름</th>
 					<td>
 						<input type="hidden" id="village" name="village" value="" valid="">
@@ -164,6 +165,7 @@
 						<tp:village_sel bd_key=""/>		
 					</td>
 				</tr>
+ --%>				
 				<tr id="mb_email_info">
 					<th class="${tpl_class_table_header}" title="mb_email" width="150">이메일</th>
 					<td>

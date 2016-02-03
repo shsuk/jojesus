@@ -5,7 +5,7 @@ html,body {
 }
 .main_body{font-size :13px;}
 
-.top_menu .top_menu_item {display: inline-block;cursor: pointer;  ;margin: 0px; padding:10px 20px;font-weight:bold; ; font-size:15px; color: #000000;}
+.top_menu .top_menu_item {display: inline-block;cursor: pointer;  ;margin: 0px; padding:10px 30px;font-weight:bold; ; font-size:15px; color: #000000;}
 .sub_menu_list a{color: #a39c97;font: bold;font-size: 12px;letter-spacing: 1px;}
 
 .top_menu{padding: 0px;}

@@ -158,9 +158,6 @@
 				<th width="80">작성자</th>
 				<th width="100" class="${mobile}">작성일</th>
 				<th width="50" class="${mobile}">조회</th>
-				<c:if test="${req.bd_cat=='vil'}">
-					<th width="70">마을</th>
-				</c:if>
 			</tr>
 			<c:forEach var="row" items="${nrows }">
 				<tr style="background-color: #E4EDD5;">
@@ -178,13 +175,13 @@
 					<td style=" text-align: center;" class="${mobile}">${row.bd_id }</td>
 					<td>
 						<c:set var="isLock" value="${true}" />
-						<c:if test="${row.security!='Y' || session.user_id==row.reg_id || session.myGroups['rev']}">
+						<c:if test="${row.security!='Y' || session.user_id==row.reg_id || session.myGroups['admin']}">
 							<c:set var="isLock" value="${false}" />
 						</c:if>
 						<div class="${isLock ? '' : 'view_link' }" ${isLock ? 'no' : 'onclick'}="load_view(this)" 
 							bd_id="${row.bd_id}" 
 							bd_key="${row.bd_key}"
-							value="${row.security=='Y' && row.reg_id=='guest' ? row.security : ''}"
+							value="${row.security=='Y' && row.reg_id=='guest' && session.user_id == 'guest' ? 'Y' : ''}"
 						>	
 							<c:if test="${row.new_item == 1}" >
 								<img src="images/icon/new_ico.gif">
@@ -199,9 +196,6 @@
 					<td style="text-align: center;" title="${row['USER_NM@dec@name'] }">${row.reg_nickname }</td>
 					<td style="text-align: center;" class="${mobile}">${row['reg_dt@yyyy-MM-dd'] }</td>
 					<td style="text-align: center;" class="${mobile}">${row.view_count }</td>
-					<c:if test="${req.bd_cat=='vil'}">
-						<td style="text-align: center;">${code:name('vil',row.bd_key,lang )}${code:ref('vil',row.bd_key)}</td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</table>
@@ -212,12 +206,9 @@
 			<table style="width: 100%">
 				<tr>
 					<td width="100%">
-							<c:set var="edit" value="edit(null,null,'${req.bd_key }')"/>
-							<a class="cc_bt" style="float:right;" href="#" onclick="${req.bd_cat!='vil' || !empty(req.bd_key) ? edit : "alert('마을을 선택한 후 글을 쓰세요.')" }">새 글</a>
-						 
-						<c:if test="${req.bd_cat=='vil' && session.myGroups['vil']}">
-							<a href="/at.sh?_ps=voj/bd/list&bd_cat=ser"  class="cc_bt" style="float:right;margin-right: 5px;">공과</a>
-						</c:if>
+						<c:if test="${req.bd_cat=='notice' && session.myGroups['admin'] || fn:contains('cafe,help,ghouse', req.bd_cat)}">
+							<a class="cc_bt" style="float:right;" href="#" onclick="edit(null,null,'${req.bd_key }')">새 글</a>
+						</c:if> 
 					</td>
 				</tr>
 				<c:if test="${!isMobile}">

@@ -8,7 +8,7 @@ SET
 	security = '${empty(req.security) ? 'N' : 'Y'}'
 	
 WHERE bd_id=@{bd_id} 
-	and (reg_id!='guest' and reg_id=@{session.user_id} or pw=@{pw})	
+	and ((reg_id='guest' and pw=@{pw}) or reg_id = @{session.user_id} or '${session.myGroups['admin']}'='true')
 ;
 
 ${empty(param.file_id) ? '--' : ''} UPDATE attach_tbl SET REF_TBL = 'VOJ_BOARD', REF_ID = @{bd_id} WHERE file_id = @{file_id};

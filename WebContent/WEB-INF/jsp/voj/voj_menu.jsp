@@ -166,48 +166,31 @@
 		<tr id="top_menu_body">
 			<td class="top_menu" style="padding:0px; ">
 				<div class="d_ib">
-					<div id="m1" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=pst')" onclick1${mb }="openPage('voj/intro/show&id=bow')"  memo="교회소개">
+					<a href="/"><div id="m0" class="top_menu_item" memo="메인">
+						메인
+					</div></a>
+				</div>
+				<div class="d_ib">
+					<div id="m1" class="top_menu_item" onclick0${mb }="openPage('voj/intro/show&id=pst')" onclick1${mb }="openPage('voj/intro/show&id=bow')"  memo="교회소개">
 						교회소개
 					</div>
 					<div class="sub_menu_list m1" value="m1">
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">
-							담임목사소개
-						</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">
-							교역자소개
-						</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">
-							핵심가치 및 비전
-						</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">
-							연역
-						</div>
-						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" bd_cat="rough" desc="오시는길">
-							오시는길
-						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">담임목사소개</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">교역자소개</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">핵심가치 및 비전</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">연역</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" bd_cat="rough" desc="오시는길">오시는길</div>
 					</div>
 				</div>
 				<div class="d_ib">
-					<div id="m2" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=chtm')" memo="예배">
+					<div id="m2" class="top_menu_item" onclick0${mb }="openPage('voj/intro/show&id=chtm')" memo="예배">
 						예배
 					</div>
 	
 					<div class="sub_menu_list m2" value="m2">
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=chtm" bd_cat="chtm" desc="예배안내">
-							예배안내
-						</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/vod/list&bd_cat=sun" bd_cat="sun" desc="설교영상">
-							설교영상
-						</div> 
-<!-- 						
-
-						<div class="sub_menu_item" value="at.sh?_ps=voj/mc/day_view" desc="성경읽기">
-							<img class="off" src="voj/images/menu/m22.png"><img class="on" src="voj/images/menu/m22_1.png">
-						</div> 
- -->
- 						<div class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가">
-							우물가
-						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=chtm" bd_cat="chtm" desc="예배안내">예배안내</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/vod/list&bd_cat=sun" bd_cat="sun" desc="설교영상">설교영상</div> 
+ 						<div class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가">우물가</div>
 					</div>
 				</div>
 				<div class="d_ib">
@@ -215,22 +198,16 @@
 						교육
 					</div>
 					<div class="sub_menu_list m3" value="m3">
-						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw" desc="수요성서대학">
-							수요성서대학
-						</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw" desc="수요성서대학">수요성서대학</div>
 					</div>
 				</div>
 				<div class="d_ib">
-					<div id="m5" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=mission')" memo="사역">
+					<div id="m5" class="top_menu_item" onclick0${mb }="openPage('voj/intro/show&id=mission')" memo="사역">
 						사역
 					</div>
 					<div class="sub_menu_list m5" value="m5">
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=mission"  bd_cat="mission" desc="선교">
-							선교
-						</div>
-						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=village"  bd_cat="village" desc="마을">
-							마을
-						</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=mission"  bd_cat="mission" desc="선교">선교</div>
+						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=village"  bd_cat="village" desc="마을">마을</div>
 					</div>
 				</div>
 				<div class="d_ib">
@@ -239,7 +216,7 @@
 						<img style="position: absolute;margin-left: 35px;" src="images/icon/new_ico.gif">
 						<c:set var="title0">title="${rs.crow.b_hour < rs.grow.b_hour ? rs.crow.b_hour+1 : rs.grow.b_hour+1}시간 내에 등록된 글이 있습니다."</c:set>
 					</c:if>
-					<div id="m4" class="top_menu_item" onclick${mb }="openPage('voj/bd/list&bd_cat=notice')" desc="커뮤니티">
+					<div id="m4" class="top_menu_item" onclick0${mb }="openPage('voj/bd/list&bd_cat=notice')" desc="커뮤니티">
 						커뮤니티
 					</div>
 					<div class="sub_menu_list m4" value="m4" >

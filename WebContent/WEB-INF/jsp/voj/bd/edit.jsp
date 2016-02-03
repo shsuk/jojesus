@@ -122,7 +122,7 @@
 		<table class="bd" style="width:100%; clear:both;padding: 5px;;">
 			<tr><td colspan="2"></td></tr>
 			
-			<tr><td width="60">
+			<tr><td width="80">
 				첨부파일
 			</td><td>
 				<c:forEach var="item" items="${rset.attrows }">
@@ -153,16 +153,20 @@
 					</td>
 					<td>
 						<input style="width: 250px;" type="password" id="pw" name="pw" title="비밀번호" valid="[['notempty'],['maxlen:20']]">
+						<font color="red">비회원의 글은 비공개를 원칙으로 하며 담당자 확인 후 공개될 수 있습니다.</font>
 					</td>
 				</tr>
 			</c:if>
-			<c:if test="${req.bd_cat=='pst'}">
+			<c:if test="${session.user_id!='guest' && fn:contains('help,ghouse', req.bd_cat)}">
 				<tr>
 					<td colspan="2" align="right">					
 						<input type="checkbox" name="security" id="security" value="Y" ${row.security=='Y' || empty(row.security) ? 'checked="checked"' : '' }>
-						<label for="security" style="vertical-align:middle;">목사님만 읽어주세요.</label>
+						<label for="security" style="vertical-align:middle;">비공개</label>
 					</td>
 				</tr>
+			</c:if>
+			<c:if test="${session.user_id=='guest'}">
+				<input type="hidden" name="security" id="security" value="Y">
 			</c:if>
 			<c:if test="${!empty(session.nick_name) }">
 				<input type="hidden" name="reg_nickname" title="닉네임" value="${session.nick_name }">

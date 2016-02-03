@@ -37,6 +37,14 @@
 			<job:db id="row" query="voj/bd/delete_rep"/>
 		]</uf:organism>	
 	</c:when>
+	<c:when test="${req.action=='open'}">
+		<uf:organism noException="true">[
+			<job:requestEnc id="reuestEnc" aes256="pw" />
+			<job:db id="row" query="voj/bd/open"/>
+		]</uf:organism>	
+		<c:set var="JSON" scope="request" value="${JSON }"/>
+		<jsp:forward page="../action_return.jsp"  />
+	</c:when>
 </c:choose>
 
 <uf:organism >
@@ -135,6 +143,25 @@
 				goPage(1);
 			});
 		}
+		
+	}
+	function openContent(bd_id){
+		if(!confirm("이글을 공개하시겠습니까?")){
+			return;
+		}
+		var target_layer = $('.bd_body');
+		
+		var url = 'at.sh';
+		var data = {
+				_ps:'voj/bd/view', 
+				bd_id: bd_id,
+				action:'open', 
+				_layout: 'n'
+			};
+		
+			show(target_layer, url, data, true, function (){
+				document.location.reload();
+			});
 		
 	}
 	function hideImg(){
@@ -237,7 +264,7 @@
 						<b>${item.nick_name }${isMobile ? '' : user_nm }</b><br>
 						${item['reg_dt@yyyy-MM-dd'] }
 					</td><td width="40">
-						<c:if test="${session.user_id==item.reg_id || session.myGroups[item.bd_cat]}">
+						<c:if test="${session.user_id==item.reg_id}">
 							<img title="수정" onclick="edit_reply(this, ${item.rep_id})" class="link" border="0" src="images/icon/edit-file-icon.png">
 							<img title="삭제" onclick="del_reply(${req.bd_id },${item.rep_id})" class="link" border="0" src="images/icon/Close-icon.png">
 						</c:if>
@@ -277,14 +304,20 @@
 		<div ${isMobile ? 'style="position: fixed; z-index:1100; bottom:10px; right:10px;"' : ''}>
 			<%//버튼 %>
 			<a style="float:right;margin-left: 5px;"  class="cc_bt" href="#" onclick="goPage(${req.pageNo})">목 록</a>
-			<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' }">
+			<c:if test="${
+				(fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
+				 || (row.bd_cat=='notice' && session.myGroups['admin'])
+			}">
 				<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="edit(${req.bd_id},${row.reg_id=='guest' })" style="margin-right: 10px;">수 정</a>
 			</c:if>
-			<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' || session.myGroups[row.bd_cat]}">
+			<c:if test="${
+				session.myGroups['admin']
+				|| (fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
+			}">
 				<a style="float:right;margin-left: 5px;" class="${session.myGroups[row.bd_cat] && viewAdminButton ? 'cc_bt' : 'cc_bt'}" href="#" onclick="del(${req.bd_id },'${row.bd_cat}',${row.reg_id=='guest' })" style="margin-right: 10px;" >삭 제</a>
 			</c:if>
-			<c:if test="${row.bd_cat=='ser'}">
-				<a style="float:right;margin-left: 5px;" class="cc_bt" href="#" onclick="body_print()">본문인쇄</a>
+			<c:if test="${session.myGroups['admin'] && row.reg_id=='guest' && row.security=='Y'}">
+				<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="openContent(${req.bd_id})" style="margin-right: 10px;">공개</a>
 			</c:if>
 		</div>
 	</div>

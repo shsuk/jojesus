@@ -53,7 +53,7 @@
 				_layout: 'n',
 				pageNo:	$('#pageNo').val()
 		};
-
+		//salert($(div).attr('value'));
 		if($(div).attr('value')=='Y'){
 			readPw(target_layer,url,data);
 		}else{

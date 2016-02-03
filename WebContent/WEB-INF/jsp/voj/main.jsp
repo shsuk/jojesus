@@ -72,6 +72,8 @@
 			$('.cunit').css('width','100%');
 			$('.gal_item').css({'width':'105px', 'height':'105px'})
 		}
+		
+		setCurrentMenu('m0');
 	});
 	
 	/* 팝업창 열기*/
@@ -259,7 +261,7 @@
 		
 		
 		<!-- 자유게시판 -->
-		<div style="margin-top: 10px;height: 160px;">
+		<div style="margin-top: 10px;height: 150px;">
 			<div class="content_box" >
 				<div class="content_box_title" >
 					<a href="at.sh?_ps=voj/bd/list&bd_cat=cafe" style="color: #000000; "> <b>자유게시판</b></a>
