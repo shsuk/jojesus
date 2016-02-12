@@ -238,7 +238,7 @@
 			${html }
 		</div>
 	</div>
-	<div id="bd_bt">
+	<div id="bd_bt" style="display: ${row.bd_cat=='praise' ? 'none' : ''}">
 		<%//답글목록 %>
 		<c:forEach var="item" items="${rset.reprows }">
 			<c:set var="re"></c:set>
@@ -273,7 +273,7 @@
 						</c:if>
 					</td>
 				</tr>
-				<tr><td colspan="3"  id="edit_re_${item.rep_id}"></td></tr>
+				<tr><td colspan="3"  style="padding:1px;" id="edit_re_${item.rep_id}"></td></tr>
 			</table>
 		</c:forEach>
 		<%//답글 작성 %>
@@ -293,7 +293,7 @@
 							<input type="hidden" id="rep_id" name="rep_id" value="0">
 							<input type="hidden" id="upper_rep_id" name="upper_rep_id" value="0">
 							<input type="hidden" id="action" name="action" value="i">
-							<tp:emoticon/>
+							<%-- tp:emoticon --%>
 							<textarea name="rep_text" id="rep_text" style="width: 100%;" title="이곳에 글을 남겨 주세요."   value="" valid="[['notempty']]"></textarea>
 						</form>
 					</td>
@@ -301,25 +301,27 @@
 				</tr>
 			</table>
 		</div>
-		<div ${isMobile ? 'style="position: fixed; z-index:1100; bottom:10px; right:10px;"' : ''}>
-			<%//버튼 %>
-			<a style="float:right;margin-left: 5px;"  class="cc_bt" href="#" onclick="goPage(${req.pageNo})">목 록</a>
-			<c:if test="${
-				(fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
-				 || (row.bd_cat=='notice' && session.myGroups['admin'])
-			}">
-				<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="edit(${req.bd_id},${row.reg_id=='guest' })" style="margin-right: 10px;">수 정</a>
-			</c:if>
-			<c:if test="${
-				session.myGroups['admin']
-				|| (fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
-			}">
-				<a style="float:right;margin-left: 5px;" class="${session.myGroups[row.bd_cat] && viewAdminButton ? 'cc_bt' : 'cc_bt'}" href="#" onclick="del(${req.bd_id },'${row.bd_cat}',${row.reg_id=='guest' })" style="margin-right: 10px;" >삭 제</a>
-			</c:if>
-			<c:if test="${session.myGroups['admin'] && row.reg_id=='guest' && row.security=='Y'}">
-				<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="openContent(${req.bd_id})" style="margin-right: 10px;">공개</a>
-			</c:if>
-		</div>
+	</div>
+	<div ${isMobile ? 'style="position: fixed; z-index:1100; bottom:10px; right:10px;"' : ''}>
+		<%//버튼 %>
+		<a style="float:right;margin-left: 5px;"  class="cc_bt" href="#" onclick="goPage(${req.pageNo})">목 록</a>
+		<c:if test="${
+			(fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
+			 || (row.bd_cat=='notice' && session.myGroups['admin'])
+			 || session.myGroups[row.bd_cat]
+		}">
+			<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="edit(${req.bd_id},${row.reg_id=='guest' })" style="margin-right: 10px;">수 정</a>
+		</c:if>
+		<c:if test="${
+			session.myGroups['admin']
+			|| (fn:contains('cafe,help,ghouse', row.bd_cat) && (row.reg_id==session.user_id || row.reg_id=='guest'))
+			|| session.myGroups[row.bd_cat]
+		}">
+			<a style="float:right;margin-left: 5px;" class="${session.myGroups[row.bd_cat] && viewAdminButton ? 'cc_bt' : 'cc_bt'}" href="#" onclick="del(${req.bd_id },'${row.bd_cat}',${row.reg_id=='guest' })" style="margin-right: 10px;" >삭 제</a>
+		</c:if>
+		<c:if test="${session.myGroups['admin'] && row.reg_id=='guest' && row.security=='Y'}">
+			<a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="openContent(${req.bd_id})" style="margin-right: 10px;">공개</a>
+		</c:if>
 	</div>
 
 	<div id="re_reply" style="background: #eeeeee;border:1px solid #C0C0C0;display: none;">

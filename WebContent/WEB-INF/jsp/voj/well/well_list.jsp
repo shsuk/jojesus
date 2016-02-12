@@ -108,10 +108,12 @@
 
 <div  id="body_main" style="display: none;">
 
-	<div style="width:100%;margin-top: 40px;margin-bottom: 40px;">
-		<div style="font-size: 20px;font-weight: bold;color:#2fb9d1;"><span  style="color:#a39c97;">예수마을교회</span> 
-		<span> 우물가 소식</span><hr size="1" color="#a29c97" noshade></div>	
+	<div style="width:100%; margin-bottom: 10px;">
+		${HEADER }
 	</div>
+
+	<div id="sub2_menu" style="display:none; width: 100%;  border-bottom : 1px solid #444444;"></div>
+
 
 	<div class="bd_body bd_title">
 	

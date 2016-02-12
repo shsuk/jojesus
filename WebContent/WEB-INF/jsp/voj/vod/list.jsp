@@ -239,7 +239,7 @@
 		<div id="sub2_menu" style="display:none; width: 100%;  border-bottom : 1px solid #444444;;margin-bottom: 30px;"></div>
 	</c:if>
 	
-	<div class="bd_body" style="${isMobile ? '' : 'margin-left: 80px;' }">
+	<div class="bd_body" style="">
 		<c:forEach var="row" items="${rows }">
 			<div style=" ${row.bd_cat=='sun' ? 'width:48%;' : '' } display:inline-block; margin: 5px;font-size: 12px;vertical-align: top;float: left; ">
 				<c:set var="img_link">showImg('${row.file_id }', this.src);</c:set>
@@ -255,16 +255,16 @@
 					<c:if test="${req.bd_cat=='newfam' }">
 						<div style=" height:70px; overflow: hidden;">
 							<div style=" width:150px; font-size: 12px;">
-								<b>${row.title }</b>
-								<c:if test="${session.myGroups[req.bd_cat] && viewAdminButton}">
-									<div style=" position:absolute;background: #ffffff;  "  >
-										<a class="cc_bt" style="float:right;" href="#" onclick="del(${row.vod_id })">삭제</a>
-										<a class="cc_bt" style="float:right;" href="#" onclick="edit(${row.vod_id })">수정</a>
-									</div>
-								</c:if>&nbsp;
+								<b>${row.title }</b>&nbsp;
 							</div>
 							<div style=" width:150px; font-size: 12px;">인도자 : ${row.preacher }</div>
 							<div style=" width:150px; font-size: 12px;">등록일 : ${row['wk_dt@yyyy-MM-dd'] }</div>
+							<c:if test="${session.myGroups[req.bd_cat] && viewAdminButton}">
+								<div style=" position:absolute;background: #ffffff;  "  >
+									<a class="cc_bt" style="float:right;" href="#" onclick="del(${row.vod_id })">삭제</a>
+									<a class="cc_bt" style="float:right;" href="#" onclick="edit(${row.vod_id })">수정</a>
+								</div>
+							</c:if>
 						</div>
 					</c:if>
 				</div>

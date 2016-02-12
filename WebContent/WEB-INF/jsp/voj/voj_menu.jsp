@@ -176,9 +176,9 @@
 					</div>
 					<div class="sub_menu_list m1" value="m1">
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">담임목사소개</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">교역자소개</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">섬기는 이들</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">핵심가치 및 비전</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">연역</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">교회발자취</div>
 						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" bd_cat="rough" desc="오시는길">오시는길</div>
 					</div>
 				</div>
@@ -190,6 +190,7 @@
 					<div class="sub_menu_list m2" value="m2">
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=chtm" bd_cat="chtm" desc="예배안내">예배안내</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/vod/list&bd_cat=sun" bd_cat="sun" desc="설교영상">설교영상</div> 
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=praise" bd_cat="praise" desc="경배와 찬양">경배와 찬양</div> 
  						<div class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가">우물가</div>
 					</div>
 				</div>

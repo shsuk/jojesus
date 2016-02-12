@@ -17,13 +17,13 @@
 <script type="text/javascript">
 	
 	$(function() {
-		if(${isMobile}){
+/* 		if(${isMobile}){
 			$('.info_mobile').show();
 			$('.info_web').hide();
 		}else{
 			$('.info_web').show();
 			$('.info_mobile').hide();
-		}
+		} */
 	    init_load();
 	    //var menuid = '${empty(req.mid) ? "m1" : req.mid}';
     	//setCurrentMenu(menuid);

@@ -10,7 +10,7 @@
 <uf:organism noException="true">[
 	<job:db id="hRow" query="voj/header"   isCache="false" refreshTime="5" singleRow="true" >
 		defaultValues:{
-			bd_cat: "${empty(req.bd_cat) ? param.bd_cat : req.bd_cat}"
+			bd_cat: "${empty(req.bd_cat) ? (empty(param.bd_cat) ? 'well' : param.bd_cat) : req.bd_cat}"
 		}
 	</job:db>
 ]</uf:organism>
@@ -113,7 +113,7 @@
 		<div style="width:100%;">
 			<table style=width:100%;">
 				<tr><td valign="top">
-					<a href="/"><img src="./voj/images/log.png" border="0" height="30" style="vertical-align: middle;"></a>
+					<img onclick="showMenu()" src="./voj/images/log.png" border="0" height="50" style="vertical-align: middle;">
 				</td><td align="right" valign="top">
 					<c:if test="${session.user_id!='guest'}">
 						<div class="btn-r" style="margin-top:3px;margin-right: 20px;">

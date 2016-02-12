@@ -46,7 +46,7 @@
 	    	view_bd('${req.bd_id}');
 	    }
 	    
-	    setCurrentMenu('m4');
+	    setCurrentMenu(bd_cat=='praise' ? 'm2' :'m4');
 	}); 
 	
 	function imgError(el){
@@ -143,7 +143,7 @@
 
 <div  id="body_main"  class="bd_title" style="display: none;">
 	
-	<div style="width:100%; margin-bottom: 1s0px;">
+	<div style="width:100%; margin-bottom: 10px;">
 		${HEADER }
 	</div>
 
@@ -206,7 +206,7 @@
 			<table style="width: 100%">
 				<tr>
 					<td width="100%">
-						<c:if test="${req.bd_cat=='notice' && session.myGroups['admin'] || fn:contains('cafe,help,ghouse', req.bd_cat)}">
+						<c:if test="${req.bd_cat=='notice' && session.myGroups['admin'] || fn:contains('cafe,help,ghouse', req.bd_cat) || session.myGroups[req.bd_cat]}">
 							<a class="cc_bt" style="float:right;" href="#" onclick="edit(null,null,'${req.bd_key }')">새 글</a>
 						</c:if> 
 					</td>

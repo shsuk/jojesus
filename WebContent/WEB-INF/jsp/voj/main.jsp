@@ -126,7 +126,7 @@
 		<div class="cunit" style="float: left; width: 450px;padding-top: 20px;">
 			<!-- 주일예배 -->
 			<a href="at.sh?_ps=voj/vod/list&&bd_cat=sun" style="color: #ffffff; ">
-				<div class="cunit" style="height: 150px;padding-left:160px; padding-top:10px; background: url('/voj/images/info/wdh.png') no-repeat 40% 40%;color: white;">
+				<div class="cunit" style="height: 150px;padding-left:160px; padding-top:10px; background: url('/voj/images/info/wdh.jpg') no-repeat 40% 40%;color: white;">
 					<uf:organism >[<job:db id="row" query="voj/vod/list" singleRow="true">
 							defaultValues:{bd_cat: 'sun',listCount:1,pageNo:1}
 					</job:db>]</uf:organism>
@@ -178,7 +178,7 @@
 		
 				<div style="background: url('/voj/images/info/newfam.jpg') no-repeat ;padding: 5px 5px;">
 					<div style="width:115px; height:115px; overflow:hidden;">
-						<tp:img file_id="${row.file_id}" thum="100" style="height:115px;" />
+						<tp:img file_id="${row.file_id}" thum="160" style="height:115px;" />
 					</div>
 				</div>
 			</div>

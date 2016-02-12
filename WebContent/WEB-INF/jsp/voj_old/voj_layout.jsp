@@ -9,7 +9,7 @@
 <uf:organism noException="true">[
 	<job:db id="hRow" query="voj/header"   isCache="false" refreshTime="5" singleRow="true" >
 		defaultValues:{
-			bd_cat: "${empty(req.bd_cat) ? param.bd_cat : req.bd_cat}"
+			bd_cat: "${empty(req.bd_cat) ? (empty(param.bd_cat) ? 'well' : param.bd_cat) : req.bd_cat}"
 		}
 	</job:db>
 ]</uf:organism>

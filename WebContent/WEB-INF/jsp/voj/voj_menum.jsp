@@ -207,15 +207,16 @@ var isMobileView = false;
 	<ul class="menu" style="width: 160px;display: none;">
 		<a href="/"><img src="./voj/images/log.png" border="0" height="50" style="margin: 3px;"></a>
 		<li class="ui-widget-header">교회소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_pst">담임목사소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_serve">교역자소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_vision">핵심가치 및 비전</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_his">연역</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_rough">오시는길</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=pst">담임목사소개</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=serve">교역자소개</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=vision">핵심가치 및 비전</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=his">연역</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=rough">오시는길</li>
 		
 		<li class="ui-widget-header">예배</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=m_chtm">예배안내</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=chtm">예배안내</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&&bd_cat=praise" bd_cat="praise">경배와 찬양</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
 		<li class="ui-widget-header">교육</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw">수요성서대학</li> 

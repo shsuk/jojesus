@@ -57,11 +57,13 @@
 </script>
  
 <div  id="body_main" style="display: none;">
-
-	<div style="width:100%;margin-top: 40px;margin-bottom: 40px;">
-		<div style="font-size: 20px;font-weight: bold;color:#2fb9d1;"><span  style="color:#a39c97;">예수마을교회</span> 
-		<span> 맥체인 성경읽기</span><hr size="1" color="#a29c97" noshade></div>	
-	</div>
+	<p style="color: rgb(0, 0, 0);font-size: 14pt;  font-family: '나눔고딕' ,NanumGothic,Sans-serif;">
+		<img src="../voj/images/info/bible.png" style="height: 36px;">
+		<span >
+			<strong>맥체인 성경읽기</strong>
+		</span>
+	</p>
+	<hr color="#a29c97" noshade="" size="1">
 
 	<div class="bd_body">
 		<table style="width:100%;"><tr>
