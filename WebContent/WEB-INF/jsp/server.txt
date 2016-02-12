@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  첫사랑 불변의 법칙 
+
+영원의 시간
+
+
+
+
+호스팅회사: www.cafe24.com
+vojesus1/dptnakdmf123
+
+ftp정보, mysql정보
+vojesus1/dptnakdmf0254
+
+ info@vojesus.org 
+dptnakdmf0254
+
+vojesus1.cafe24.com:22vojesus1/dptnakdmf0254
+
+
+
+
+vojesus1.cafe24.com:22
+
+./tomcat/bin/shutdown.sh
+./tomcat/bin/startup.sh
+tail -f tomcat/logs/catalina.out
+
+
+호스팅과 vojesus.org 도메인 완료일 확인해서 연장을 잘해야 할 것 같습니다.
+*호스팅은 cafe24에서 14년 7월 4일까지 사용할 수 있습니다.
+*vojesus.org 도메인은 만료일이 2014년 04월 01일 까지 입니다. 
+
+===
+
+아래 내용은 예수마을교회 vojesus.org 사이트 관리에 필요한 모든 사항을 정리 한 것 입니다. 
+
+vojesus.org는 php 개발언어로 설계완성되었습니다.
+
+예수마을 홈페이지 호스팅 서비스 관련
+
+호스팅회사: www.cafe24.com
+로긴:vojesus/dptnakdmf123
+
+가입정보: 예수마을교회로 가입되어 있음.
+가입연락처: 02-954-0254 / 010-2470-0254
+
+광아우토반 Full SSD
+비즈니스 하드3G 트래픽5.5G
+
+월사용료 5,500원
+
+ftp정보
+id: vojesus
+패스: dptnakdmf0254
+
+mysql정보
+id: vojesus
+패스: dptnakdmf0254
+
+----------------------------------------------------------
+----------------------------------------------------------
+vojesus.org 도메인 관련
+
+vojesus.org의 도메인 구입처:
+www.godaddy.com
+로긴 vojesus/Dptnakdmf123
+등록된 이메일주소: info@vojesus.org
+
+도메인만료일: 2014년 04월 01일
+*만료일 이전에 연장해야함.
+
+----------------------------------------------------------
+vojesus.org 도메인 DNS관련
+
+vojesus.org 도메인의 DNS는 
+카페24로 세팅되어 있음.
+vojesus.org DNS관리 설정은 카페24호스팅에서 설정.
+DNS관리 ( 이메일 설정과 관련있음. MX설정)
+
+----------------------------------------------------------
+voj.or.kr 도메인 관련 및 DNS설정
+
+voj.or.kr는
+등록처: http://www.inames.co.kr/
+소유권 최수락 에게 있음.
+
+DNS 설정은 무료 DNS세팅 dnsever.co.kr로 되어있음.
+현재 설정 DNS 변경요청은 comsign@gmail.com로 이메일 요청.
+
+장기적으로 voj.or.kr 소유권을 넘겨 받아야함.
+넘겨 받는 방법.
+
+www.gabia.com 같은 곳에서 소유권이전 서비스로 요청하면 됨.
+최수락쪽에는 이전 수락 메일 처리해달라고 하면 됨.
+
+기본 메일세팅이 voj.or.kr로 되어 있어 중요함.
+
+최수락: sound3@empal.com
+
+
+----------------------------------------------------------
+
+vojesus.org 사이트 개발 기본 베이스
+
+php와 mysql로 개발
+
+후딱빌더 커스터마이징
+http://www.huddak.net/
+
+모바일용은 g4mob.com 커스트마이징.
+http://www.g4mob.com/
+
+
+----------------------------------------------------------
+영상팀 관련
+
+vimeo.com
+
+설교영상 업로드
+
+영상팀(김혜정) 업로드 방법 알고 있음.
+
+
+vimeo.com
+로긴 media@voj.or.kr / dptnakdmf!@#
+
+
+----------------------------------------------------------
+영상팀 관련 및 유지보수 관련
+
+유투브
+youtoube.com
+
+예수마을용 유투브 채널 세팅되어 있음.
+
+계정
+vojesusmedia@gmail.com / dptnakdmf!@#
+
+
+----------------------------------------------------------
+@voj.or.kr @vojesus.org 이메일 세팅
+
+@voj.or.kr 기본으로 세팅되어있음.
+@vojesus.org는 별칭으로 연결되어 있음.
+
+MX설정은 위 DNS설정관련 참고.
+
+구글 어플리케이션 사용
+http://www.google.com/intx/ko/enterprise/apps/business/
+
+에서 로그인
+
+도메인이름: voj.or.kr
+이동: 도메인관리
+
+관리자계정
+info@voj.or.kr / dptnakdmf
+관리자보조이메일: hongbig@naver.com
+
+ 
+ 
+@voj.or.kr 사용자 추가삭제관련
+ 
+아이디(이메일계정)추가/삭제.
+도메인연결 등 작업.
+
+1.사용자추가
+
+사용자> 새사용자만들기
+
+
+2. 사용자 삭제
+사용자 > 해당사용자 이름 클릭
+왼쪽 상단에 "사용자삭제" 버튼 으로 삭제.
+
+ </body>
+</html>
