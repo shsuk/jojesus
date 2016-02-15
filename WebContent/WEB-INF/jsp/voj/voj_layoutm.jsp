@@ -26,7 +26,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 
 <head>
-<title>예수마을교회 :: 신실한 성도. 거룩한 교회. 행복한 공동체.</title>
+<title>예수마을교회 :: 예수님을 따라가는 교회</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="예수마을교회">
+<meta property="og:url" content="http://vojesus.org">
+<meta property="og:description" content="예수님을 따라가는 교회">
+<meta property="og:image" content="http://vojesus.org/voj/images/info/2016_02/23a46f08-329e-4bcc-8069-755e6243dc4c.png"> 
 <meta name="viewport" content="user-scalable=${req._ps=='voj/intro/show' ? 'yes' : 'no'}, width=device-width, initial-scale=1, maximum-scale=2">
 <link href="./voj/css/contents_m.css" rel="stylesheet" type="text/css" />
 <link href="./voj/css/contents.css" rel="stylesheet" type="text/css" />

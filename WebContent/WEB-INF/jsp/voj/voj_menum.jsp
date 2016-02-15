@@ -207,9 +207,9 @@ var isMobileView = false;
 	<ul class="menu" style="width: 160px;display: none;">
 		<a href="/"><img src="./voj/images/log.png" border="0" height="50" style="margin: 3px;"></a>
 		<li class="ui-widget-header">교회소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=pst">담임목사소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=serve">교역자소개</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=vision">핵심가치 및 비전</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=pst_m">담임목사 인사말</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=serve_m">교역자소개</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=vision_m">핵심가치 및 비전</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=his">연역</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=rough">오시는길</li>
 		
@@ -218,8 +218,9 @@ var isMobileView = false;
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&&bd_cat=praise" bd_cat="praise">경배와 찬양</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
-		<li class="ui-widget-header">교육</li>
+<!-- 		<li class="ui-widget-header">교육</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw">수요성서대학</li> 
+ -->			
 		<li class="ui-widget-header">사역</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=mission" bd_cat="mission">선교</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=village">마을</li>
@@ -253,28 +254,17 @@ var isMobileView = false;
 				갤러리
 			</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/main&mb=n">PC보기</li>
-<%-- 			http://shsuk.i-on.net:8000/at.sh?_ps=voj/main
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/sch/show" bd_cat="sch">교회일정</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=pst" bd_cat="pst">담임목사와 함께</li>
-			<c:if test="${session.myGroups['mj']}">
-				<li class="ui-widget-header">예당</li>
 
-					<li id="m10"  class="top_menu_item" style="margin-top: 3px;" onclick="openPage('voj/bd/list&bd_cat=mj')">
-						<a class="cc_bt" href="#">예당</a>
-					</li>
-			</c:if>
- --%>
 			<c:if test="${session.myGroups['admin']}">
 				<li class="ui-widget-header">관리자</li>
 					
-						<li id="admin_btn" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/usr/user_list">회원관리</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=img">메인 이미지 관리</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/header/list">게시판 제목 관리</li>
 						<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/list">홈페이지 내용 관리</li>
 						<!-- <li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=sch">일정 관리</li> -->
 						<li class="sub_menu_item m_out" value="at.sh?_ps=main">시스템 관리</li>
+						<li id="admin_btn" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</li>
 
 			</c:if>		
 	</ul>

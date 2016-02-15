@@ -14,6 +14,7 @@
 		<c:set var="JSON" scope="request" value="{\"success\":false,\"error_message\":\"다시 작성하세요.\"}"/>
 		<c:if test="${session.myGroups['intro']}">
 			<uf:organism noException="true">[
+				<job:imageDataConvertor id="img" path="voj/images/info"/>
 				<job:db id="row" query="voj/intro/insert"/>
 			]</uf:organism>
 		</c:if>
@@ -22,6 +23,7 @@
 	</c:when>
 	<c:when test="${req.action=='u' }">
 		<uf:organism noException="true">[
+			<job:imageDataConvertor id="img" path="voj/images/info"/>
 			<job:db id="row" query="voj/intro/update"/>
 		]</uf:organism>
 	

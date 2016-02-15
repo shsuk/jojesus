@@ -97,7 +97,7 @@
 		<%//목록 %>
 		<table  style="clear:both; border:1px solid #B6B5DB; padding: 0px;margin-bottom:5px; margin-top:5px; width: 100%;"><tr><td style="padding-left: 7px;">
 			<%//이미지 %>
-			<div id="pan_img" onmouseover="showNevi()" style="position: relative; float:left;padding:5px; margin-bottom:5px; border:1px solid #B6B5DB;text-align: center; width: 632px; vertical-align: middle; ">
+			<div id="pan_img" onmouseover="showNevi()" style="position: relative; float:left;  border:1px solid #B6B5DB;text-align: center; width: 632px; vertical-align: middle; ">
 				<div style="position: absolute;left:50px;z-index: 9900;"><a id="dwn_img"   href="at.sh?_ps=at/upload/dl&file_id=${file_id }" style="background: #FAED7D;color: #22741C;">원본</a></div>
  				
  				<c:if test="${(row.reg_id!='guest' && row.reg_id==session.user_id) || row.reg_id=='guest' || session.myGroups[row.bd_cat] || session.user_id == '13' }">
@@ -168,10 +168,10 @@
 			<table style="width: 100%;border:1px solid #B6B5DB;clear:both; margin-bottom: 5px;">
 				<tr>
 					<td>
-						<tp:emoticon/>
+						
 						<textarea name="rep_text" id="rep_text" title="이곳에 글을 입력하여 주세요." style="width: 99%; height: 100px;" value="" valid="[['notempty'],['maxlen:300']]"></textarea>
 					</td>
-					<td width="60"><a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="save_reply()" style="margin-right: 10px;">저 장</a></td>
+					<td width="60"><a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="save_reply()" style="margin-right: 10px;">댓글 저장</a></td>
 				</tr>
 			</table>
 		</form>

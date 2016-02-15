@@ -231,7 +231,7 @@
 
 <div  id="body_main" style="display: none;">
 	
-	<div style="width:100%; margin-bottom: 10px;">
+	<div style="width:100%; margin: 10px 0;">
 		${HEADER }
 	</div>
 	

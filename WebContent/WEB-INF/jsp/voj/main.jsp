@@ -166,7 +166,7 @@
 			<div >
 				<div class="content_box" >
 					<div class="content_box_title" >
-						<a href="/bbs/board.php?bo_table=qt" style="color: #000000; "> <b>새가족</b></a>
+						<a href="at.sh?_ps=voj/vod/list&&bd_cat=newfam" style="color: #000000; "> <b>새가족</b></a>
 					</div>
 					<div class="content_box_line" style="">
 						<div class="content_box_line_"  ></div>
@@ -178,7 +178,7 @@
 		
 				<div style="background: url('/voj/images/info/newfam.jpg') no-repeat ;padding: 5px 5px;">
 					<div style="width:115px; height:115px; overflow:hidden;">
-						<tp:img file_id="${row.file_id}" thum="160" style="height:115px;" />
+						<tp:img file_id="${row.file_id}" thum="150" style="height:115px;" />
 					</div>
 				</div>
 			</div>
@@ -186,7 +186,7 @@
 			<div  style="height: 300px; margin-top: 10px;">
 				<div class="content_box" >
 					<div class="content_box_title" >
-						<a href="/bbs/board.php?bo_table=qt" style="color: #000000; "> <b>사진</b></a>
+						<a href="at.sh?_ps=voj/gal/list&bd_cat=voj" style="color: #000000; "> <b>사진</b></a>
 					</div>
 					<div class="content_box_line" style="">
 						<div class="content_box_line_"  ></div>
@@ -299,7 +299,7 @@
 				}
 			</job:db>]</uf:organism>
 			<c:forEach var="row" items="${rows }">
-				<div style="overflow: hidden;width: 280px; height:20px; line-height:30px; text-overflow : ellipsis;">
+				<div style="overflow: hidden;width: 280px; height:20px; line-height:20px; text-overflow : ellipsis;">
 					<a href="at.sh?_ps=${row.type == 'cafe' ? 'voj/bd/list&bd_cat=cafe&bd_id=' : 'voj/gal/list&bd_cat=voj&gal_id=' }${row.bd_id }"><nobr>. ${fn:substring(row['rep_text'],0, 100) }</nobr></a>
 				</div>
 			</c:forEach>

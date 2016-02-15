@@ -55,7 +55,7 @@
 	<table style="width: 100%;border:1px solid #B6B5DB;clear:both; margin-bottom: 5px;">
 		<tr>
 			<td>
-				<tp:emoticon/>
+				
 				<textarea name="rep_text" id="rep_text" title="이곳에 글을 입력하여 주세요." style="width: 99%; height: 50px;" value="" valid="[['notempty'],['maxlen:300']]"></textarea>
 			</td>
 			<td width="60" valign="bottom"><a style="float:right;margin-left: 5px;" class="cc_bt"  href="#" onclick="save_reply()" style="margin-right: 10px;">저 장</a></td>

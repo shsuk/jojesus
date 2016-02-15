@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
@@ -19,7 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>예수마을교회 :: 신실한 성도. 거룩한 교회. 행복한 공동체.</title>
+<title>예수마을교회 :: 예수님을 따라가는 교회</title>
 <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 <link href="./voj/css/mc.css" rel="stylesheet" type="text/css" />
 

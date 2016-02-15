@@ -175,7 +175,7 @@
 						교회소개
 					</div>
 					<div class="sub_menu_list m1" value="m1">
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">담임목사소개</div>
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">담임목사 인사말</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">섬기는 이들</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">핵심가치 및 비전</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">교회발자취</div>
@@ -194,7 +194,7 @@
  						<div class="sub_menu_item " value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well" desc="우물가">우물가</div>
 					</div>
 				</div>
-				<div class="d_ib">
+<!-- 				<div class="d_ib">
 					<div id="m3" class="top_menu_item" onclick${mb }="openPage('voj/intro/show&id=eduw')" memo="교육">
 						교육
 					</div>
@@ -202,6 +202,7 @@
 						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw" desc="수요성서대학">수요성서대학</div>
 					</div>
 				</div>
+-->			
 				<div class="d_ib">
 					<div id="m5" class="top_menu_item" onclick0${mb }="openPage('voj/intro/show&id=mission')" memo="사역">
 						사역
@@ -302,7 +303,7 @@
 						</div>
 					</div>
 					
-					<div id="admin_btn" class="d_ib link" style="margin-top: 15px; float: right;" onclick="showBtn()">관리버튼 ${viewAdminButton ? '숨김' : '보기' }</div>
+					<div id="admin_btn" class="d_ib link" style="margin-top: 15px; float: right;" onclick="showBtn()"><img title="관리버튼 (보기/숨김)" style="height: 24px;${viewAdminButton ? '' : 'opacity:0.5; filter:alpha(opacity=50);'}" src="../images/icon/gear-icon.png"></div>
 						
 				</c:if>		
 

@@ -12,11 +12,11 @@
 <c:choose >
 	<c:when test="${req.action=='i' }">
 		<c:set var="JSON" scope="request" value="{\"success\":false,\"error_message\":\"다시 작성하세요.\"}"/>
-		<c:if test="${cookie.bd_add.value > uf:addMinutes(uf:now(),-60).time }"><%//비정상적인 접근시 글을 저장하지 않는다. %>
+		
 			<uf:organism noException="true">[
 				<job:db id="row" query="voj/well/insert"/>
 			]</uf:organism>
-		</c:if>
+	
 		<c:set var="JSON" scope="request" value="${JSON }"/>
 		<jsp:forward page="../action_return.jsp"  />
 	</c:when>

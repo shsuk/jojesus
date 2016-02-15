@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>예수마을교회 :: 신실한 성도. 거룩한 교회. 행복한 공동체.</title>
+<title>예수마을교회 :: 예수님을 따라가는 교회</title>
 <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 <style>
    .bible {}

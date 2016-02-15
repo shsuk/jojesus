@@ -18,7 +18,7 @@
 	<job:db id="rows" query="voj/gal/list" singleRow="false" >
 		defaultValues:{
 		bd_cat: 'cafe',
-		listCount:${isMobile ? 10 : 15 },
+		listCount:${isMobile ? 10 : 18 },
 		pageNo:1,
 		_sort_val: "${empty(req._sort_opt) ? '' : fn:replace(fn:replace(' ORDER BY @key @opt ','@key', req._sort_key), '@opt',  (req._sort_opt=='d' ? ' desc ' : ' asc '))}"
 	}
@@ -418,7 +418,7 @@
 
 <div  id="body_main" style="display: none;">
 	
-	<div style="width:100%;margin-top: 3px;margin-bottom: 3px; ">
+	<div style="width:100%;margin: 10px 0;">
 		${HEADER }
 	</div>
 

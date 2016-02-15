@@ -131,7 +131,7 @@
 		</c:forEach>
 	</table>
 	<div style="width: 100%">
-		<div style="margin: auto;"><tp:paging listCount="${rows[0].listCount }" pageNo="${rows[0].pageNo }" totCount="${rows[0].totCount }"/></div>
+
 		<c:if test="${!isMobile}">
 			<div style="float:right;">
 				<form id="main_form" name="main_form" action="" onsubmit="return search()">
