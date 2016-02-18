@@ -178,7 +178,7 @@
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=pst" bd_cat="pst" desc="담임목사소개">담임목사 인사말</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=serve" bd_cat="serve" desc="교역자소개">섬기는 이들</div>
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=vision" bd_cat="vision" desc="핵심가치 및 비전">핵심가치 및 비전</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">교회발자취</div>
+						<!-- <div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/intro/show&id=his" bd_cat="his" desc="연역">교회발자취</div> -->
 						<div class="sub_menu_item " value="at.sh?_ps=voj/intro/show&id=rough" bd_cat="rough" desc="오시는길">오시는길</div>
 					</div>
 				</div>
@@ -246,8 +246,8 @@
 						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=help" bd_cat="help" desc="Help">
 							Help
 						</div>
-						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=ghouse" bd_cat="ghouse" desc="Gest House">
-							Gest House
+						<div class="sub_menu_item sub_menu_item_line" value="at.sh?_ps=voj/bd/list&&bd_cat=ghouse" bd_cat="ghouse" desc="Guest House">
+							Guest House
 						</div>
 						<div class="sub_menu_item " value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj" desc="갤러리">
 							<c:if test="${rs.grow.cnt > 0}" >
@@ -279,7 +279,7 @@
 								</div>
 							</td><td class="${req.bd_cat=='ghouse' ? 'sub2_menu_on' : '' }">
 								<div class="sub_menu_item " value="at.sh?_ps=voj/bd/list&&bd_cat=ghouse" >
-									Gest House
+									Guest House
 								</div>
 							</td>
 						</tr></table>

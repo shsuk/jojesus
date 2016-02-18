@@ -210,7 +210,7 @@ var isMobileView = false;
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=pst_m">담임목사 인사말</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=serve_m">교역자소개</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=vision_m">핵심가치 및 비전</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=his">연역</li>
+			<!-- <li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=his">연역</li> -->
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=rough">오시는길</li>
 		
 		<li class="ui-widget-header">예배</li>
@@ -218,6 +218,7 @@ var isMobileView = false;
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=sun" bd_cat="sun">설교영상</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&&bd_cat=praise" bd_cat="praise">경배와 찬양</li> 
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/well/well_list&bd_id=max" bd_cat="well">우물가소식</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/mc/day_viewm">맥체인</li> 
 <!-- 		<li class="ui-widget-header">교육</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/intro/show&id=eduw" bd_cat="eduw">수요성서대학</li> 
  -->			
@@ -246,7 +247,7 @@ var isMobileView = false;
 			</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/vod/list&&bd_cat=newfam" bd_cat="newfam">새가족</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=help" bd_cat="help">Help</li>
-			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=ghouse" bd_cat="ghouse">Gest House</li>
+			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/bd/list&bd_cat=ghouse" bd_cat="ghouse">Guest House</li>
 			<li class="sub_menu_item m_out" value="at.sh?_ps=voj/gal/list&bd_cat=voj" bd_cat="voj">
 				<c:if test="${rs.grow.cnt > 0}" >
 					<img style="position: absolute;" src="images/icon/new_ico.gif">
